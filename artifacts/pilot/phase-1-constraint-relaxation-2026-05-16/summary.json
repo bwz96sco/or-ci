@@ -1,0 +1,454 @@
+{
+  "test_gate": {
+    "tests": 21,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "rows": [
+    {
+      "problem": "BWOR-001",
+      "submission": "correct.py",
+      "kind": "correct",
+      "expected": "SUCCESS",
+      "observed": "SUCCESS",
+      "match": true,
+      "failure_check": "",
+      "json_report": "reports/BWOR-001-correct.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 5450.0
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 10900.0,
+            "factor": 2.0,
+            "original_objective": 5450.0,
+            "scaled_objective": 10900.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "factor": 1.1,
+            "objective_relation": "increase",
+            "original_objective": 5450.0,
+            "paths": [
+              "instance.raw_limit"
+            ],
+            "relaxation": "raw_limit_increase",
+            "relaxed_objective": 5995.000000000001,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "constraint_relaxation",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-001",
+      "submission": "runtime_error.py",
+      "kind": "runtime_error",
+      "expected": "SYNTAX_OR_RUNTIME_ERROR",
+      "observed": "SYNTAX_OR_RUNTIME_ERROR",
+      "match": true,
+      "failure_check": "submission",
+      "json_report": "reports/BWOR-001-runtime_error.json",
+      "checks": []
+    },
+    {
+      "problem": "BWOR-001",
+      "submission": "wrong.py",
+      "kind": "wrong",
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "match": true,
+      "failure_check": "cost_scaling",
+      "json_report": "reports/BWOR-001-wrong.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 5450.0
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 10900.0,
+            "factor": 2.0,
+            "original_objective": 5450.0,
+            "scaled_objective": 5450.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-001",
+      "submission": "wrong_constraint.py",
+      "kind": "wrong_constraint",
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "match": true,
+      "failure_check": "constraint_relaxation",
+      "json_report": "reports/BWOR-001-wrong_constraint.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 5450.0
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 10900.0,
+            "factor": 2.0,
+            "original_objective": 5450.0,
+            "scaled_objective": 10900.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "factor": 1.1,
+            "objective_relation": "increase",
+            "original_objective": 5450.0,
+            "paths": [
+              "instance.raw_limit"
+            ],
+            "relaxation": "raw_limit_increase",
+            "relaxed_objective": 5450.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "constraint_relaxation",
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-002",
+      "submission": "correct.py",
+      "kind": "correct",
+      "expected": "SUCCESS",
+      "observed": "SUCCESS",
+      "match": true,
+      "failure_check": "",
+      "json_report": "reports/BWOR-002-correct.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 32.43589743589744
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 64.87179487179488,
+            "factor": 2.0,
+            "original_objective": 32.43589743589744,
+            "scaled_objective": 64.87179487179488,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "factor": 0.9,
+            "objective_relation": "decrease",
+            "original_objective": 32.43589743589744,
+            "paths": [
+              "instance.requirements"
+            ],
+            "relaxation": "requirements_decrease",
+            "relaxed_objective": 29.192307692307693,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "constraint_relaxation",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-002",
+      "submission": "runtime_error.py",
+      "kind": "runtime_error",
+      "expected": "SYNTAX_OR_RUNTIME_ERROR",
+      "observed": "SYNTAX_OR_RUNTIME_ERROR",
+      "match": true,
+      "failure_check": "submission",
+      "json_report": "reports/BWOR-002-runtime_error.json",
+      "checks": []
+    },
+    {
+      "problem": "BWOR-002",
+      "submission": "wrong.py",
+      "kind": "wrong",
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "match": true,
+      "failure_check": "cost_scaling",
+      "json_report": "reports/BWOR-002-wrong.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 32.43589743589744
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 64.87179487179488,
+            "factor": 2.0,
+            "original_objective": 32.43589743589744,
+            "scaled_objective": 32.43589743589744,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-002",
+      "submission": "wrong_constraint.py",
+      "kind": "wrong_constraint",
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "match": true,
+      "failure_check": "constraint_relaxation",
+      "json_report": "reports/BWOR-002-wrong_constraint.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 32.43589743589744
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 64.87179487179488,
+            "factor": 2.0,
+            "original_objective": 32.43589743589744,
+            "scaled_objective": 64.87179487179488,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "factor": 0.9,
+            "objective_relation": "decrease",
+            "original_objective": 32.43589743589744,
+            "paths": [
+              "instance.requirements"
+            ],
+            "relaxation": "requirements_decrease",
+            "relaxed_objective": 32.43589743589744,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "constraint_relaxation",
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-010",
+      "submission": "correct.py",
+      "kind": "correct",
+      "expected": "SUCCESS",
+      "observed": "SUCCESS",
+      "match": true,
+      "failure_check": "",
+      "json_report": "reports/BWOR-010-correct.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 425.0
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 850.0,
+            "factor": 2.0,
+            "original_objective": 425.0,
+            "scaled_objective": 850.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "factor": 1.2,
+            "objective_relation": "increase",
+            "original_objective": 425.0,
+            "paths": [
+              "instance.capacity"
+            ],
+            "relaxation": "capacity_increase",
+            "relaxed_objective": 492.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "constraint_relaxation",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-010",
+      "submission": "runtime_error.py",
+      "kind": "runtime_error",
+      "expected": "SYNTAX_OR_RUNTIME_ERROR",
+      "observed": "SYNTAX_OR_RUNTIME_ERROR",
+      "match": true,
+      "failure_check": "submission",
+      "json_report": "reports/BWOR-010-runtime_error.json",
+      "checks": []
+    },
+    {
+      "problem": "BWOR-010",
+      "submission": "wrong.py",
+      "kind": "wrong",
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "match": true,
+      "failure_check": "cost_scaling",
+      "json_report": "reports/BWOR-010-wrong.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 425.0
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 850.0,
+            "factor": 2.0,
+            "original_objective": 425.0,
+            "scaled_objective": 425.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "FAIL"
+        }
+      ]
+    },
+    {
+      "problem": "BWOR-010",
+      "submission": "wrong_constraint.py",
+      "kind": "wrong_constraint",
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "match": true,
+      "failure_check": "constraint_relaxation",
+      "json_report": "reports/BWOR-010-wrong_constraint.json",
+      "checks": [
+        {
+          "details": {
+            "code": 2,
+            "is_optimal": true,
+            "name": "OPTIMAL",
+            "objective_value": 425.0
+          },
+          "name": "original_solver_status",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "expected_relation": "scaled_obj ~= factor * original_obj",
+            "expected_scaled_objective": 850.0,
+            "factor": 2.0,
+            "original_objective": 425.0,
+            "scaled_objective": 850.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "cost_scaling",
+          "status": "PASS"
+        },
+        {
+          "details": {
+            "factor": 1.2,
+            "objective_relation": "increase",
+            "original_objective": 425.0,
+            "paths": [
+              "instance.capacity"
+            ],
+            "relaxation": "capacity_increase",
+            "relaxed_objective": 425.0,
+            "tolerance_abs": 1e-06,
+            "tolerance_rel": 1e-06
+          },
+          "name": "constraint_relaxation",
+          "status": "FAIL"
+        }
+      ]
+    }
+  ]
+}

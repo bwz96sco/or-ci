@@ -1,0 +1,9 @@
+{"file": ".trellis/workflow.md", "reason": "Project workflow and conventions"}
+{"file": ".trellis/spec/guides/index.md", "reason": "Shared coding standards"}
+{"file": ".trellis/spec/backend/index.md", "reason": "Backend development guide"}
+{"file": ".trellis/spec/backend/directory-structure.md", "reason": "API module conventions"}
+{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "Code quality requirements"}
+{"file": "pyproject.toml", "reason": "Standalone OR-CI package configuration and dependencies"}
+{"file": "../or_llm_agent/data/datasets/bwor.jsonl", "reason": "Canonical BWOR dataset records for Phase 1"}
+{"file": "../../note/OR-research/ideas/or-ci-validation-plan.md", "reason": "OR-CI Phase 1 validation plan"}
+{"file": "../../note/OR-research/ideas/or-ci-idea-refinement.md", "reason": "OR-CI idea refinement notes"}

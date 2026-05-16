@@ -1,0 +1,95 @@
+{
+  "checks": [
+    {
+      "details": {
+        "code": 2,
+        "is_optimal": true,
+        "name": "OPTIMAL",
+        "objective_value": 425.0
+      },
+      "name": "original_solver_status",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "expected_relation": "scaled_obj ~= factor * original_obj",
+        "expected_scaled_objective": 850.0,
+        "factor": 2.0,
+        "original_objective": 425.0,
+        "scaled_objective": 850.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "cost_scaling",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "factor": 1.2,
+        "objective_relation": "increase",
+        "original_objective": 425.0,
+        "paths": [
+          "instance.capacity"
+        ],
+        "relaxation": "capacity_increase",
+        "relaxed_objective": 425.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "constraint_relaxation",
+      "status": "FAIL"
+    }
+  ],
+  "classification": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+  "failures": [
+    {
+      "check": "constraint_relaxation",
+      "factor": 1.2,
+      "message": "relaxed objective did not satisfy the configured relation",
+      "objective_relation": "increase",
+      "original_objective": 425.0,
+      "paths": [
+        "instance.capacity"
+      ],
+      "relaxation": "capacity_increase",
+      "relaxed_objective": 425.0,
+      "tolerance_abs": 1e-06,
+      "tolerance_rel": 1e-06
+    }
+  ],
+  "model_ir_summary": {
+    "binary_variables": 0,
+    "constraints": 6,
+    "integer_variables": 0,
+    "variables": 9
+  },
+  "possible_causes": [
+    "objective coefficients may not use the configured coefficient paths",
+    "constraints may not use the configured relaxation paths",
+    "objective sign or constant terms may be wrong",
+    "the model may be optimizing a different objective from the metadata"
+  ],
+  "problem_id": "BWOR-010",
+  "solver_status": {
+    "original": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 425.0
+    },
+    "relaxed_capacity_increase": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 425.0
+    },
+    "scaled_2": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 850.0
+    }
+  },
+  "status": "FAIL",
+  "submission": "/Users/zhangbowen/Projects/OR/code/or-ci/tests/fixtures/bwor/BWOR-010/wrong_constraint.py"
+}

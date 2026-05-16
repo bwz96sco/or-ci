@@ -1,0 +1,321 @@
+{
+  "classification_counts": {
+    "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL": 3,
+    "SUCCESS": 3,
+    "SYNTAX_OR_RUNTIME_ERROR": 3
+  },
+  "correct_success": true,
+  "decision": "PASS: OR-CI Phase 1 micro-pilot is viable as a standalone verifier.",
+  "expected_matrix_passed": true,
+  "generated_at_utc": "2026-05-16T08:38:12.144371+00:00",
+  "pilot": "OR-CI Phase 1 micro-pilot",
+  "pytest": {
+    "command": "uv run pytest --junitxml artifacts/pilot/phase-1-micro-pilot-2026-05-16/pytest.xml",
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 17
+  },
+  "rows": [
+    {
+      "cost_check": {
+        "details": {
+          "expected_relation": "scaled_obj ~= factor * original_obj",
+          "expected_scaled_objective": 10900.0,
+          "factor": 2.0,
+          "original_objective": 5450.0,
+          "scaled_objective": 10900.0,
+          "tolerance_abs": 1e-06,
+          "tolerance_rel": 1e-06
+        },
+        "name": "cost_scaling",
+        "status": "PASS"
+      },
+      "expected": "SUCCESS",
+      "failure": "",
+      "match": true,
+      "model_ir_summary": {
+        "binary_variables": 0,
+        "constraints": 8,
+        "integer_variables": 0,
+        "variables": 9
+      },
+      "observed": "SUCCESS",
+      "problem": "BWOR-001",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-001-correct.json",
+      "solver_status": {
+        "original": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 5450.0
+        },
+        "scaled_2": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 10900.0
+        }
+      },
+      "status": "PASS",
+      "submission": "correct"
+    },
+    {
+      "cost_check": null,
+      "expected": "SYNTAX_OR_RUNTIME_ERROR",
+      "failure": "intentional BWOR-001 fixture failure",
+      "match": true,
+      "model_ir_summary": {},
+      "observed": "SYNTAX_OR_RUNTIME_ERROR",
+      "problem": "BWOR-001",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-001-runtime_error.json",
+      "solver_status": {},
+      "status": "FAIL",
+      "submission": "runtime_error"
+    },
+    {
+      "cost_check": {
+        "details": {
+          "expected_relation": "scaled_obj ~= factor * original_obj",
+          "expected_scaled_objective": 10900.0,
+          "factor": 2.0,
+          "original_objective": 5450.0,
+          "scaled_objective": 5450.0,
+          "tolerance_abs": 1e-06,
+          "tolerance_rel": 1e-06
+        },
+        "name": "cost_scaling",
+        "status": "FAIL"
+      },
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "failure": "scaled objective did not match the cost-scaling invariant",
+      "match": true,
+      "model_ir_summary": {
+        "binary_variables": 0,
+        "constraints": 8,
+        "integer_variables": 0,
+        "variables": 9
+      },
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "problem": "BWOR-001",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-001-wrong.json",
+      "solver_status": {
+        "original": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 5450.0
+        },
+        "scaled_2": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 5450.0
+        }
+      },
+      "status": "FAIL",
+      "submission": "wrong"
+    },
+    {
+      "cost_check": {
+        "details": {
+          "expected_relation": "scaled_obj ~= factor * original_obj",
+          "expected_scaled_objective": 64.87179487179488,
+          "factor": 2.0,
+          "original_objective": 32.43589743589744,
+          "scaled_objective": 64.87179487179488,
+          "tolerance_abs": 1e-06,
+          "tolerance_rel": 1e-06
+        },
+        "name": "cost_scaling",
+        "status": "PASS"
+      },
+      "expected": "SUCCESS",
+      "failure": "",
+      "match": true,
+      "model_ir_summary": {
+        "binary_variables": 0,
+        "constraints": 3,
+        "integer_variables": 0,
+        "variables": 5
+      },
+      "observed": "SUCCESS",
+      "problem": "BWOR-002",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-002-correct.json",
+      "solver_status": {
+        "original": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 32.43589743589744
+        },
+        "scaled_2": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 64.87179487179488
+        }
+      },
+      "status": "PASS",
+      "submission": "correct"
+    },
+    {
+      "cost_check": null,
+      "expected": "SYNTAX_OR_RUNTIME_ERROR",
+      "failure": "intentional BWOR-002 fixture failure",
+      "match": true,
+      "model_ir_summary": {},
+      "observed": "SYNTAX_OR_RUNTIME_ERROR",
+      "problem": "BWOR-002",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-002-runtime_error.json",
+      "solver_status": {},
+      "status": "FAIL",
+      "submission": "runtime_error"
+    },
+    {
+      "cost_check": {
+        "details": {
+          "expected_relation": "scaled_obj ~= factor * original_obj",
+          "expected_scaled_objective": 64.87179487179488,
+          "factor": 2.0,
+          "original_objective": 32.43589743589744,
+          "scaled_objective": 32.43589743589744,
+          "tolerance_abs": 1e-06,
+          "tolerance_rel": 1e-06
+        },
+        "name": "cost_scaling",
+        "status": "FAIL"
+      },
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "failure": "scaled objective did not match the cost-scaling invariant",
+      "match": true,
+      "model_ir_summary": {
+        "binary_variables": 0,
+        "constraints": 3,
+        "integer_variables": 0,
+        "variables": 5
+      },
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "problem": "BWOR-002",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-002-wrong.json",
+      "solver_status": {
+        "original": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 32.43589743589744
+        },
+        "scaled_2": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 32.43589743589744
+        }
+      },
+      "status": "FAIL",
+      "submission": "wrong"
+    },
+    {
+      "cost_check": {
+        "details": {
+          "expected_relation": "scaled_obj ~= factor * original_obj",
+          "expected_scaled_objective": 850.0,
+          "factor": 2.0,
+          "original_objective": 425.0,
+          "scaled_objective": 850.0,
+          "tolerance_abs": 1e-06,
+          "tolerance_rel": 1e-06
+        },
+        "name": "cost_scaling",
+        "status": "PASS"
+      },
+      "expected": "SUCCESS",
+      "failure": "",
+      "match": true,
+      "model_ir_summary": {
+        "binary_variables": 0,
+        "constraints": 6,
+        "integer_variables": 0,
+        "variables": 9
+      },
+      "observed": "SUCCESS",
+      "problem": "BWOR-010",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-010-correct.json",
+      "solver_status": {
+        "original": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 425.0
+        },
+        "scaled_2": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 850.0
+        }
+      },
+      "status": "PASS",
+      "submission": "correct"
+    },
+    {
+      "cost_check": null,
+      "expected": "SYNTAX_OR_RUNTIME_ERROR",
+      "failure": "intentional BWOR-010 fixture failure",
+      "match": true,
+      "model_ir_summary": {},
+      "observed": "SYNTAX_OR_RUNTIME_ERROR",
+      "problem": "BWOR-010",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-010-runtime_error.json",
+      "solver_status": {},
+      "status": "FAIL",
+      "submission": "runtime_error"
+    },
+    {
+      "cost_check": {
+        "details": {
+          "expected_relation": "scaled_obj ~= factor * original_obj",
+          "expected_scaled_objective": 850.0,
+          "factor": 2.0,
+          "original_objective": 425.0,
+          "scaled_objective": 425.0,
+          "tolerance_abs": 1e-06,
+          "tolerance_rel": 1e-06
+        },
+        "name": "cost_scaling",
+        "status": "FAIL"
+      },
+      "expected": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "failure": "scaled objective did not match the cost-scaling invariant",
+      "match": true,
+      "model_ir_summary": {
+        "binary_variables": 0,
+        "constraints": 6,
+        "integer_variables": 0,
+        "variables": 9
+      },
+      "observed": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+      "problem": "BWOR-010",
+      "report_path": "artifacts/pilot/phase-1-micro-pilot-2026-05-16/reports/BWOR-010-wrong.json",
+      "solver_status": {
+        "original": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 425.0
+        },
+        "scaled_2": {
+          "code": 2,
+          "is_optimal": true,
+          "name": "OPTIMAL",
+          "objective_value": 425.0
+        }
+      },
+      "status": "FAIL",
+      "submission": "wrong"
+    }
+  ],
+  "runnable_but_wrong_caught": 3,
+  "runtime_errors_caught": true,
+  "scope": "OR-CI-only handwritten BWOR fixtures"
+}

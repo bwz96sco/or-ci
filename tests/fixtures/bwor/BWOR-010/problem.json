@@ -1,0 +1,64 @@
+{
+  "id": "BWOR-010",
+  "problem_type": "LP",
+  "instance": {
+    "mills": ["mill_1", "mill_2", "mill_3"],
+    "factories": ["factory_1", "factory_2", "factory_3"],
+    "supply": {
+      "mill_1": 20,
+      "mill_2": 30,
+      "mill_3": 20
+    },
+    "capacity": {
+      "factory_1": 15,
+      "factory_2": 25,
+      "factory_3": 20
+    },
+    "transport_cost": {
+      "mill_1": {
+        "factory_1": 3,
+        "factory_2": 10,
+        "factory_3": 2
+      },
+      "mill_2": {
+        "factory_1": 4,
+        "factory_2": 11,
+        "factory_3": 8
+      },
+      "mill_3": {
+        "factory_1": 8,
+        "factory_2": 11,
+        "factory_3": 4
+      }
+    },
+    "profit": {
+      "factory_1": 12,
+      "factory_2": 16,
+      "factory_3": 11
+    }
+  },
+  "metamorphic": {
+    "cost_scaling": {
+      "coefficient_paths": ["instance.profit", "instance.transport_cost"],
+      "factors": [2.0],
+      "tolerance_abs": 1e-6,
+      "tolerance_rel": 1e-6
+    },
+    "constraint_relaxation": {
+      "relaxations": [
+        {
+          "name": "capacity_increase",
+          "paths": ["instance.capacity"],
+          "factor": 1.2,
+          "objective_relation": "increase"
+        }
+      ],
+      "tolerance_abs": 1e-6,
+      "tolerance_rel": 1e-6
+    }
+  },
+  "evaluation_only": {
+    "answer": 425.0,
+    "label": "correct_reference"
+  }
+}

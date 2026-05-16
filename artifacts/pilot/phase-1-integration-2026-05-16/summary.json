@@ -1,0 +1,61 @@
+{
+  "summary": {
+    "total": 3,
+    "classifications": {
+      "SYNTAX_OR_RUNTIME_ERROR": 3
+    },
+    "generation_statuses": {
+      "failed": 3
+    }
+  },
+  "rows": [
+    {
+      "problem_id": "BWOR-001",
+      "model": "o3-mini",
+      "generation_status": "failed",
+      "generation_error": "API error: Error code: 401 - {'error': {'message': 'invalid key: <redacted>)', 'type': 'Aihubmix_api_error'}}",
+      "submission": "submissions/BWOR-001.py",
+      "raw_response": "raw/BWOR-001.txt",
+      "report": "reports/BWOR-001.json",
+      "verify_returncode": 0,
+      "verify_stdout": "",
+      "verify_stderr": "",
+      "classification": "SYNTAX_OR_RUNTIME_ERROR",
+      "status": "FAIL",
+      "failure_check": "submission",
+      "checks": []
+    },
+    {
+      "problem_id": "BWOR-002",
+      "model": "o3-mini",
+      "generation_status": "failed",
+      "generation_error": "API error: Error code: 401 - {'error': {'message': 'invalid key: <redacted>)', 'type': 'Aihubmix_api_error'}}",
+      "submission": "submissions/BWOR-002.py",
+      "raw_response": "raw/BWOR-002.txt",
+      "report": "reports/BWOR-002.json",
+      "verify_returncode": 0,
+      "verify_stdout": "",
+      "verify_stderr": "",
+      "classification": "SYNTAX_OR_RUNTIME_ERROR",
+      "status": "FAIL",
+      "failure_check": "submission",
+      "checks": []
+    },
+    {
+      "problem_id": "BWOR-010",
+      "model": "o3-mini",
+      "generation_status": "failed",
+      "generation_error": "API error: Error code: 401 - {'error': {'message': 'invalid key: <redacted>)', 'type': 'Aihubmix_api_error'}}",
+      "submission": "submissions/BWOR-010.py",
+      "raw_response": "raw/BWOR-010.txt",
+      "report": "reports/BWOR-010.json",
+      "verify_returncode": 0,
+      "verify_stdout": "",
+      "verify_stderr": "",
+      "classification": "SYNTAX_OR_RUNTIME_ERROR",
+      "status": "FAIL",
+      "failure_check": "submission",
+      "checks": []
+    }
+  ]
+}

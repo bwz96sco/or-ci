@@ -1,0 +1,12 @@
+# Trellis runtime files.
+/.trellis/.runtime/
+
+# Python runtime and build artifacts.
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+*.egg-info/
+dist/
+build/

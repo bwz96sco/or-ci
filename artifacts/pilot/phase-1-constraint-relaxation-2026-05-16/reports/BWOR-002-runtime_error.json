@@ -1,0 +1,21 @@
+{
+  "checks": [],
+  "classification": "SYNTAX_OR_RUNTIME_ERROR",
+  "failures": [
+    {
+      "check": "submission",
+      "error_type": "RuntimeError",
+      "message": "intentional BWOR-002 fixture failure"
+    }
+  ],
+  "model_ir_summary": {},
+  "possible_causes": [
+    "submission import failed",
+    "build_model raised an exception",
+    "model optimization raised before solver status was available"
+  ],
+  "problem_id": "BWOR-002",
+  "solver_status": {},
+  "status": "FAIL",
+  "submission": "/Users/zhangbowen/Projects/OR/code/or-ci/tests/fixtures/bwor/BWOR-002/runtime_error.py"
+}

@@ -1,0 +1,21 @@
+{
+  "checks": [],
+  "classification": "SYNTAX_OR_RUNTIME_ERROR",
+  "failures": [
+    {
+      "check": "submission",
+      "error_type": "SubmissionError",
+      "message": "submission must define callable build_model(data)"
+    }
+  ],
+  "model_ir_summary": {},
+  "possible_causes": [
+    "submission import failed",
+    "build_model raised an exception",
+    "model optimization raised before solver status was available"
+  ],
+  "problem_id": "BWOR-010",
+  "solver_status": {},
+  "status": "FAIL",
+  "submission": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-2026-05-16/submissions/BWOR-010.py"
+}

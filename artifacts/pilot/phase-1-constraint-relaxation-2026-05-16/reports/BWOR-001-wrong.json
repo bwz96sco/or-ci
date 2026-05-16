@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "details": {
+        "code": 2,
+        "is_optimal": true,
+        "name": "OPTIMAL",
+        "objective_value": 5450.0
+      },
+      "name": "original_solver_status",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "expected_relation": "scaled_obj ~= factor * original_obj",
+        "expected_scaled_objective": 10900.0,
+        "factor": 2.0,
+        "original_objective": 5450.0,
+        "scaled_objective": 5450.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "cost_scaling",
+      "status": "FAIL"
+    }
+  ],
+  "classification": "RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL",
+  "failures": [
+    {
+      "check": "cost_scaling",
+      "expected_relation": "scaled_obj ~= factor * original_obj",
+      "expected_scaled_objective": 10900.0,
+      "factor": 2.0,
+      "message": "scaled objective did not match the cost-scaling invariant",
+      "original_objective": 5450.0,
+      "scaled_objective": 5450.0,
+      "tolerance_abs": 1e-06,
+      "tolerance_rel": 1e-06
+    }
+  ],
+  "model_ir_summary": {
+    "binary_variables": 0,
+    "constraints": 8,
+    "integer_variables": 0,
+    "variables": 9
+  },
+  "possible_causes": [
+    "objective coefficients may not use the configured coefficient paths",
+    "constraints may not use the configured relaxation paths",
+    "objective sign or constant terms may be wrong",
+    "the model may be optimizing a different objective from the metadata"
+  ],
+  "problem_id": "BWOR-001",
+  "solver_status": {
+    "original": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 5450.0
+    },
+    "scaled_2": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 5450.0
+    }
+  },
+  "status": "FAIL",
+  "submission": "/Users/zhangbowen/Projects/OR/code/or-ci/tests/fixtures/bwor/BWOR-001/wrong.py"
+}

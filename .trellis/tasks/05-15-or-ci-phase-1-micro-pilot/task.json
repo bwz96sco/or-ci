@@ -1,0 +1,40 @@
+{
+  "id": "or-ci-phase-1-micro-pilot",
+  "name": "or-ci-phase-1-micro-pilot",
+  "title": "Implement OR-CI Phase 1 micro-pilot",
+  "description": "Parent task for implementing the BWOR-only OR-CI Phase 1 micro-pilot: contracts, ModelIR extraction, cost scaling, fixtures, CLI, and tests.",
+  "status": "planning",
+  "dev_type": "backend",
+  "scope": "or-ci",
+  "priority": "P1",
+  "creator": "ZhangBowen",
+  "assignee": "ZhangBowen",
+  "createdAt": "2026-05-15",
+  "completedAt": null,
+  "branch": null,
+  "base_branch": "main",
+  "worktree_path": null,
+  "current_phase": 0,
+  "next_action": [
+    {"phase": 1, "action": "implement"},
+    {"phase": 2, "action": "check"},
+    {"phase": 3, "action": "finish"},
+    {"phase": 4, "action": "create-pr"}
+  ],
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [
+    {"name": "05-15-or-ci-data-contracts-cli-report", "status": "pending"},
+    {"name": "05-15-or-ci-gurobi-modelir-extractor", "status": "pending"},
+    {"name": "05-15-or-ci-cost-scaling-verifier", "status": "pending"},
+    {"name": "05-15-or-ci-bwor-micro-pilot-fixtures", "status": "pending"},
+    {"name": "05-15-or-ci-pytest-cli-acceptance", "status": "pending"}
+  ],
+  "relatedFiles": [
+    "pyproject.toml",
+    "../or_llm_agent/data/datasets/bwor.jsonl",
+    "../../note/OR-research/ideas/or-ci-validation-plan.md",
+    "../../note/OR-research/ideas/or-ci-idea-refinement.md"
+  ],
+  "notes": "Use BWOR naming only. Keep verifier inputs separate from evaluation-only ground truth."
+}
