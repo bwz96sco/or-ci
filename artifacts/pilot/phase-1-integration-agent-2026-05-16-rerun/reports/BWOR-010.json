@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "details": {
+        "code": 2,
+        "is_optimal": true,
+        "name": "OPTIMAL",
+        "objective_value": 425.0
+      },
+      "name": "original_solver_status",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "expected_relation": "scaled_obj ~= factor * original_obj",
+        "expected_scaled_objective": 850.0,
+        "factor": 2.0,
+        "original_objective": 425.0,
+        "scaled_objective": 850.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "cost_scaling",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "factor": 1.2,
+        "objective_relation": "increase",
+        "original_objective": 425.0,
+        "paths": [
+          "instance.capacity"
+        ],
+        "relaxation": "capacity_increase",
+        "relaxed_objective": 492.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "constraint_relaxation",
+      "status": "PASS"
+    }
+  ],
+  "classification": "SUCCESS",
+  "failures": [],
+  "model_ir_summary": {
+    "binary_variables": 0,
+    "constraints": 6,
+    "integer_variables": 0,
+    "variables": 9
+  },
+  "possible_causes": [],
+  "problem_id": "BWOR-010",
+  "solver_status": {
+    "original": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 425.0
+    },
+    "relaxed_capacity_increase": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 492.0
+    },
+    "scaled_2": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 850.0
+    }
+  },
+  "status": "PASS",
+  "submission": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/submissions/BWOR-010.py"
+}

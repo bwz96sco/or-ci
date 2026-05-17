@@ -1,0 +1,85 @@
+{
+  "summary": {
+    "total": 3,
+    "classifications": {
+      "SUCCESS": 3
+    },
+    "generation_statuses": {
+      "generated": 3
+    },
+    "generation_modes": {
+      "agent": 3
+    }
+  },
+  "rows": [
+    {
+      "problem_id": "BWOR-001",
+      "model": "o3-mini",
+      "generation_mode": "agent",
+      "generation_status": "generated",
+      "generation_error": "",
+      "submission": "submissions/BWOR-001.py",
+      "raw_response": "raw/BWOR-001.txt",
+      "report": "reports/BWOR-001.json",
+      "agent_returncode": 0,
+      "agent_timed_out": false,
+      "verify_returncode": 0,
+      "verify_stdout": "Set parameter LicenseID to value 2816253\n",
+      "verify_stderr": "",
+      "classification": "SUCCESS",
+      "status": "PASS",
+      "failure_check": "",
+      "checks": [
+        "original_solver_status:PASS",
+        "cost_scaling:PASS",
+        "constraint_relaxation:PASS"
+      ]
+    },
+    {
+      "problem_id": "BWOR-002",
+      "model": "o3-mini",
+      "generation_mode": "agent",
+      "generation_status": "generated",
+      "generation_error": "",
+      "submission": "submissions/BWOR-002.py",
+      "raw_response": "raw/BWOR-002.txt",
+      "report": "reports/BWOR-002.json",
+      "agent_returncode": 0,
+      "agent_timed_out": false,
+      "verify_returncode": 0,
+      "verify_stdout": "Set parameter LicenseID to value 2816253\n",
+      "verify_stderr": "",
+      "classification": "SUCCESS",
+      "status": "PASS",
+      "failure_check": "",
+      "checks": [
+        "original_solver_status:PASS",
+        "cost_scaling:PASS",
+        "constraint_relaxation:PASS"
+      ]
+    },
+    {
+      "problem_id": "BWOR-010",
+      "model": "o3-mini",
+      "generation_mode": "agent",
+      "generation_status": "generated",
+      "generation_error": "",
+      "submission": "submissions/BWOR-010.py",
+      "raw_response": "raw/BWOR-010.txt",
+      "report": "reports/BWOR-010.json",
+      "agent_returncode": 0,
+      "agent_timed_out": false,
+      "verify_returncode": 0,
+      "verify_stdout": "Set parameter LicenseID to value 2816253\n",
+      "verify_stderr": "",
+      "classification": "SUCCESS",
+      "status": "PASS",
+      "failure_check": "",
+      "checks": [
+        "original_solver_status:PASS",
+        "cost_scaling:PASS",
+        "constraint_relaxation:PASS"
+      ]
+    }
+  ]
+}

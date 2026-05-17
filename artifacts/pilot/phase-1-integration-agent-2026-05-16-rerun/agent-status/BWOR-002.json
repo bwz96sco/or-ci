@@ -1,0 +1,24 @@
+{
+  "problem_id": "BWOR-002",
+  "attempts": 1,
+  "final_classification": "SUCCESS",
+  "final_status": "PASS",
+  "submission_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/submissions/BWOR-002.py",
+  "report_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/reports/BWOR-002.json",
+  "required_submission_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/submissions/BWOR-002.py",
+  "required_report_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/reports/BWOR-002.json",
+  "used_fallback_paths": true,
+  "fallback_reason": "Sandbox rejected writes outside the current artifact workspace.",
+  "checks_passed": [
+    "original_solver_status",
+    "cost_scaling",
+    "constraint_relaxation"
+  ],
+  "generation_mode": "agent",
+  "agent_returncode": 0,
+  "timed_out": false,
+  "events_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/sessions/BWOR-002/codex-events.jsonl",
+  "last_message_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/sessions/BWOR-002/last-message.md",
+  "work_dir": "/Users/zhangbowen/.cache/or_llm_agent/codex-work/3f32247356f14eb0/BWOR-002",
+  "status_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/phase-1-integration-agent-2026-05-16-rerun/agent-status/BWOR-002.json"
+}
