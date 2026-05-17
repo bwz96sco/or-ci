@@ -6,30 +6,71 @@ from or_ci.cli import main
 from or_ci.report import read_report
 
 
+def test_validate_spec_accepts_valid_problem(tmp_path, capsys) -> None:
+    problem_path = tmp_path / "problem.json"
+    _write_cli_problem(problem_path)
+
+    exit_code = main(["validate-spec", "--problem", str(problem_path)])
+
+    captured = capsys.readouterr()
+    assert exit_code == 0
+    assert "valid problem metadata: BWOR-CLI" in captured.out
+
+
+def test_validate_spec_rejects_missing_instance(tmp_path, capsys) -> None:
+    problem_path = tmp_path / "problem.json"
+    problem = _cli_problem()
+    problem.pop("instance")
+    problem_path.write_text(json.dumps(problem), encoding="utf-8")
+
+    exit_code = main(["validate-spec", "--problem", str(problem_path)])
+
+    captured = capsys.readouterr()
+    assert exit_code == 1
+    assert "instance is required" in captured.err
+
+
+def test_validate_spec_rejects_missing_cost_scaling(tmp_path, capsys) -> None:
+    problem_path = tmp_path / "problem.json"
+    problem = _cli_problem()
+    problem["metamorphic"] = {}
+    problem_path.write_text(json.dumps(problem), encoding="utf-8")
+
+    exit_code = main(["validate-spec", "--problem", str(problem_path)])
+
+    captured = capsys.readouterr()
+    assert exit_code == 1
+    assert "metamorphic.cost_scaling is required" in captured.err
+
+
+def test_validate_spec_rejects_invalid_constraint_relaxation(tmp_path, capsys) -> None:
+    problem_path = tmp_path / "problem.json"
+    problem = _cli_problem()
+    problem["metamorphic"]["constraint_relaxation"] = {
+        "relaxations": [
+            {
+                "name": "bad_relation",
+                "paths": ["instance.price"],
+                "factor": 0.5,
+                "objective_relation": "maybe",
+            }
+        ]
+    }
+    problem_path.write_text(json.dumps(problem), encoding="utf-8")
+
+    exit_code = main(["validate-spec", "--problem", str(problem_path)])
+
+    captured = capsys.readouterr()
+    assert exit_code == 1
+    assert "objective_relation must be one of" in captured.err
+
+
 def test_cli_writes_report_for_valid_submission(tmp_path) -> None:
     problem_path = tmp_path / "problem.json"
     submission_path = tmp_path / "submission.py"
     report_path = tmp_path / "report.json"
 
-    problem_path.write_text(
-        json.dumps(
-            {
-                "id": "BWOR-CLI",
-                "problem_type": "LP",
-                "instance": {"price": 4.0},
-                "metamorphic": {
-                    "cost_scaling": {
-                        "coefficient_paths": ["instance.price"],
-                        "factors": [2.0],
-                        "tolerance_abs": 1e-6,
-                        "tolerance_rel": 1e-6,
-                    }
-                },
-                "evaluation_only": {"answer": 4.0, "label": "not_for_build_model"},
-            }
-        ),
-        encoding="utf-8",
-    )
+    _write_cli_problem(problem_path)
     submission_path.write_text(
         """
 from gurobipy import GRB
@@ -132,3 +173,24 @@ def build_model(data):
         "failures",
         "possible_causes",
     }
+
+
+def _cli_problem() -> dict:
+    return {
+        "id": "BWOR-CLI",
+        "problem_type": "LP",
+        "instance": {"price": 4.0},
+        "metamorphic": {
+            "cost_scaling": {
+                "coefficient_paths": ["instance.price"],
+                "factors": [2.0],
+                "tolerance_abs": 1e-6,
+                "tolerance_rel": 1e-6,
+            }
+        },
+        "evaluation_only": {"answer": 4.0, "label": "not_for_build_model"},
+    }
+
+
+def _write_cli_problem(path) -> None:
+    path.write_text(json.dumps(_cli_problem()), encoding="utf-8")
