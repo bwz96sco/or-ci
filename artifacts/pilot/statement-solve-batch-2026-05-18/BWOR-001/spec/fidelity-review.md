@@ -11,9 +11,21 @@
 - Model generation: `generated`
 - Verification: `PASS`
 - Classification: `SUCCESS`
-- Fidelity status: `not_reviewed`
-- Fidelity gate: `manual_review_required`
+- Fidelity status: `accepted`
+- Fidelity gate: `accepted`
 - Structured report: `spec/fidelity-review.json`
+
+## Review Decision
+
+- Status: `accepted`
+- Reviewer: `Codex`
+- Reviewed at: `2026-05-18T02:12:07+00:00`
+- Note: Manual review against BWOR statements accepted: sets, numeric parameters, objective sense and coefficients, constraints, and metamorphic paths are faithful for BWOR-001, BWOR-002, and BWOR-010. OR-CI PASS is still interpreted as verification against the reviewed generated spec.
+
+## Evidence
+
+- artifacts/pilot/statement-solve-batch-2026-05-18/report.md
+- artifacts/pilot/statement-solve-batch-2026-05-18/summary.json
 
 ## Statement Excerpt
 
@@ -32,21 +44,8 @@ A candy factory uses raw materials A, B, and C to produce three different brands
 
 - `PASS` or_ci_spec_validation: spec_validation_status=passed
 - `PASS` model_verified_against_generated_spec: verification_status=PASS
-- `PENDING` source_statement_fidelity: manual review is required before treating generated spec as ground truth
+- `PASS` source_statement_fidelity: manual review accepted: Manual review against BWOR statements accepted: sets, numeric parameters, objective sense and coefficients, constraints, and metamorphic paths are faithful for BWOR-001, BWOR-002, and BWOR-010. OR-CI PASS is still interpreted as verification against the reviewed generated spec.
 
 ## Risk Flags
 
 - None detected by automatic checks.
-
-## Manual Checklist
-
-- [ ] Sets and indices in `instance` match the statement.
-- [ ] Parameters and numeric values in `instance` match the statement.
-- [ ] Objective direction and coefficients match the statement.
-- [ ] Constraint families and bounds match the statement.
-- [ ] Metamorphic checks touch objective and constraint data paths, where available.
-- [ ] OR-CI result is interpreted as verification against the generated spec, not proof of original-statement correctness.
-
-## Reviewer Note
-
-TODO

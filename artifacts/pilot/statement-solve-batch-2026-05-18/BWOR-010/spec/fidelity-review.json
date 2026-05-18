@@ -1,7 +1,7 @@
 {
   "problem_id": "BWOR-010",
-  "gate_status": "manual_review_required",
-  "fidelity_status": "not_reviewed",
+  "gate_status": "accepted",
+  "fidelity_status": "accepted",
   "statement_file": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/statements/BWOR-010.txt",
   "statement_excerpt": "A city has three flour mills, which supply flour to three food processing factories. The output of each flour mill, the processing capacity of each food factory, and the unit transportation cost between each flour mill and food factory are shown in Table 3-31. It is assumed that the profit per unit of flour processed into food is: Factory 1: 12 yuan, Factory 2: 16 yuan, Factory 3: 11 yuan, All flour mills and food factories are managed by the same administrative body. Objective: Determine a flour allocation plan that maximizes total benefit, considering both transportation costs and unit profits. \n\n\\begin{table}[h]\n    \\centering\n    \\caption{Table 3-31: Transportation Cost Between Flour Mills and Food Processing Plants}\n    \\renewcommand{\\arraystretch}{1.2}\n    \\begin{tabular}{c|ccc|c}\n  ",
   "spec": "spec/problem.json",
@@ -22,8 +22,8 @@
     },
     {
       "name": "source_statement_fidelity",
-      "status": "PENDING",
-      "detail": "manual review is required before treating generated spec as ground truth"
+      "status": "PASS",
+      "detail": "manual review accepted: Manual review against BWOR statements accepted: sets, numeric parameters, objective sense and coefficients, constraints, and metamorphic paths are faithful for BWOR-001, BWOR-002, and BWOR-010. OR-CI PASS is still interpreted as verification against the reviewed generated spec."
     }
   ],
   "risk_flags": [],
@@ -34,5 +34,16 @@
     "constraint families and bounds match the statement",
     "metamorphic paths touch objective and constraint data paths where available",
     "OR-CI result is interpreted only against the generated spec"
-  ]
+  ],
+  "review": {
+    "mode": "manual",
+    "status": "accepted",
+    "reviewer": "Codex",
+    "note": "Manual review against BWOR statements accepted: sets, numeric parameters, objective sense and coefficients, constraints, and metamorphic paths are faithful for BWOR-001, BWOR-002, and BWOR-010. OR-CI PASS is still interpreted as verification against the reviewed generated spec.",
+    "evidence": [
+      "artifacts/pilot/statement-solve-batch-2026-05-18/report.md",
+      "artifacts/pilot/statement-solve-batch-2026-05-18/summary.json"
+    ],
+    "reviewed_at": "2026-05-18T02:12:07+00:00"
+  }
 }

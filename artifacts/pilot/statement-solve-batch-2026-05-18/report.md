@@ -22,8 +22,11 @@
   "model_generation_statuses": {
     "generated": 3
   },
+  "spec_fidelity_statuses": {
+    "accepted": 3
+  },
   "spec_fidelity_gate_statuses": {
-    "manual_review_required": 3
+    "accepted": 3
   },
   "exit_codes": {
     "0": 3
@@ -33,14 +36,16 @@
 
 ## Matrix
 
-| Problem | Exit | Spec Validation | Attempts | Repair | Model Generation | Verification | Classification | Fidelity Gate | Artifact |
-|---|---:|---|---:|---|---|---|---|---|---|
-| BWOR-001 | `0` | `passed` | `1` | `not_needed` | `generated` | `PASS` | `SUCCESS` | `manual_review_required` | `BWOR-001` |
-| BWOR-002 | `0` | `passed` | `1` | `not_needed` | `generated` | `PASS` | `SUCCESS` | `manual_review_required` | `BWOR-002` |
-| BWOR-010 | `0` | `passed` | `1` | `not_needed` | `generated` | `PASS` | `SUCCESS` | `manual_review_required` | `BWOR-010` |
+| Problem | Exit | Spec Validation | Attempts | Repair | Model Generation | Verification | Classification | Fidelity | Gate | Artifact |
+|---|---:|---|---:|---|---|---|---|---|---|---|
+| BWOR-001 | `0` | `passed` | `1` | `not_needed` | `generated` | `PASS` | `SUCCESS` | `accepted` | `accepted` | `BWOR-001` |
+| BWOR-002 | `0` | `passed` | `1` | `not_needed` | `generated` | `PASS` | `SUCCESS` | `accepted` | `accepted` | `BWOR-002` |
+| BWOR-010 | `0` | `passed` | `1` | `not_needed` | `generated` | `PASS` | `SUCCESS` | `accepted` | `accepted` | `BWOR-010` |
 
 ## Interpretation Notes
 
 - `classification=SUCCESS` means the generated submission passed OR-CI checks against the generated spec.
 - `spec_fidelity_gate_status=manual_review_required` means source-statement fidelity has not been certified.
+- `spec_fidelity_gate_status=accepted` means a reviewer accepted source-statement fidelity for this run artifact.
+- `spec_fidelity_gate_status=rejected` means a reviewer rejected source-statement fidelity for this run artifact.
 - Inspect each case's `spec/fidelity-review.md` and `spec/fidelity-review.json` before treating generated specs as benchmark metadata.

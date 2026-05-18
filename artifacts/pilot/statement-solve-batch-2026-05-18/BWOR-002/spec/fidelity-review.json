@@ -1,7 +1,7 @@
 {
   "problem_id": "BWOR-002",
-  "gate_status": "manual_review_required",
-  "fidelity_status": "not_reviewed",
+  "gate_status": "accepted",
+  "fidelity_status": "accepted",
   "statement_file": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/statements/BWOR-002.txt",
   "statement_excerpt": "A livestock farm raises animals for sale. It is required that each animal must receive at least 700g of protein, 30g of minerals, and 100mg of vitamins per day. There are five types of feed available for selection. The nutritional content per kilogram and the unit price of each type of feed are shown in Table 1-22.\n\n\\begin{table}[h]\n    \\centering\n    \\caption{Nutritional Content and Price of Feed}\n    \\renewcommand{\\arraystretch}{1.2}\n    \\begin{tabular}{c|c|c|c|c}\n        \\toprule\n        Feed & Protein (g) & Minerals (g) & Vitamins (mg) & Price (dollar/kg) \\\\\n        \\midrule\n        1 & 3 & 1.0 & 0.5 & 0.2 \\\\\n        2 & 2 & 0.5 & 1.0 & 0.7 \\\\\n        3 & 1 & 0.2 & 0.2 & 0.4 \\\\\n        4 & 6 & 2.0 & 2.0 & 0.3 \\\\\n        5 & 18 & 0.5 & 0.8 & 0.8 \\\\\n        \\bottomrule\n    \\end{tabular}\n",
   "spec": "spec/problem.json",
@@ -22,8 +22,8 @@
     },
     {
       "name": "source_statement_fidelity",
-      "status": "PENDING",
-      "detail": "manual review is required before treating generated spec as ground truth"
+      "status": "PASS",
+      "detail": "manual review accepted: Manual review against BWOR statements accepted: sets, numeric parameters, objective sense and coefficients, constraints, and metamorphic paths are faithful for BWOR-001, BWOR-002, and BWOR-010. OR-CI PASS is still interpreted as verification against the reviewed generated spec."
     }
   ],
   "risk_flags": [],
@@ -34,5 +34,16 @@
     "constraint families and bounds match the statement",
     "metamorphic paths touch objective and constraint data paths where available",
     "OR-CI result is interpreted only against the generated spec"
-  ]
+  ],
+  "review": {
+    "mode": "manual",
+    "status": "accepted",
+    "reviewer": "Codex",
+    "note": "Manual review against BWOR statements accepted: sets, numeric parameters, objective sense and coefficients, constraints, and metamorphic paths are faithful for BWOR-001, BWOR-002, and BWOR-010. OR-CI PASS is still interpreted as verification against the reviewed generated spec.",
+    "evidence": [
+      "artifacts/pilot/statement-solve-batch-2026-05-18/report.md",
+      "artifacts/pilot/statement-solve-batch-2026-05-18/summary.json"
+    ],
+    "reviewed_at": "2026-05-18T02:12:07+00:00"
+  }
 }

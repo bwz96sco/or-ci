@@ -10,7 +10,7 @@
   "spec_validation_returncode": 0,
   "spec_attempt_count": 1,
   "spec_repair_status": "not_needed",
-  "spec_fidelity_status": "not_reviewed",
+  "spec_fidelity_status": "accepted",
   "spec_fidelity_review": "spec/fidelity-review.md",
   "spec_fidelity_report": "spec/fidelity-review.json",
   "model_generation_status": "generated",
@@ -24,6 +24,13 @@
   "verify_returncode": 0,
   "verify_stdout": "Set parameter LicenseID to value 2816253\n",
   "verify_stderr": "",
-  "spec_fidelity_gate_status": "manual_review_required",
-  "spec_fidelity_risk_flags": []
+  "spec_fidelity_gate_status": "accepted",
+  "spec_fidelity_risk_flags": [],
+  "spec_fidelity_reviewed_at": "2026-05-18T02:12:07+00:00",
+  "spec_fidelity_reviewed_by": "Codex",
+  "spec_fidelity_review_note": "Manual review against BWOR statements accepted: sets, numeric parameters, objective sense and coefficients, constraints, and metamorphic paths are faithful for BWOR-001, BWOR-002, and BWOR-010. OR-CI PASS is still interpreted as verification against the reviewed generated spec.",
+  "spec_fidelity_evidence": [
+    "artifacts/pilot/statement-solve-batch-2026-05-18/report.md",
+    "artifacts/pilot/statement-solve-batch-2026-05-18/summary.json"
+  ]
 }

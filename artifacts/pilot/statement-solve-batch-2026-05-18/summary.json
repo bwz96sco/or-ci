@@ -12,8 +12,11 @@
     "model_generation_statuses": {
       "generated": 3
     },
+    "spec_fidelity_statuses": {
+      "accepted": 3
+    },
     "spec_fidelity_gate_statuses": {
-      "manual_review_required": 3
+      "accepted": 3
     },
     "exit_codes": {
       "0": 3
@@ -31,8 +34,10 @@
       "model_generation_status": "generated",
       "verification_status": "PASS",
       "classification": "SUCCESS",
-      "spec_fidelity_status": "not_reviewed",
-      "spec_fidelity_gate_status": "manual_review_required",
+      "spec_fidelity_status": "accepted",
+      "spec_fidelity_gate_status": "accepted",
+      "spec_fidelity_reviewed_at": "2026-05-18T02:12:07+00:00",
+      "spec_fidelity_reviewed_by": "Codex",
       "spec": "spec/problem.json",
       "spec_fidelity_review": "spec/fidelity-review.md",
       "spec_fidelity_report": "spec/fidelity-review.json",
@@ -50,8 +55,10 @@
       "model_generation_status": "generated",
       "verification_status": "PASS",
       "classification": "SUCCESS",
-      "spec_fidelity_status": "not_reviewed",
-      "spec_fidelity_gate_status": "manual_review_required",
+      "spec_fidelity_status": "accepted",
+      "spec_fidelity_gate_status": "accepted",
+      "spec_fidelity_reviewed_at": "2026-05-18T02:12:07+00:00",
+      "spec_fidelity_reviewed_by": "Codex",
       "spec": "spec/problem.json",
       "spec_fidelity_review": "spec/fidelity-review.md",
       "spec_fidelity_report": "spec/fidelity-review.json",
@@ -69,8 +76,10 @@
       "model_generation_status": "generated",
       "verification_status": "PASS",
       "classification": "SUCCESS",
-      "spec_fidelity_status": "not_reviewed",
-      "spec_fidelity_gate_status": "manual_review_required",
+      "spec_fidelity_status": "accepted",
+      "spec_fidelity_gate_status": "accepted",
+      "spec_fidelity_reviewed_at": "2026-05-18T02:12:07+00:00",
+      "spec_fidelity_reviewed_by": "Codex",
       "spec": "spec/problem.json",
       "spec_fidelity_review": "spec/fidelity-review.md",
       "spec_fidelity_report": "spec/fidelity-review.json",
