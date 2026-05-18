@@ -1,0 +1,20 @@
+{
+  "problem_id": "BWOR-010",
+  "attempts": 1,
+  "repair_attempts": 0,
+  "final_classification": "SUCCESS",
+  "final_status": "PASS",
+  "submission_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/submissions/BWOR-010.py",
+  "report_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/reports/BWOR-010.json",
+  "required_submission_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/submissions/BWOR-010.py",
+  "required_report_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/reports/BWOR-010.json",
+  "artifact_location": "fallback_workspace",
+  "notes": "Absolute artifact write was blocked by the patch tool workspace boundary; fallback files were written under the current Codex workspace.",
+  "generation_mode": "agent",
+  "agent_returncode": 0,
+  "timed_out": false,
+  "events_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/sessions/BWOR-010/codex-events.jsonl",
+  "last_message_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/sessions/BWOR-010/last-message.md",
+  "work_dir": "/Users/zhangbowen/.cache/or_llm_agent/codex-work/5ab4ee39922be559/BWOR-010",
+  "status_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/agent-status/BWOR-010.json"
+}

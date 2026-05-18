@@ -1,0 +1,18 @@
+{
+  "problem_id": "BWOR-001",
+  "mode": "agent",
+  "spec_generation_status": "generated",
+  "spec_validation_status": "passed",
+  "generation_error": "",
+  "raw_response": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-001/raw/spec.txt",
+  "problem": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-001/spec/problem.json",
+  "status": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-001/spec/status.json",
+  "agent_returncode": 0,
+  "agent_timed_out": false,
+  "codex_events": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-001/sessions/BWOR-001-spec/codex-events.jsonl",
+  "last_message": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-001/sessions/BWOR-001-spec/last-message.md",
+  "agent_stderr": "",
+  "validation_returncode": 0,
+  "validation_stdout": "valid problem metadata: BWOR-001\n",
+  "validation_stderr": ""
+}

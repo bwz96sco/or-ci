@@ -1,0 +1,18 @@
+{
+  "problem_id": "BWOR-002",
+  "mode": "agent",
+  "spec_generation_status": "generated",
+  "spec_validation_status": "passed",
+  "generation_error": "",
+  "raw_response": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-002/raw/spec.txt",
+  "problem": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-002/spec/problem.json",
+  "status": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-002/spec/status.json",
+  "agent_returncode": 0,
+  "agent_timed_out": false,
+  "codex_events": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-002/sessions/BWOR-002-spec/codex-events.jsonl",
+  "last_message": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-002/sessions/BWOR-002-spec/last-message.md",
+  "agent_stderr": "2026-05-17T11:17:54.599613Z ERROR codex_core::tools::router: error=write_stdin failed: stdin is closed for this session; rerun exec_command with tty=true to keep stdin open\n",
+  "validation_returncode": 0,
+  "validation_stdout": "valid problem metadata: BWOR-002\n",
+  "validation_stderr": ""
+}

@@ -1,0 +1,39 @@
+{
+  "problem_id": "BWOR-010",
+  "mode": "agent",
+  "spec_generation_status": "generated",
+  "spec_validation_status": "passed",
+  "generation_error": "",
+  "raw_response": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/raw/spec.txt",
+  "problem": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/spec/problem.json",
+  "status": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/spec/status.json",
+  "agent_returncode": 0,
+  "agent_timed_out": false,
+  "codex_events": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/sessions/BWOR-010-spec/codex-events.jsonl",
+  "last_message": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/sessions/BWOR-010-spec/last-message.md",
+  "agent_stderr": "",
+  "spec_attempt_count": 1,
+  "spec_repair_status": "not_needed",
+  "spec_attempts": [
+    {
+      "attempt": 1,
+      "mode": "agent",
+      "spec_generation_status": "generated",
+      "spec_validation_status": "passed",
+      "generation_error": "",
+      "raw_response": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/raw/spec-attempt-1.txt",
+      "agent_returncode": 0,
+      "agent_timed_out": false,
+      "codex_events": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/sessions/BWOR-010-spec/codex-events.jsonl",
+      "last_message": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-010/sessions/BWOR-010-spec/last-message.md",
+      "agent_stderr": "",
+      "repair_input_error": "",
+      "validation_returncode": 0,
+      "validation_stdout": "valid problem metadata: BWOR-010\n",
+      "validation_stderr": ""
+    }
+  ],
+  "validation_returncode": 0,
+  "validation_stdout": "valid problem metadata: BWOR-010\n",
+  "validation_stderr": ""
+}

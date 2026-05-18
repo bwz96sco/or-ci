@@ -1,0 +1,102 @@
+{
+  "id": "BWOR-010",
+  "problem_type": "LP",
+  "instance": {
+    "mills": [
+      "I",
+      "II",
+      "III"
+    ],
+    "factories": [
+      "Factory 1",
+      "Factory 2",
+      "Factory 3"
+    ],
+    "mill_output": [
+      20,
+      30,
+      20
+    ],
+    "factory_capacity": [
+      15,
+      25,
+      20
+    ],
+    "transportation_cost": [
+      [
+        3,
+        10,
+        2
+      ],
+      [
+        4,
+        11,
+        8
+      ],
+      [
+        8,
+        11,
+        4
+      ]
+    ],
+    "processing_profit": [
+      12,
+      16,
+      11
+    ],
+    "net_benefit": [
+      [
+        9,
+        6,
+        9
+      ],
+      [
+        8,
+        5,
+        3
+      ],
+      [
+        4,
+        5,
+        7
+      ]
+    ],
+    "objective": "maximize_total_net_benefit",
+    "variable": "shipment_quantity_from_mill_to_factory",
+    "constraints": {
+      "mill_output": "sum over factories of shipment_quantity_from_mill_to_factory <= mill_output",
+      "factory_capacity": "sum over mills of shipment_quantity_from_mill_to_factory <= factory_capacity",
+      "nonnegativity": "shipment_quantity_from_mill_to_factory >= 0"
+    }
+  },
+  "metamorphic": {
+    "cost_scaling": {
+      "coefficient_paths": [
+        "instance.net_benefit"
+      ],
+      "factors": [
+        2.0
+      ],
+      "tolerance_abs": 1e-06,
+      "tolerance_rel": 1e-06
+    },
+    "constraint_relaxation": {
+      "relaxations": [
+        {
+          "path": "instance.mill_output",
+          "direction": "increase",
+          "amount": 1.0,
+          "objective_relation": "non_decrease"
+        },
+        {
+          "path": "instance.factory_capacity",
+          "direction": "increase",
+          "amount": 1.0,
+          "objective_relation": "non_decrease"
+        }
+      ],
+      "tolerance_abs": 1e-06,
+      "tolerance_rel": 1e-06
+    }
+  }
+}

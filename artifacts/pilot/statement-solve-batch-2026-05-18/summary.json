@@ -1,0 +1,81 @@
+{
+  "summary": {
+    "total": 3,
+    "succeeded": 3,
+    "failed": 0,
+    "classifications": {
+      "SUCCESS": 3
+    },
+    "spec_validation_statuses": {
+      "passed": 3
+    },
+    "model_generation_statuses": {
+      "generated": 3
+    },
+    "spec_fidelity_gate_statuses": {
+      "manual_review_required": 3
+    },
+    "exit_codes": {
+      "0": 3
+    }
+  },
+  "rows": [
+    {
+      "problem_id": "BWOR-001",
+      "exit_code": 0,
+      "artifact_dir": "BWOR-001",
+      "statement_file": "statements/BWOR-001.txt",
+      "spec_validation_status": "passed",
+      "spec_attempt_count": 1,
+      "spec_repair_status": "not_needed",
+      "model_generation_status": "generated",
+      "verification_status": "PASS",
+      "classification": "SUCCESS",
+      "spec_fidelity_status": "not_reviewed",
+      "spec_fidelity_gate_status": "manual_review_required",
+      "spec": "spec/problem.json",
+      "spec_fidelity_review": "spec/fidelity-review.md",
+      "spec_fidelity_report": "spec/fidelity-review.json",
+      "submission": "submissions/BWOR-001.py",
+      "report": "reports/BWOR-001.json"
+    },
+    {
+      "problem_id": "BWOR-002",
+      "exit_code": 0,
+      "artifact_dir": "BWOR-002",
+      "statement_file": "statements/BWOR-002.txt",
+      "spec_validation_status": "passed",
+      "spec_attempt_count": 1,
+      "spec_repair_status": "not_needed",
+      "model_generation_status": "generated",
+      "verification_status": "PASS",
+      "classification": "SUCCESS",
+      "spec_fidelity_status": "not_reviewed",
+      "spec_fidelity_gate_status": "manual_review_required",
+      "spec": "spec/problem.json",
+      "spec_fidelity_review": "spec/fidelity-review.md",
+      "spec_fidelity_report": "spec/fidelity-review.json",
+      "submission": "submissions/BWOR-002.py",
+      "report": "reports/BWOR-002.json"
+    },
+    {
+      "problem_id": "BWOR-010",
+      "exit_code": 0,
+      "artifact_dir": "BWOR-010",
+      "statement_file": "statements/BWOR-010.txt",
+      "spec_validation_status": "passed",
+      "spec_attempt_count": 1,
+      "spec_repair_status": "not_needed",
+      "model_generation_status": "generated",
+      "verification_status": "PASS",
+      "classification": "SUCCESS",
+      "spec_fidelity_status": "not_reviewed",
+      "spec_fidelity_gate_status": "manual_review_required",
+      "spec": "spec/problem.json",
+      "spec_fidelity_review": "spec/fidelity-review.md",
+      "spec_fidelity_report": "spec/fidelity-review.json",
+      "submission": "submissions/BWOR-010.py",
+      "report": "reports/BWOR-010.json"
+    }
+  ]
+}

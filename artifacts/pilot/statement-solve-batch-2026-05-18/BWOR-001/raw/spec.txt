@@ -1,0 +1,77 @@
+{
+  "id": "BWOR-001",
+  "problem_type": "LP",
+  "instance": {
+    "brands": [
+      "X",
+      "Y",
+      "Z"
+    ],
+    "raw_materials": [
+      "A",
+      "B",
+      "C"
+    ],
+    "selling_price": {
+      "X": 3.4,
+      "Y": 2.85,
+      "Z": 2.25
+    },
+    "processing_cost": {
+      "X": 0.5,
+      "Y": 0.4,
+      "Z": 0.3
+    },
+    "raw_material_cost": {
+      "A": 2.0,
+      "B": 1.5,
+      "C": 1.0
+    },
+    "monthly_usage_limit": {
+      "A": 2000.0,
+      "B": 2500.0,
+      "C": 1200.0
+    },
+    "minimum_content_fraction": {
+      "A": {
+        "X": 0.6,
+        "Y": 0.3
+      }
+    },
+    "maximum_content_fraction": {
+      "C": {
+        "X": 0.2,
+        "Y": 0.5,
+        "Z": 0.6
+      }
+    }
+  },
+  "metamorphic": {
+    "cost_scaling": {
+      "coefficient_paths": [
+        "instance.selling_price",
+        "instance.processing_cost",
+        "instance.raw_material_cost"
+      ],
+      "factors": [
+        2.0
+      ],
+      "tolerance_abs": 1e-06,
+      "tolerance_rel": 1e-06
+    },
+    "constraint_relaxation": {
+      "relaxations": [
+        {
+          "name": "monthly_raw_material_limit_increase",
+          "paths": [
+            "instance.monthly_usage_limit"
+          ],
+          "factor": 1.2,
+          "objective_relation": "non_decrease"
+        }
+      ],
+      "tolerance_abs": 1e-06,
+      "tolerance_rel": 1e-06
+    }
+  }
+}

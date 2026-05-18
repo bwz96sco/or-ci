@@ -1,0 +1,17 @@
+{
+  "problem_id": "BWOR-010",
+  "statement_file": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/statements/BWOR-010.txt",
+  "spec": "spec/problem.json",
+  "spec_raw": "raw/spec.txt",
+  "spec_status": "spec/status.json",
+  "spec_generation_status": "generated",
+  "spec_validation_status": "failed",
+  "spec_generation_error": "",
+  "spec_validation_returncode": 1,
+  "spec_fidelity_status": "not_reviewed",
+  "spec_fidelity_review": "spec/fidelity-review.md",
+  "model_generation_status": "skipped",
+  "verification_status": "skipped",
+  "classification": "skipped",
+  "reason": "spec validation failed; model generation skipped"
+}

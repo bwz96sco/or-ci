@@ -1,0 +1,97 @@
+{
+  "checks": [
+    {
+      "details": {
+        "code": 2,
+        "is_optimal": true,
+        "name": "OPTIMAL",
+        "objective_value": 425.0
+      },
+      "name": "original_solver_status",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "expected_relation": "scaled_obj ~= factor * original_obj",
+        "expected_scaled_objective": 850.0,
+        "factor": 2.0,
+        "original_objective": 425.0,
+        "scaled_objective": 850.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "cost_scaling",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "factor": 1.2,
+        "objective_relation": "non_decrease",
+        "original_objective": 425.0,
+        "paths": [
+          "instance.processing_capacity"
+        ],
+        "relaxation": "processing_capacity_increase",
+        "relaxed_objective": 492.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "constraint_relaxation",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "factor": 1.2,
+        "objective_relation": "non_decrease",
+        "original_objective": 425.0,
+        "paths": [
+          "instance.supply"
+        ],
+        "relaxation": "mill_supply_increase",
+        "relaxed_objective": 429.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "constraint_relaxation",
+      "status": "PASS"
+    }
+  ],
+  "classification": "SUCCESS",
+  "failures": [],
+  "model_ir_summary": {
+    "binary_variables": 0,
+    "constraints": 6,
+    "integer_variables": 0,
+    "variables": 9
+  },
+  "possible_causes": [],
+  "problem_id": "BWOR-010",
+  "solver_status": {
+    "original": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 425.0
+    },
+    "relaxed_mill_supply_increase": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 429.0
+    },
+    "relaxed_processing_capacity_increase": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 492.0
+    },
+    "scaled_2": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 850.0
+    }
+  },
+  "status": "PASS",
+  "submission": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17/BWOR-010/submissions/BWOR-010.py"
+}

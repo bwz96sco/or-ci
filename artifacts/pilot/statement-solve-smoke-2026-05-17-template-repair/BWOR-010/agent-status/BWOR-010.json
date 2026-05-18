@@ -1,0 +1,18 @@
+{
+  "problem_id": "BWOR-010",
+  "attempts": 1,
+  "final_classification": "SUCCESS",
+  "final_status": "PASS",
+  "submission_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17-template-repair/BWOR-010/submissions/BWOR-010.py",
+  "report_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17-template-repair/BWOR-010/reports/BWOR-010.json",
+  "requested_submission_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17-template-repair/BWOR-010/submissions/BWOR-010.py",
+  "requested_report_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17-template-repair/BWOR-010/reports/BWOR-010.json",
+  "fallback_used": true,
+  "generation_mode": "agent",
+  "agent_returncode": 0,
+  "timed_out": false,
+  "events_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17-template-repair/BWOR-010/sessions/BWOR-010/codex-events.jsonl",
+  "last_message_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17-template-repair/BWOR-010/sessions/BWOR-010/last-message.md",
+  "work_dir": "/Users/zhangbowen/.cache/or_llm_agent/codex-work/bdc2bf762d8f8bcf/BWOR-010",
+  "status_path": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-smoke-2026-05-17-template-repair/BWOR-010/agent-status/BWOR-010.json"
+}

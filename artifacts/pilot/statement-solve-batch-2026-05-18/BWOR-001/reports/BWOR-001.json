@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "details": {
+        "code": 2,
+        "is_optimal": true,
+        "name": "OPTIMAL",
+        "objective_value": 5450.000000000004
+      },
+      "name": "original_solver_status",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "expected_relation": "scaled_obj ~= factor * original_obj",
+        "expected_scaled_objective": 10900.000000000007,
+        "factor": 2.0,
+        "original_objective": 5450.000000000004,
+        "scaled_objective": 10900.000000000007,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "cost_scaling",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "factor": 1.2,
+        "objective_relation": "non_decrease",
+        "original_objective": 5450.000000000004,
+        "paths": [
+          "instance.monthly_usage_limit"
+        ],
+        "relaxation": "monthly_raw_material_limit_increase",
+        "relaxed_objective": 6540.0,
+        "tolerance_abs": 1e-06,
+        "tolerance_rel": 1e-06
+      },
+      "name": "constraint_relaxation",
+      "status": "PASS"
+    }
+  ],
+  "classification": "SUCCESS",
+  "failures": [],
+  "model_ir_summary": {
+    "binary_variables": 0,
+    "constraints": 11,
+    "integer_variables": 0,
+    "variables": 12
+  },
+  "possible_causes": [],
+  "problem_id": "BWOR-001",
+  "solver_status": {
+    "original": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 5450.000000000004
+    },
+    "relaxed_monthly_raw_material_limit_increase": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 6540.0
+    },
+    "scaled_2": {
+      "code": 2,
+      "is_optimal": true,
+      "name": "OPTIMAL",
+      "objective_value": 10900.000000000007
+    }
+  },
+  "status": "PASS",
+  "submission": "/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/statement-solve-batch-2026-05-18/BWOR-001/submissions/BWOR-001.py"
+}
