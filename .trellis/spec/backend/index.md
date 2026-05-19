@@ -16,11 +16,11 @@ These guidelines describe how to write and review code for that package.
 
 | Guide | Description | Status |
 |-------|-------------|--------|
-| [Directory Structure](./directory-structure.md) | `or_ci` package layout, module boundaries, file roles | To fill |
-| [Data Contracts](./data-contracts.md) | Problem metadata JSON, `build_model` submission contract, ModelIR, report JSON | To fill |
-| [Error Handling](./error-handling.md) | Failure classification taxonomy, isolation rules, deep-copy discipline | To fill |
-| [Logging Guidelines](./logging-guidelines.md) | JSON report as primary output, stderr for diagnostics, no LLM/network info leak | To fill |
-| [Quality Guidelines](./quality-guidelines.md) | uv + pytest workflow, BWOR-only naming, no-LLM-in-v1 rule, forbidden patterns | To fill |
+| [Directory Structure](./directory-structure.md) | `or_ci` package layout, module boundaries, file roles | Filled |
+| [Data Contracts](./data-contracts.md) | Problem metadata JSON, `build_model` submission contract, ModelIR, report JSON | Filled |
+| [Error Handling](./error-handling.md) | Failure classification taxonomy, isolation rules, deep-copy discipline | Filled |
+| [Logging Guidelines](./logging-guidelines.md) | JSON report as primary output, stderr for diagnostics, no LLM/network info leak | Filled |
+| [Quality Guidelines](./quality-guidelines.md) | uv + pytest workflow, BWOR-only naming, no-LLM-in-v1 rule, forbidden patterns | Filled |
 
 ---
 
