@@ -3,23 +3,35 @@
   "name": "or-ci-pytest-cli-acceptance",
   "title": "OR-CI pytest and CLI acceptance",
   "description": "Add pytest and CLI acceptance coverage for the OR-CI Phase 1 micro-pilot.",
-  "status": "planning",
+  "status": "completed",
   "dev_type": "test",
   "scope": "or-ci",
   "priority": "P2",
   "creator": "ZhangBowen",
   "assignee": "ZhangBowen",
   "createdAt": "2026-05-15",
-  "completedAt": null,
+  "completedAt": "2026-05-19",
   "branch": null,
   "base_branch": "main",
   "worktree_path": null,
   "current_phase": 0,
   "next_action": [
-    {"phase": 1, "action": "implement"},
-    {"phase": 2, "action": "check"},
-    {"phase": 3, "action": "finish"},
-    {"phase": 4, "action": "create-pr"}
+    {
+      "phase": 1,
+      "action": "implement"
+    },
+    {
+      "phase": 2,
+      "action": "check"
+    },
+    {
+      "phase": 3,
+      "action": "finish"
+    },
+    {
+      "phase": 4,
+      "action": "create-pr"
+    }
   ],
   "commit": null,
   "pr_url": null,
