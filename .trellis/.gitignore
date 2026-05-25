@@ -24,3 +24,9 @@
 
 # Conflict resolution temp files
 *.new
+
+# Trellis update template-hash tracking (runtime; churns on every update)
+.template-hashes.json
+
+# Deprecated shell scripts archived by `trellis update --migrate`
+scripts-shell-archive/

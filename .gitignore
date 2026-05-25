@@ -19,4 +19,6 @@ build/
 /.claude/
 /.codex/
 /.cursor/
+/.agents/
+/.github/
 /.trellis/workspace/
