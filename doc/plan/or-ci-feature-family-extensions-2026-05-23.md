@@ -79,31 +79,31 @@ Implementation:
 
 Implementation checklist:
 
-- [ ] Add ModelIR fields for quadratic objective terms.
-- [ ] Extract quadratic objective terms from Gurobi models.
-- [ ] Add `QP` and `MIQP` problem type validation.
-- [ ] Reject quadratic constraints with a clear classification.
-- [ ] Add quadratic objective summary to JSON reports.
-- [ ] Update metadata docs with quadratic objective support.
-- [ ] Add cost-scaling behavior for quadratic objective cases.
+- [x] Add ModelIR fields for quadratic objective terms.
+- [x] Extract quadratic objective terms from Gurobi models.
+- [x] Add `QP` and `MIQP` problem type validation.
+- [x] Reject quadratic constraints with a clear classification.
+- [x] Add quadratic objective summary to JSON reports.
+- [x] Update metadata docs with quadratic objective support.
+- [x] Add cost-scaling behavior for quadratic objective cases.
 
 Verification checklist:
 
-- [ ] Unit test quadratic objective extraction.
-- [ ] Unit test linear models still produce the same ModelIR shape as before.
-- [ ] Unit test quadratic constraints are rejected.
-- [ ] Unit test QP cost scaling passes on a correct model.
-- [ ] Unit test QP cost scaling fails on a wrong objective coefficient.
-- [ ] Run targeted pilot on `BWOR-067`.
-- [ ] Run targeted pilot on `BWOR-071`.
+- [x] Unit test quadratic objective extraction.
+- [x] Unit test linear models still produce the same ModelIR shape as before.
+- [x] Unit test quadratic constraints are rejected.
+- [x] Unit test QP cost scaling passes on a correct model.
+- [x] Unit test QP cost scaling fails on a wrong objective coefficient.
+- [x] Run targeted pilot on `BWOR-067`.
+- [x] Run targeted pilot on `BWOR-071`.
 
 Report capstone:
 
-- [ ] Generate `feature-extension-quadratic-objective-report.md`.
-- [ ] List targeted cases and recovered cases.
-- [ ] Show extracted quadratic objective terms.
-- [ ] Show metamorphic checks run.
-- [ ] Show remaining unsupported quadratic features.
+- [x] Generate `feature-extension-quadratic-objective-report.md`.
+- [x] List targeted cases and recovered cases.
+- [x] Show extracted quadratic objective terms.
+- [x] Show metamorphic checks run.
+- [x] Show remaining unsupported quadratic features.
 
 ## Feature Family 2: Goal Programming / Lexicographic Objectives
 
@@ -131,32 +131,32 @@ Implementation:
 
 Implementation checklist:
 
-- [ ] Add metadata contract for weighted goals.
-- [ ] Add metadata contract for lexicographic or preemptive goals.
-- [ ] Add validation for missing weights, priorities, and achievement direction.
-- [ ] Add report fields for goal-level achieved values.
-- [ ] Add verifier checks for weighted goal objective value.
-- [ ] Add verifier checks for lexicographic priority ordering.
-- [ ] Document the unsupported cases that still require clarification.
+- [x] Add metadata contract for weighted goals.
+- [x] Add metadata contract for lexicographic or preemptive goals.
+- [x] Add validation for missing weights, priorities, and achievement direction.
+- [x] Add report fields for goal-level achieved values.
+- [x] Add verifier checks for weighted goal objective value.
+- [x] Add verifier checks for lexicographic priority ordering.
+- [x] Document the unsupported cases that still require clarification.
 
 Verification checklist:
 
-- [ ] Unit test weighted goal-programming metadata validation.
-- [ ] Unit test lexicographic goal-programming metadata validation.
-- [ ] Unit test missing weights are rejected.
-- [ ] Unit test missing priorities are rejected.
-- [ ] Unit test wrong priority order fails verification.
-- [ ] Run targeted pilot on `BWOR-012`.
-- [ ] Run targeted pilot on `BWOR-014`.
-- [ ] Run targeted pilot on `BWOR-015`.
+- [x] Unit test weighted goal-programming metadata validation.
+- [x] Unit test lexicographic goal-programming metadata validation.
+- [x] Unit test missing weights are rejected.
+- [x] Unit test missing priorities are rejected.
+- [x] Unit test wrong priority order fails verification.
+- [x] Run targeted pilot on `BWOR-012`.
+- [x] Run targeted pilot on `BWOR-014`.
+- [x] Run targeted pilot on `BWOR-015`.
 
 Report capstone:
 
-- [ ] Generate `feature-extension-goal-programming-report.md`.
-- [ ] List which cases use weighted goals and which use lexicographic goals.
-- [ ] Show goal achievement values.
-- [ ] Show rejected ambiguity cases.
-- [ ] Show recovered cases.
+- [x] Generate `feature-extension-goal-programming-report.md`.
+- [x] List which cases use weighted goals and which use lexicographic goals.
+- [x] Show goal achievement values.
+- [x] Show rejected ambiguity cases.
+- [x] Show recovered cases.
 
 ## Feature Family 3: Multi-Scenario / Infeasibility-Plus-Repair
 
@@ -181,28 +181,28 @@ Implementation:
 
 Implementation checklist:
 
-- [ ] Add metadata contract for named scenarios.
-- [ ] Add scenario-level expected solver status.
-- [ ] Add scenario-level objective checks.
-- [ ] Add scenario-level metamorphic checks where applicable.
-- [ ] Add aggregate scenario report fields.
-- [ ] Add CLI/report behavior for multi-scenario ProblemSpecs.
+- [x] Add metadata contract for named scenarios.
+- [x] Add scenario-level expected solver status.
+- [x] Add scenario-level objective checks.
+- [x] Add scenario-level metamorphic checks where applicable.
+- [x] Add aggregate scenario report fields.
+- [x] Add CLI/report behavior for multi-scenario ProblemSpecs.
 
 Verification checklist:
 
-- [ ] Unit test infeasible base scenario passes when expected infeasible.
-- [ ] Unit test feasible repair scenario passes when expected optimal.
-- [ ] Unit test wrong scenario solver status fails.
-- [ ] Unit test aggregate report fails when one required scenario fails.
-- [ ] Run targeted pilot on `BWOR-032`.
+- [x] Unit test infeasible base scenario passes when expected infeasible.
+- [x] Unit test feasible repair scenario passes when expected optimal.
+- [x] Unit test wrong scenario solver status fails.
+- [x] Unit test aggregate report fails when one required scenario fails.
+- [x] Run targeted pilot on `BWOR-032`.
 
 Report capstone:
 
-- [ ] Generate `feature-extension-multiscenario-report.md`.
-- [ ] List scenario names and expected statuses.
-- [ ] Show actual solver statuses.
-- [ ] Show objective and metamorphic checks per scenario.
-- [ ] Show aggregate pass/fail classification.
+- [x] Generate `feature-extension-multiscenario-report.md`.
+- [x] List scenario names and expected statuses.
+- [x] Show actual solver statuses.
+- [x] Show objective and metamorphic checks per scenario.
+- [x] Show aggregate pass/fail classification.
 
 ## Explicitly Postponed Families
 
@@ -219,16 +219,16 @@ unexpected implementation failures.
 
 ## Combined Extension Checklist
 
-- [ ] Implement quadratic objective support first.
-- [ ] Implement goal-programming support second.
-- [ ] Implement multi-scenario support third.
-- [ ] Update OR-CI metadata documentation.
-- [ ] Update OR-CI CLI/report documentation.
+- [x] Implement quadratic objective support first.
+- [x] Implement goal-programming support second.
+- [x] Implement multi-scenario support third.
+- [x] Update OR-CI metadata documentation.
+- [x] Update OR-CI CLI/report documentation.
 - [ ] Coordinate OR-LLM-Agent classifier prompts with newly supported families.
 - [ ] Coordinate OR-LLM-Agent ProblemSpec prompts with newly supported metadata.
-- [ ] Run unit tests after each feature family.
-- [ ] Run targeted blocked-case pilots after each feature family.
-- [ ] Run one combined blocked-case recovery pilot.
+- [x] Run unit tests after each feature family.
+- [x] Run targeted blocked-case pilots after each feature family.
+- [x] Run one combined blocked-case recovery pilot.
 
 ## Combined Report Capstone Checklist
 
@@ -241,26 +241,26 @@ or-ci-feature-extension-summary.json
 
 The Markdown report must include:
 
-- [ ] Baseline unsupported case count.
-- [ ] Feature families implemented.
-- [ ] Cases targeted by each family.
-- [ ] Cases recovered by each family.
-- [ ] Cases still unsupported.
-- [ ] Tests run.
-- [ ] Targeted pilot commands.
-- [ ] OR-CI report paths.
-- [ ] Known scope limits.
-- [ ] Research interpretation of whether the extension strengthens the OR-CI
+- [x] Baseline unsupported case count.
+- [x] Feature families implemented.
+- [x] Cases targeted by each family.
+- [x] Cases recovered by each family.
+- [x] Cases still unsupported.
+- [x] Tests run.
+- [x] Targeted pilot commands.
+- [x] OR-CI report paths.
+- [x] Known scope limits.
+- [x] Research interpretation of whether the extension strengthens the OR-CI
       core idea or starts a separate verification track.
 
 The summary JSON must include:
 
-- [ ] total targeted unsupported cases.
-- [ ] recovered unsupported cases.
-- [ ] remaining unsupported cases.
-- [ ] feature family pass/fail status.
-- [ ] verifier test status.
-- [ ] pilot artifact root.
+- [x] total targeted unsupported cases.
+- [x] recovered unsupported cases.
+- [x] remaining unsupported cases.
+- [x] feature family pass/fail status.
+- [x] verifier test status.
+- [x] pilot artifact root.
 
 ## Success Criteria
 
