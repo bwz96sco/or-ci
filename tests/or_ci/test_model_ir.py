@@ -31,6 +31,35 @@ class FakeExpr:
         return self._constant
 
 
+class FakeQuadExpr:
+    def __init__(
+        self,
+        linear_terms: list[tuple[FakeVar, float]],
+        quadratic_terms: list[tuple[FakeVar, FakeVar, float]],
+        constant: float = 0.0,
+    ):
+        self._linear = FakeExpr(linear_terms, constant=constant)
+        self._quadratic_terms = quadratic_terms
+
+    def size(self) -> int:
+        return len(self._quadratic_terms)
+
+    def getVar1(self, index: int) -> FakeVar:
+        return self._quadratic_terms[index][0]
+
+    def getVar2(self, index: int) -> FakeVar:
+        return self._quadratic_terms[index][1]
+
+    def getCoeff(self, index: int) -> float:
+        return self._quadratic_terms[index][2]
+
+    def getLinExpr(self) -> FakeExpr:
+        return self._linear
+
+    def getConstant(self) -> float:
+        return self._linear.getConstant()
+
+
 class FakeConstr:
     def __init__(self, name: str, sense: str, rhs: float, row: FakeExpr):
         self.ConstrName = name
@@ -87,7 +116,28 @@ def test_extract_model_ir_preserves_linear_model_details() -> None:
         "constraints": 2,
         "integer_variables": 0,
         "binary_variables": 0,
+        "quadratic_objective_terms": 0,
     }
+
+
+def test_extract_model_ir_preserves_quadratic_objective_terms() -> None:
+    model = FakeModel()
+    model.NumQNZs = 2
+    model._objective = FakeQuadExpr(
+        [(model.x, 1.0)],
+        [(model.x, model.x, 2.0), (model.y, model.x, -4.0)],
+        constant=3.0,
+    )
+
+    model_ir = extract_model_ir(model)
+
+    assert model_ir.objective.coefficients == {"x": 1.0}
+    assert model_ir.objective.constant == 3.0
+    assert [term.__dict__ for term in model_ir.objective.quadratic_terms] == [
+        {"var1": "x", "var2": "x", "coefficient": 2.0},
+        {"var1": "x", "var2": "y", "coefficient": -4.0},
+    ]
+    assert model_ir.summary["quadratic_objective_terms"] == 2
 
 
 def test_extract_model_ir_rejects_unsupported_features() -> None:

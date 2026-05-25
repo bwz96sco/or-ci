@@ -37,8 +37,8 @@ JSON report, not stderr.
 All submission outcomes must be represented in `VerificationReport`:
 
 - syntax/import/build failures -> `SYNTAX_OR_RUNTIME_ERROR`
-- non-optimal solver status -> `SOLVER_STATUS_ERROR`
-- metamorphic invariant failures -> `RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL`
+- non-optimal or mismatched required solver status -> `SOLVER_STATUS_ERROR`
+- metamorphic, goal-programming, or scenario objective failures -> `RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL`
 - unsupported Gurobi features -> `UNSUPPORTED_MODEL_FEATURE`
 - successful configured checks -> `SUCCESS`
 
@@ -103,9 +103,9 @@ Tests must avoid network calls and LLM APIs, as required by
 Include:
 
 - classification and verification status
-- original, scaled, and relaxed solver statuses
-- objective values used by metamorphic checks
-- configured factors, paths, relations, and tolerances
+- original, scaled, relaxed, and scenario solver statuses
+- objective values used by metamorphic, goal-programming, and scenario checks
+- configured factors, paths, relations, goal weights, priorities, and tolerances
 - ModelIR summary counts
 - concise possible causes from `_possible_causes`
 

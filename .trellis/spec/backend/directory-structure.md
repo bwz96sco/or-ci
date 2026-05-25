@@ -9,7 +9,7 @@
 OR-CI is a small backend-only Python package installed from `src/or_ci`. It is
 the standalone verifier for Operations Research Continuous Integration: it
 loads JSON problem metadata, imports a submitted `build_model(data)` function,
-extracts a Gurobi linear ModelIR, runs metamorphic checks, and writes a JSON
+extracts a Gurobi ModelIR, runs deterministic checks, and writes a JSON
 verification report. It is not an LLM producer and must not contain OR-LLM-Agent
 provider code.
 
@@ -74,9 +74,9 @@ absolute path hash, and returns the callable `build_model`. Keep import
 isolation here so verifier logic does not grow ad hoc module-loading code.
 
 `src/or_ci/model_ir.py` owns Gurobi-to-ModelIR extraction. It calls
-`model.update()`, rejects unsupported features, and reads variables, objective,
-and linear constraints through Gurobi v12-compatible APIs. It must not optimize
-the model.
+`model.update()`, rejects unsupported features, and reads variables,
+linear/quadratic objective terms, and linear constraints through Gurobi
+v12-compatible APIs. It must not optimize the model.
 
 `src/or_ci/scaling.py` owns data transformations for metamorphic checks. It
 deep-copies the `instance` subtree before scaling configured numeric paths. New
@@ -146,9 +146,10 @@ or a new benchmark-specific fixture root only when the benchmark naming and
 metadata contract are explicit.
 
 New solver-inspection support belongs in `model_ir.py` only if it remains within
-the supported Gurobi model surface. QP, NLP, multi-objective, and general
-constraint support are out of scope for the current verifier unless a new PRD
-explicitly changes that boundary.
+the supported Gurobi model surface. The current supported extension surface is
+linear LP/MILP plus QP/MIQP quadratic objectives. NLP, quadratic constraints,
+Gurobi multi-objective models, and general constraints are out of scope unless a
+new PRD explicitly changes that boundary.
 
 ---
 

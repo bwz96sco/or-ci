@@ -4,11 +4,11 @@ from typing import Any
 
 from gurobipy import GRB
 
-from or_ci.contracts import ConstraintIR, ModelIR, ObjectiveIR, VariableIR
+from or_ci.contracts import ConstraintIR, ModelIR, ObjectiveIR, QuadraticTermIR, VariableIR
 
 
 class UnsupportedModelFeature(RuntimeError):
-    """Raised when a Gurobi model uses features outside Phase 1 ModelIR."""
+    """Raised when a Gurobi model uses features outside supported ModelIR."""
 
 
 _UNSUPPORTED_MODEL_ATTRIBUTES = {
@@ -16,7 +16,6 @@ _UNSUPPORTED_MODEL_ATTRIBUTES = {
     "NumQConstrs": "quadratic constraints",
     "NumGenConstrs": "general constraints",
     "NumPWLObjVars": "piecewise-linear objectives",
-    "NumQNZs": "quadratic objective terms",
     "IsMultiObj": "multiple objectives",
 }
 
@@ -39,6 +38,7 @@ def extract_model_ir(model: Any) -> ModelIR:
             "constraints": len(constraints),
             "integer_variables": sum(1 for var in variables if var.variable_type == GRB.INTEGER),
             "binary_variables": sum(1 for var in variables if var.variable_type == GRB.BINARY),
+            "quadratic_objective_terms": len(objective.quadratic_terms),
         },
     )
 
@@ -66,9 +66,16 @@ def _extract_objective(model: Any, variable_names: set[str]) -> ObjectiveIR:
     sense_value = int(_get_attr(model, "ModelSense", GRB.MINIMIZE))
     sense = "max" if sense_value == GRB.MAXIMIZE else "min"
     objective = model.getObjective()
-    coefficients = _linear_expression_coefficients(objective, variable_names)
+    linear_objective = _linear_part(objective)
+    coefficients = _linear_expression_coefficients(linear_objective, variable_names)
+    quadratic_terms = _quadratic_expression_terms(objective, variable_names)
     constant = _expression_constant(objective)
-    return ObjectiveIR(sense=sense, coefficients=coefficients, constant=constant)
+    return ObjectiveIR(
+        sense=sense,
+        coefficients=coefficients,
+        constant=constant,
+        quadratic_terms=quadratic_terms,
+    )
 
 
 def _extract_constraint(model: Any, constr: Any, variable_names: set[str]) -> ConstraintIR:
@@ -96,10 +103,44 @@ def _linear_expression_coefficients(expr: Any, variable_names: set[str]) -> dict
     return {name: coeff for name, coeff in coefficients.items() if coeff != 0.0}
 
 
+def _linear_part(expr: Any) -> Any:
+    get_linear_expression = getattr(expr, "getLinExpr", None)
+    if callable(get_linear_expression):
+        return get_linear_expression()
+    return expr
+
+
+def _quadratic_expression_terms(expr: Any, variable_names: set[str]) -> list[QuadraticTermIR]:
+    if not all(hasattr(expr, attr) for attr in ("size", "getVar1", "getVar2", "getCoeff")):
+        return []
+
+    coefficients: dict[tuple[str, str], float] = {}
+    for index in range(expr.size()):
+        var1 = expr.getVar1(index)
+        var2 = expr.getVar2(index)
+        name1 = str(_get_attr(var1, "VarName"))
+        name2 = str(_get_attr(var2, "VarName"))
+        if name1 not in variable_names:
+            raise UnsupportedModelFeature(f"quadratic objective references unknown variable: {name1}")
+        if name2 not in variable_names:
+            raise UnsupportedModelFeature(f"quadratic objective references unknown variable: {name2}")
+        key = tuple(sorted((name1, name2)))
+        coefficients[key] = coefficients.get(key, 0.0) + float(expr.getCoeff(index))
+
+    return [
+        QuadraticTermIR(var1=var1, var2=var2, coefficient=coefficient)
+        for (var1, var2), coefficient in sorted(coefficients.items())
+        if coefficient != 0.0
+    ]
+
+
 def _expression_constant(expr: Any) -> float:
     get_constant = getattr(expr, "getConstant", None)
     if callable(get_constant):
         return float(get_constant())
+    get_linear_expression = getattr(expr, "getLinExpr", None)
+    if callable(get_linear_expression):
+        return _expression_constant(get_linear_expression())
     return 0.0
 
 

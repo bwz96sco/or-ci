@@ -71,8 +71,10 @@ the normal workflow.
 - Asserting identical variable values between original and scaled runs.
 - Mutating shared metadata in place during cost scaling or constraint relaxation.
 - Reaching into `../or_llm_agent` evaluation scripts from OR-CI verifier code.
-- Adding QP, NLP, multi-objective, SOS, general constraint, or full proof
-  support without a new explicit PRD and test plan.
+- Adding NLP, quadratic constraints, Gurobi multi-objective models, SOS,
+  general constraint, or full proof support without a new explicit PRD and test
+  plan. QP/MIQP quadratic-objective support is allowed only through the
+  2026-05-23 feature-extension contract and tests.
 
 ---
 
@@ -127,13 +129,19 @@ detect to be reported as coverage misses:
 - Tests cover success, runtime failure, semantic failure, and CLI report output.
 - Solver output is quiet by default.
 - New verifier logic does not import from `or_llm_agent`.
+- QP/MIQP cases reject quadratic constraints and require explicit problem type
+  metadata when quadratic objective terms are present.
+- Goal-programming cases include explicit weights or priority weights and fail
+  when the submitted objective does not match the configured scalarization.
+- Multi-scenario cases report each required scenario status and fail the
+  aggregate report when any required scenario mismatches.
 
 ---
 
 ## Out-of-Scope Reminders
 
 The archived parent PRD excludes the LLM generation pipeline, Trellis check
-integration, symmetry permutation, NLP/QP/multi-objective support, and full
+integration, symmetry permutation, NLP, Gurobi multi-objective support, and full
 30-50 problem experiments:
 `.trellis/tasks/archive/2026-05/05-15-or-ci-phase-1-micro-pilot/prd.md`.
 
@@ -141,3 +149,8 @@ Constraint relaxation was described as a later continuation in the spec PRDs and
 is now implemented for selected linear fixtures. Do not treat that as permission
 to add broad constraint-equivalence proving or unsupported Gurobi feature
 support.
+
+The 2026-05-23 feature-extension plan explicitly adds QP/MIQP
+quadratic-objective support, goal-programming scalarization checks, and
+multi-scenario status aggregation. It does not add NLP, quadratic constraints,
+stochastic/dynamic policies, or algorithm-method verification.

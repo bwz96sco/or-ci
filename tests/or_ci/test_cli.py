@@ -65,6 +65,32 @@ def test_validate_spec_rejects_invalid_constraint_relaxation(tmp_path, capsys) -
     assert "objective_relation must be one of" in captured.err
 
 
+def test_validate_spec_accepts_multi_scenario_problem(tmp_path, capsys) -> None:
+    problem_path = tmp_path / "problem.json"
+    problem_path.write_text(
+        json.dumps(
+            {
+                "id": "BWOR-SCENARIO",
+                "problem_type": "MULTI_SCENARIO",
+                "scenarios": [
+                    {
+                        "name": "base",
+                        "instance": {},
+                        "expected_solver_status": "INFEASIBLE",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    exit_code = main(["validate-spec", "--problem", str(problem_path)])
+
+    captured = capsys.readouterr()
+    assert exit_code == 0
+    assert "valid problem metadata: BWOR-SCENARIO" in captured.out
+
+
 def test_cli_writes_report_for_valid_submission(tmp_path) -> None:
     problem_path = tmp_path / "problem.json"
     submission_path = tmp_path / "submission.py"

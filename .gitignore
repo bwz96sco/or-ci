@@ -13,3 +13,4 @@ build/
 
 # Local/generated scale pilot run artifacts.
 /artifacts/pilot/statement-solve-scale-*/
+/artifacts

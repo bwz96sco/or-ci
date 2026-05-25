@@ -1,6 +1,6 @@
 # Backend Development Guidelines
 
-> Conventions for the OR-CI verifier — a Python CLI that loads structured problem metadata, imports a handwritten Gurobi submission, extracts a linear ModelIR, runs metamorphic checks, and writes a JSON report.
+> Conventions for the OR-CI verifier — a Python CLI that loads structured problem metadata, imports a handwritten Gurobi submission, extracts a ModelIR, runs deterministic checks, and writes a JSON report.
 
 ---
 
@@ -28,7 +28,7 @@ These guidelines describe how to write and review code for that package.
 
 - **No frontend.** OR-CI Phase 1 is a CLI verifier. Any user-facing surface is the CLI flags and the JSON report.
 - **No database.** All state is in JSON files and in-memory Python objects.
-- **v1 = Gurobi linear only.** Phase 1a covers cost scaling; the 2026-05-16 continuation adds configured constraint-relaxation checks over numeric instance paths. QP, NLP, multi-objective, and full constraint-equivalence solving are out of scope.
+- **v1 = deterministic Gurobi model verification.** Phase 1a covers cost scaling; the 2026-05-16 continuation adds configured constraint-relaxation checks over numeric instance paths. The 2026-05-23 feature extension adds explicit QP/MIQP quadratic-objective support, goal-programming scalarization checks, and multi-scenario status aggregation. NLP, quadratic constraints, Gurobi multi-objective models, stochastic/dynamic policies, and full constraint-equivalence solving remain out of scope.
 - **BWOR naming only.** Do not introduce NL4OR names in new code, tests, fixtures, or docs.
 
 ---

@@ -25,9 +25,9 @@ Canonical report fields and classification strings are defined in
 |---|---|---|---|
 | `SUCCESS` | Original model, cost scaling, and optional constraint relaxation all pass. | Empty list. | No tested issue found. |
 | `SYNTAX_OR_RUNTIME_ERROR` | Submission import fails, `build_model` is missing, `build_model` raises, configured scaling raises, or optimization raises before a solver status is available. | `{"check": "submission", "message": "...", "error_type": "..."}`. | Submission or problem/config issue. |
-| `SOLVER_STATUS_ERROR` | Original, scaled, or relaxed model solves to a non-optimal Gurobi status when optimality is required. | `check`, `message`, transformed factor or relaxation name, and observed solver status. | Submission/model issue or intentionally infeasible transformed instance. |
-| `RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL` | Model runs, but `cost_scaling` objective relation or `constraint_relaxation` objective relation fails. | `check`, `message`, observed objective values, configured tolerance, and transformation details. | Runnable semantic modeling issue. |
-| `UNSUPPORTED_MODEL_FEATURE` | ModelIR extraction sees unsupported Gurobi features, such as quadratic constraints or multiple objectives. | `{"check": "model_ir", "message": "unsupported model features: ..."}`. | Out-of-scope model feature. |
+| `SOLVER_STATUS_ERROR` | Original, scaled, relaxed, or required scenario model reaches the wrong Gurobi status when a specific status is required. | `check`, `message`, transformed factor, relaxation name, scenario name, and observed solver status. | Submission/model issue or intentionally infeasible transformed instance. |
+| `RUNNABLE_BUT_WRONG_SEMANTIC_TEST_FAIL` | Model runs, but a configured cost-scaling, constraint-relaxation, goal-programming, or scenario objective check fails. | `check`, `message`, observed objective values, configured tolerance, and transformation details. | Runnable semantic modeling issue. |
+| `UNSUPPORTED_MODEL_FEATURE` | ModelIR extraction sees unsupported Gurobi features, such as quadratic constraints or multiple objectives, or sees quadratic objective terms without `problem_type` `QP`/`MIQP`. | `{"check": "model_ir", "message": "unsupported model features: ..."}`. | Out-of-scope model feature. |
 
 The cost-scaling PRD names the core classifications in
 `.trellis/tasks/archive/2026-05/05-15-or-ci-cost-scaling-verifier/prd.md`. The
@@ -153,5 +153,6 @@ Only read objective values when `is_optimal` is true.
   structure only.
 - Do not assert identical variable values between original and scaled runs; the
   cost-scaling invariant is objective-based.
-- Do not classify unsupported quadratic/general/multi-objective features as
-  ordinary runtime errors. Use `UNSUPPORTED_MODEL_FEATURE`.
+- Do not classify unsupported quadratic constraints, general constraints, or
+  multi-objective features as ordinary runtime errors. Use
+  `UNSUPPORTED_MODEL_FEATURE`.

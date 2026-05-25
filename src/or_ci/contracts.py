@@ -42,12 +42,59 @@ class ConstraintRelaxationConfig:
 
 
 @dataclass(frozen=True)
+class LinearExpressionConfig:
+    variables: dict[str, float]
+    constant: float = 0.0
+
+
+@dataclass(frozen=True)
+class GoalSpec:
+    name: str
+    expression: LinearExpressionConfig
+    weight: float | None = None
+    priority: int | None = None
+    priority_weight: float | None = None
+
+
+@dataclass(frozen=True)
+class GoalProgrammingConfig:
+    mode: str
+    objective_sense: str
+    goals: list[GoalSpec]
+    tolerance_abs: float = 1e-6
+    tolerance_rel: float = 1e-6
+
+
+@dataclass(frozen=True)
+class ObjectiveCheckConfig:
+    value: float
+    relation: str = "equal"
+    tolerance_abs: float = 1e-6
+    tolerance_rel: float = 1e-6
+
+
+@dataclass(frozen=True)
+class ScenarioMetadata:
+    name: str
+    instance: dict[str, Any]
+    expected_solver_status: str
+    problem_type: str = "LP"
+    cost_scaling: CostScalingConfig | None = None
+    constraint_relaxation: ConstraintRelaxationConfig | None = None
+    goal_programming: GoalProgrammingConfig | None = None
+    objective_check: ObjectiveCheckConfig | None = None
+    required: bool = True
+
+
+@dataclass(frozen=True)
 class ProblemMetadata:
     id: str
     problem_type: str
-    instance: dict[str, Any]
-    cost_scaling: CostScalingConfig
+    instance: dict[str, Any] = field(default_factory=dict)
+    cost_scaling: CostScalingConfig | None = None
     constraint_relaxation: ConstraintRelaxationConfig | None = None
+    goal_programming: GoalProgrammingConfig | None = None
+    scenarios: list[ScenarioMetadata] = field(default_factory=list)
     evaluation_only: dict[str, Any] = field(default_factory=dict)
 
 
@@ -60,10 +107,18 @@ class VariableIR:
 
 
 @dataclass(frozen=True)
+class QuadraticTermIR:
+    var1: str
+    var2: str
+    coefficient: float
+
+
+@dataclass(frozen=True)
 class ObjectiveIR:
     sense: str
     coefficients: dict[str, float]
     constant: float = 0.0
+    quadratic_terms: list[QuadraticTermIR] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
