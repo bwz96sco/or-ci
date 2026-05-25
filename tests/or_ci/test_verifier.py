@@ -275,7 +275,7 @@ def build_model(data):
     )
 
 
-def _write_multi_scenario_problem(path: Path) -> None:
+def _write_multi_scenario_problem(path: Path, *, base_required: bool = True) -> None:
     path.write_text(
         json.dumps(
             {
@@ -286,6 +286,7 @@ def _write_multi_scenario_problem(path: Path) -> None:
                         "name": "base_infeasible",
                         "instance": {"case": "base", "objective": 0.0},
                         "expected_solver_status": "INFEASIBLE",
+                        "required": base_required,
                     },
                     {
                         "name": "rental_feasible",
@@ -590,3 +591,25 @@ def test_multi_scenario_wrong_status_fails_aggregate(tmp_path) -> None:
 
     assert report.classification == Classification.SOLVER_STATUS_ERROR
     assert report.failures[0]["check"] == "scenario_solver_status"
+
+
+def test_multi_scenario_optional_wrong_status_does_not_fail_aggregate(tmp_path) -> None:
+    problem_path = tmp_path / "problem.json"
+    submission_path = tmp_path / "submission.py"
+    _write_multi_scenario_problem(problem_path, base_required=False)
+    _write_scenario_submission(submission_path, force_wrong_status=True)
+
+    report = verify(problem_path, submission_path)
+
+    assert report.classification == Classification.SUCCESS
+    assert report.status.value == "PASS"
+    assert report.model_ir_summary["required_scenarios"] == 1
+    assert any(
+        check.name == "scenario_solver_status"
+        and check.status == "FAIL"
+        and check.details["scenario"] == "base_infeasible"
+        and check.details["required"] is False
+        for check in report.checks
+    )
+    assert report.failures[0]["check"] == "scenario_solver_status"
+    assert report.failures[0]["required"] is False

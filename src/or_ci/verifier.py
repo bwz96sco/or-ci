@@ -567,7 +567,7 @@ def _verify_scenarios(problem: ProblemMetadata, submission: str, build_model: An
                 }
             )
             scenario_classification = Classification.SYNTAX_OR_RUNTIME_ERROR
-        if scenario_classification is not None and classification == Classification.SUCCESS:
+        if scenario_classification is not None and scenario.required and classification == Classification.SUCCESS:
             classification = scenario_classification
 
     return _report(problem, submission, classification, solver_status, model_ir_summary, checks, failures)
