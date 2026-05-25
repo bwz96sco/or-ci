@@ -14,3 +14,9 @@ build/
 # Local/generated scale pilot run artifacts.
 /artifacts/pilot/statement-solve-scale-*/
 /artifacts
+
+# Local agent and workspace files (excluded from public mirror).
+/.claude/
+/.codex/
+/.cursor/
+/.trellis/workspace/
