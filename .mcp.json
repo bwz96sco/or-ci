@@ -2,13 +2,21 @@
   "mcpServers": {
     "gitnexus": {
       "type": "stdio",
-      "command": "npx",
-      "args": [
-        "-y",
-        "gitnexus",
-        "mcp"
-      ],
+      "command": "gitnexus",
+      "args": ["mcp"],
       "env": {}
+    },
+    "serena": {
+      "type": "stdio",
+      "command": "serena",
+      "args": [
+        "start-mcp-server",
+        "--project-from-cwd",
+        "--context=claude-code"
+      ],
+      "env": {
+        "MCP_TIMEOUT": "60000"
+      }
     }
   }
 }
