@@ -1,0 +1,2 @@
+{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "Preserve OR-CI verifier boundary and uv test workflow"}
+{"file": ".trellis/spec/backend/directory-structure.md", "reason": "OR-LLM-Agent owns producer/source-fidelity logic"}
