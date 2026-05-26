@@ -1,0 +1,5 @@
+{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/build_baseline_response_intake.py","reason":"Authoritative staged-response validation and promotion gate for baseline rows."}
+{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/build_baseline_response_capture.py","reason":"Verifies canonical raw response capture remains absent or consistent after the retry."}
+{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/build_baseline_response_operator_queue.py","reason":"Verifies operator queue state after a staged success or failure-only attempt."}
+{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_readiness.py","reason":"Ensures report readiness remains claim-safe after the retry."}
+{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/build_next_stage_execution_board.py","reason":"Ensures the consolidated execution board reflects current evidence gates."}
