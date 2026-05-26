@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "Validation commands and no-provider-call/no-fabrication boundary"}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/source-fidelity-rater-a-labels-blank-v2-2026-05-26.csv", "reason": "Capstone source label sheet"}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-layered-verification-50case-2026-05-22/source-fidelity-50case-rater-a-labels-blank-v2-2026-05-26.csv", "reason": "50-case source label sheet"}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-rater-a-labels-blank-v2-2026-05-26.csv", "reason": "External source label sheet"}
