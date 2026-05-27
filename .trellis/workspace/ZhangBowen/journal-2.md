@@ -64,7 +64,14 @@ Added a paper-pack cost evidence finalization gate with operator-editable inputs
 
 ### Main Changes
 
-(Add details)
+- Added `stage_returned_human_time_log.py` in the notes vault to validate
+  returned `human-time-log.csv` files, preview canonical event rows, reject
+  malformed or duplicate evidence, and append only with `--execute`.
+- Corrected the cold-protocol bundle time-log role from `cold_rater` to the
+  canonical `second_rater`.
+- Regenerated dispatch, send-packet, readiness, paper-gate, and smoke artifacts
+  so returned time-log intake is discoverable without recording any human-time
+  events.
 
 ### Git Commits
 
@@ -74,7 +81,15 @@ Added a paper-pack cost evidence finalization gate with operator-editable inputs
 
 ### Testing
 
-- [OK] (Add test results)
+- [OK] `stage_returned_human_time_log.py --check`
+- [OK] `stage_returned_human_time_log.py --self-test`
+- [OK] `build_human_time_evidence_readiness.py --check`
+- [OK] `build_evidence_gate_smoke_report.py --check` -> 82 commands passed,
+  `report_ready=false`
+- [OK] `wc -l human-time-evidence-events-2026-05-27.csv` -> 1 header line
+- [OK] `uv run pytest` -> 42 passed
+- [OK] `npx gitnexus detect-changes --repo or-ci --scope all` -> no changes
+  detected
 
 ### Status
 
@@ -381,6 +396,55 @@ Added rater-facing human-time-log.csv templates to cold, capstone, Phase 2, and 
 ### Testing
 
 - [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
+
+
+## Session 70: Wire returned time-log intake
+
+**Date**: 2026-05-27
+**Task**: Wire returned time-log intake
+**Branch**: `main`
+
+### Summary
+
+Added guarded returned human-time-log staging, corrected cold time-log role to second_rater, regenerated notes evidence artifacts, and verified 82-command smoke plus OR-CI pytest.
+
+### Main Changes
+
+- Added `stage_returned_human_time_log.py` in the notes vault to validate
+  returned `human-time-log.csv` files, preview canonical event rows, reject
+  malformed or duplicate evidence, and append only with `--execute`.
+- Corrected the cold-protocol bundle time-log role from `cold_rater` to the
+  canonical `second_rater`.
+- Regenerated dispatch, send-packet, readiness, paper-gate, and smoke artifacts
+  so returned time-log intake is discoverable without recording any human-time
+  events.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `629d10c` | (see git log) |
+| `04710e1` | (see git log) |
+
+### Testing
+
+- [OK] `stage_returned_human_time_log.py --check`
+- [OK] `stage_returned_human_time_log.py --self-test`
+- [OK] `build_human_time_evidence_readiness.py --check`
+- [OK] `build_evidence_gate_smoke_report.py --check` -> 82 commands passed,
+  `report_ready=false`
+- [OK] `wc -l human-time-evidence-events-2026-05-27.csv` -> 1 header line
+- [OK] `uv run pytest` -> 42 passed
+- [OK] `npx gitnexus detect-changes --repo or-ci --scope all` -> no changes
+  detected
 
 ### Status
 
