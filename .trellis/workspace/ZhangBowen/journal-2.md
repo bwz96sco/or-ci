@@ -158,7 +158,17 @@ Added a guarded notes-side outbox preflight for human-evidence dispatch waves, w
 
 ### Main Changes
 
-(Add details)
+- Added `build_cold_protocol_courier_package.py` in the notes-vault labeling
+  operations folder.
+- Generated `cold-protocol-courier-package-2026-05-27/` with the rater ZIP
+  copy, `rater-message.txt`, `COURIER-README.md`, `courier-manifest.json`,
+  and `courier-checksums.csv`.
+- Generated companion `cold-protocol-courier-package-2026-05-27.{json,md}`
+  summaries.
+- Wired courier check/self-test into the evidence-gate smoke report, increasing
+  the smoke surface to 88 non-mutating commands.
+- Refreshed roadmap/review-sync action notes to point at the courier folder for
+  immediate cold-check dispatch.
 
 ### Git Commits
 
@@ -169,7 +179,11 @@ Added a guarded notes-side outbox preflight for human-evidence dispatch waves, w
 
 ### Testing
 
-- [OK] (Add test results)
+- [OK] `build_cold_protocol_courier_package.py --check`
+- [OK] `build_cold_protocol_courier_package.py --self-test`
+- [OK] `build_evidence_gate_smoke_report.py --check`
+- [OK] `uv run pytest` (42 passed)
+- [OK] `npx gitnexus detect-changes --repo or-ci --scope all`
 
 ### Status
 
@@ -536,6 +550,40 @@ Added notes-vault adjudication operator runbook, wired its non-mutating checks i
 - [OK] `build_evidence_gate_smoke_report.py --check`
 - [OK] `uv run pytest` (42 passed)
 - [OK] `npx gitnexus detect-changes --repo or-ci --scope all`
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
+
+
+## Session 73: Cold protocol courier package
+
+**Date**: 2026-05-27
+**Task**: Cold protocol courier package
+**Branch**: `main`
+
+### Summary
+
+Added a ready-to-send cold protocol courier folder with ZIP copy, rater message, manifest, checksums, and post-send/post-return commands; wired checks into the 88-command smoke gate while keeping report_ready=false.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `6c2934d` | (see git log) |
+| `b9c679f` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
 
 ### Status
 
