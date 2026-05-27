@@ -1,0 +1,4 @@
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_cold_protocol_review_gate.py", "reason": "Authoritative decision schema and review-gate validation logic."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/cold-protocol-review-2026-05-27/protocol-review-decision.csv", "reason": "Operator-editable decision CSV that the recorder must preserve unless --execute is supplied."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/cold-protocol-intake-readiness-2026-05-27.json", "reason": "Cold intake readiness state blocks or allows a protocol review decision."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py", "reason": "Smoke registry must include non-mutating recorder check/self-test."}
