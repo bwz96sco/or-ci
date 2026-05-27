@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-2.md`
-- **Total Sessions**: 71
+- **Total Sessions**: 72
 - **Last Active**: 2026-05-27
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-2.md` | ~489 | Active |
+| `journal-2.md` | ~535 | Active |
 | `journal-1.md` | ~1984 | Archived |
 <!-- @@@/auto:active-documents -->
 
@@ -30,6 +30,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 72 | 2026-05-27 | Adjudication operator runbook | `0430feb`, `4ca3832` | `main` |
 | 71 | 2026-05-27 | Returned artifact staging runbook | `0ffeb3d`, `5cff609` | `main` |
 | 70 | 2026-05-27 | Wire returned time-log intake | `629d10c`, `04710e1` | `main` |
 | 69 | 2026-05-27 | Wire rater time-log returns | `47665a8`, `fd01b1d` | `main` |

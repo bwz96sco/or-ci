@@ -499,3 +499,48 @@ Added generated returned-artifact staging runbook with dry-run and execute comma
 ### Next Steps
 
 - None - task complete
+
+
+## Session 72: Adjudication operator runbook
+
+**Date**: 2026-05-27
+**Task**: Adjudication operator runbook
+**Branch**: `main`
+
+### Summary
+
+Added notes-vault adjudication operator runbook, wired its non-mutating checks into the evidence smoke gate, verified 86 smoke commands, and kept report_ready=false pending external evidence.
+
+### Main Changes
+
+- Added `build_adjudication_operator_runbook.py` in the notes-vault labeling
+  operations folder.
+- Generated `adjudication-operator-runbook-2026-05-27.{json,csv,md}` with
+  capstone, Phase 2, and NL4OPT rows.
+- Wired adjudication runbook check/self-test into the evidence-gate smoke
+  report, increasing the smoke surface to 86 non-mutating commands.
+- Refreshed Claude/Pro review plan notes to record the Oracle Extended Pro
+  recheck and current smoke count.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `0430feb` | (see git log) |
+| `4ca3832` | (see git log) |
+
+### Testing
+
+- [OK] `build_adjudication_operator_runbook.py --check`
+- [OK] `build_adjudication_operator_runbook.py --self-test`
+- [OK] `build_evidence_gate_smoke_report.py --check`
+- [OK] `uv run pytest` (42 passed)
+- [OK] `npx gitnexus detect-changes --repo or-ci --scope all`
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
