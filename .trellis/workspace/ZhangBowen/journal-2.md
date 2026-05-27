@@ -241,3 +241,37 @@ Archived review-plan copy status, wired the cost evidence operator packet into p
 ### Next Steps
 
 - None - task complete
+
+
+## Session 66: Wire dispatch receipt refresh chain
+
+**Date**: 2026-05-27
+**Task**: Wire dispatch receipt refresh chain
+**Branch**: `main`
+
+### Summary
+
+Expanded human-dispatch receipt recorder follow-up commands to refresh ledger, outbox, tracker, paper readiness/draft, execution board, and smoke surfaces after real send/return events; regenerated cold send packet and smoke report while keeping receipt counts and report_ready unchanged.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `a65bf20` | (see git log) |
+| `810efd3` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

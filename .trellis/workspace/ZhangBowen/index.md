@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-2.md`
-- **Total Sessions**: 65
+- **Total Sessions**: 66
 - **Last Active**: 2026-05-27
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-2.md` | ~243 | Active |
+| `journal-2.md` | ~277 | Active |
 | `journal-1.md` | ~1984 | Archived |
 <!-- @@@/auto:active-documents -->
 
@@ -30,6 +30,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 66 | 2026-05-27 | Wire dispatch receipt refresh chain | `a65bf20`, `810efd3` | `main` |
 | 65 | 2026-05-27 | Wire cost operator packet into paper readiness | `772cf63`, `16330dc` | `main` |
 | 64 | 2026-05-27 | Cost evidence operator packet | `8902967`, `2fd014e` | `main` |
 | 63 | 2026-05-27 | Wire dispatch outbox into execution surfaces | `03ce9dc`, `c026010` | `main` |
