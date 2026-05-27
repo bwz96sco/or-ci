@@ -309,3 +309,37 @@ Added canonical post-receipt refresh commands to Phase 2, NL4OPT, and mutation s
 ### Next Steps
 
 - None - task complete
+
+
+## Session 68: Wire human time evidence intake
+
+**Date**: 2026-05-27
+**Task**: Wire human time evidence intake
+**Branch**: `main`
+
+### Summary
+
+Implemented a guarded human-time evidence event log/readiness surface in the notes vault, wired it into cost operator and paper readiness gates, added smoke checks, verified 80-command smoke plus pytest, and archived the Trellis task.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `dd97252` | (see git log) |
+| `283af9e` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-2.md`
-- **Total Sessions**: 67
+- **Total Sessions**: 68
 - **Last Active**: 2026-05-27
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-2.md` | ~311 | Active |
+| `journal-2.md` | ~345 | Active |
 | `journal-1.md` | ~1984 | Archived |
 <!-- @@@/auto:active-documents -->
 
@@ -30,6 +30,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 68 | 2026-05-27 | Wire human time evidence intake | `dd97252`, `283af9e` | `main` |
 | 67 | 2026-05-27 | Wire parallel dispatch receipt refresh guidance | `7fca4c1`, `5ad44e3` | `main` |
 | 66 | 2026-05-27 | Wire dispatch receipt refresh chain | `a65bf20`, `810efd3` | `main` |
 | 65 | 2026-05-27 | Wire cost operator packet into paper readiness | `772cf63`, `16330dc` | `main` |
