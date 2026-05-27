@@ -1,0 +1,3 @@
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_human_dispatch_receipt_ledger.py", "reason": "Receipt-events intake validation and self-test."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/human-dispatch-receipt-ledger-2026-05-27.json", "reason": "Generated ledger must preserve current zero-send/zero-return state."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json", "reason": "Smoke gate must still pass with receipt-events intake included."}
