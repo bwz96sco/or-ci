@@ -1,0 +1,3 @@
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/paper-evidence-pack-draft-2026-05-27.json", "reason": "Generated draft must stay blocked/non-final while required evidence is missing."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/paper-evidence-pack-draft-2026-05-27.md", "reason": "Markdown draft must show section placeholders and forbidden-claim discipline."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json", "reason": "Smoke must include the draft builder and keep report_ready=false."}
