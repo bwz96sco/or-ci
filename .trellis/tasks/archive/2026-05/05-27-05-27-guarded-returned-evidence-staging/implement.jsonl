@@ -1,0 +1,6 @@
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_cold_protocol_intake.py", "reason": "Cold-check intake target and rater row validation patterns."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_capstone_label_intake.py", "reason": "Capstone rater A/B intake target and row validation patterns."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_phase2_50case_label_intake.py", "reason": "Phase 2 rater A/B intake target and row validation patterns."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_nl4opt_label_intake.py", "reason": "NL4OPT rater A/B intake target and row validation patterns."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/build_mutation_seed_review_intake.py", "reason": "Mutation seed-review staging target and validation patterns."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py", "reason": "Smoke registry must include non-mutating staging helper checks."}
