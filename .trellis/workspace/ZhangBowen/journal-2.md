@@ -112,7 +112,12 @@ Added a guarded notes-side paper evidence-pack draft builder, generated blocked/
 
 ### Main Changes
 
-(Add details)
+- Added `build_returned_artifact_staging_runbook.py` and generated
+  `returned-artifact-staging-runbook-2026-05-27.{json,csv,md}` in the notes
+  vault.
+- Captured 9 actionable dry-run/execute staging rows for cold, Phase 2, NL4OPT,
+  and mutation seed-review returns, plus 3 blocked capstone context rows.
+- Wired the runbook check and self-test into the evidence-gate smoke report.
 
 ### Git Commits
 
@@ -123,7 +128,14 @@ Added a guarded notes-side paper evidence-pack draft builder, generated blocked/
 
 ### Testing
 
-- [OK] (Add test results)
+- [OK] `build_returned_artifact_staging_runbook.py --check`
+- [OK] `build_returned_artifact_staging_runbook.py --self-test`
+- [OK] `build_evidence_gate_smoke_report.py --check` -> 84 commands passed,
+  `report_ready=false`
+- [OK] human-time event CSV remains one header line with `event_count=0`
+- [OK] `uv run pytest` -> 42 passed
+- [OK] `npx gitnexus detect-changes --repo or-ci --scope all` -> no changes
+  detected
 
 ### Status
 
@@ -445,6 +457,40 @@ Added guarded returned human-time-log staging, corrected cold time-log role to s
 - [OK] `uv run pytest` -> 42 passed
 - [OK] `npx gitnexus detect-changes --repo or-ci --scope all` -> no changes
   detected
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
+
+
+## Session 71: Returned artifact staging runbook
+
+**Date**: 2026-05-27
+**Task**: Returned artifact staging runbook
+**Branch**: `main`
+
+### Summary
+
+Added generated returned-artifact staging runbook with dry-run and execute commands for returned labels, time logs, seed reviews, and blocked capstone context; smoke now covers 84 commands while report_ready remains false.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `0ffeb3d` | (see git log) |
+| `5cff609` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
 
 ### Status
 
