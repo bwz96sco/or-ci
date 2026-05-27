@@ -207,3 +207,37 @@ Added a guarded cost-evidence operator packet for the six missing final-cost inp
 ### Next Steps
 
 - None - task complete
+
+
+## Session 65: Wire cost operator packet into paper readiness
+
+**Date**: 2026-05-27
+**Task**: Wire cost operator packet into paper readiness
+**Branch**: `main`
+
+### Summary
+
+Archived review-plan copy status, wired the cost evidence operator packet into paper readiness/draft proof artifacts, regenerated smoke/readiness outputs, and kept report_ready=false pending external evidence.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `772cf63` | (see git log) |
+| `16330dc` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
