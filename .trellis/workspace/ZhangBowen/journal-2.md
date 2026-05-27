@@ -139,3 +139,37 @@ Added a guarded notes-side outbox preflight for human-evidence dispatch waves, w
 ### Next Steps
 
 - None - task complete
+
+
+## Session 63: Wire dispatch outbox into execution surfaces
+
+**Date**: 2026-05-27
+**Task**: Wire dispatch outbox into execution surfaces
+**Branch**: `main`
+
+### Summary
+
+Wired the guarded human-dispatch outbox preflight into the human-evidence tracker and next-stage execution board, regenerated dependent artifacts and smoke output, and archived the Trellis task without creating external evidence claims.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `03ce9dc` | (see git log) |
+| `c026010` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

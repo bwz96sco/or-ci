@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-2.md`
-- **Total Sessions**: 62
+- **Total Sessions**: 63
 - **Last Active**: 2026-05-27
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-2.md` | ~141 | Active |
+| `journal-2.md` | ~175 | Active |
 | `journal-1.md` | ~1984 | Archived |
 <!-- @@@/auto:active-documents -->
 
@@ -30,6 +30,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 63 | 2026-05-27 | Wire dispatch outbox into execution surfaces | `03ce9dc`, `c026010` | `main` |
 | 62 | 2026-05-27 | Human dispatch outbox preflight | `2fd6b3a`, `623bddc` | `main` |
 | 61 | 2026-05-27 | Guarded paper evidence-pack draft | `0827284`, `7f51854` | `main` |
 | 60 | 2026-05-27 | Cost evidence finalization gate | `f12b2e0` | `main` |
