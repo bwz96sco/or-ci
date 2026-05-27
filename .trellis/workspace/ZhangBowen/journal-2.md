@@ -105,3 +105,37 @@ Added a guarded notes-side paper evidence-pack draft builder, generated blocked/
 ### Next Steps
 
 - None - task complete
+
+
+## Session 62: Human dispatch outbox preflight
+
+**Date**: 2026-05-27
+**Task**: Human dispatch outbox preflight
+**Branch**: `main`
+
+### Summary
+
+Added a guarded notes-side outbox preflight for human-evidence dispatch waves, wired it into the 76-command evidence-gate smoke report, and archived the Trellis task without recording sends or creating evidence claims.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `2fd6b3a` | (see git log) |
+| `623bddc` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
