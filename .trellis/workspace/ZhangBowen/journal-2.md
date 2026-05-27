@@ -19,7 +19,13 @@ Extended the returned-evidence staging helper so valid returned CSV previews pri
 
 ### Main Changes
 
-(Add details)
+- Added generated `human-time-log.csv` templates to the cold protocol,
+  capstone, Phase 2 50-case, and NL4OPT rater bundles.
+- Updated rater instructions, README/checklist text, distribution summaries,
+  dispatch briefs, and send packets so returned time logs become human-time
+  provenance without recording any minutes.
+- Refreshed affected ZIP packages, checksums, human dispatch surfaces, paper
+  readiness snapshots, and the smoke report.
 
 ### Git Commits
 
@@ -29,7 +35,13 @@ Extended the returned-evidence staging helper so valid returned CSV previews pri
 
 ### Testing
 
-- [OK] (Add test results)
+- [OK] `uv run pytest` -> 42 passed.
+- [OK] Targeted rater bundle, distribution, send-packet, receipt-ledger, and
+  human-time readiness checks/self-tests passed.
+- [OK] Full evidence-gate smoke: 80 commands, `all_smoke_gates_passed`,
+  `report_ready=false`.
+- [OK] `npx gitnexus detect-changes --repo or-ci --scope all` -> no changes
+  detected.
 
 ### Status
 
@@ -331,6 +343,40 @@ Implemented a guarded human-time evidence event log/readiness surface in the not
 |------|---------|
 | `dd97252` | (see git log) |
 | `283af9e` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
+
+
+## Session 69: Wire rater time-log returns
+
+**Date**: 2026-05-27
+**Task**: Wire rater time-log returns
+**Branch**: `main`
+
+### Summary
+
+Added rater-facing human-time-log.csv templates to cold, capstone, Phase 2, and NL4OPT bundles; regenerated distribution/send surfaces; verified full evidence smoke remains green with report_ready=false.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `47665a8` | (see git log) |
+| `fd01b1d` | (see git log) |
 
 ### Testing
 
