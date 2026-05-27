@@ -173,3 +173,37 @@ Wired the guarded human-dispatch outbox preflight into the human-evidence tracke
 ### Next Steps
 
 - None - task complete
+
+
+## Session 64: Cost evidence operator packet
+
+**Date**: 2026-05-27
+**Task**: Cost evidence operator packet
+**Branch**: `main`
+
+### Summary
+
+Added a guarded cost-evidence operator packet for the six missing final-cost inputs, wired it into the 78-command smoke gate, and archived the Trellis task without recording cost values or advancing paper claims.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `8902967` | (see git log) |
+| `2fd014e` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
