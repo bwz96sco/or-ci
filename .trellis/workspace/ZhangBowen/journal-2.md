@@ -275,3 +275,37 @@ Expanded human-dispatch receipt recorder follow-up commands to refresh ledger, o
 ### Next Steps
 
 - None - task complete
+
+
+## Session 67: Wire parallel dispatch receipt refresh guidance
+
+**Date**: 2026-05-27
+**Task**: Wire parallel dispatch receipt refresh guidance
+**Branch**: `main`
+
+### Summary
+
+Added canonical post-receipt refresh commands to Phase 2, NL4OPT, and mutation seed-review dispatch packets; regenerated smoke while preserving sent/returned counts and report_ready=false.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `7fca4c1` | (see git log) |
+| `5ad44e3` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
