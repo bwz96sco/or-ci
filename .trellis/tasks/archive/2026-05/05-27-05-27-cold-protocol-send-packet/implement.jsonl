@@ -1,0 +1,4 @@
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/cold-protocol-dispatch-brief-2026-05-27.md", "reason": "Current coordinator-facing source for cold-protocol send details."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/human-dispatch-wave-plan-2026-05-27.json", "reason": "Primary wave and send-state source."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/human-dispatch-receipt-ledger-2026-05-27.json", "reason": "Receipt state that must remain unsent before generating a send packet."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py", "reason": "Smoke gate to extend with send-packet check/self-test."}
