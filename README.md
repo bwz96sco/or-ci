@@ -22,6 +22,19 @@ uv run or-ci verify \
   --out report.json
 ```
 
+To bundle source-statement provenance with verifier output for downstream review:
+
+```bash
+uv run or-ci evidence-pack \
+  --statement statement.txt \
+  --problem tests/fixtures/bwor/BWOR-002/problem.json \
+  --submission tests/fixtures/bwor/BWOR-002/correct.py \
+  --out evidence-pack.json
+```
+
+The evidence pack is deterministic verifier evidence. It does not parse the
+statement, call an LLM, or prove source-statement fidelity.
+
 ## Tests
 
 ```bash

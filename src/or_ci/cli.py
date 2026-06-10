@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from or_ci.evidence_pack import build_evidence_pack, write_evidence_pack
 from or_ci.metadata import MetadataError, load_problem_metadata
 from or_ci.report import write_report
 from or_ci.verifier import verify
@@ -15,6 +16,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command == "verify":
         return _verify_command(args)
+    if args.command == "evidence-pack":
+        return _evidence_pack_command(args)
     if args.command == "validate-spec":
         return _validate_spec_command(args)
     parser.print_help()
@@ -29,6 +32,12 @@ def _build_parser() -> argparse.ArgumentParser:
     verify_parser.add_argument("--problem", required=True, type=Path)
     verify_parser.add_argument("--submission", required=True, type=Path)
     verify_parser.add_argument("--out", required=True, type=Path)
+
+    evidence_parser = subparsers.add_parser("evidence-pack", help="write a source-linked OR-CI evidence pack")
+    evidence_parser.add_argument("--statement", required=True, type=Path)
+    evidence_parser.add_argument("--problem", required=True, type=Path)
+    evidence_parser.add_argument("--submission", required=True, type=Path)
+    evidence_parser.add_argument("--out", required=True, type=Path)
 
     validate_parser = subparsers.add_parser("validate-spec", help="validate OR-CI problem metadata")
     validate_parser.add_argument("--problem", required=True, type=Path)
@@ -45,6 +54,22 @@ def _verify_command(args: argparse.Namespace) -> int:
     except MetadataError as exc:
         raise SystemExit(f"invalid problem metadata: {exc}") from exc
     write_report(report, args.out)
+    return 0
+
+
+def _evidence_pack_command(args: argparse.Namespace) -> int:
+    if not args.statement.is_file():
+        raise SystemExit(f"statement file does not exist: {args.statement}")
+    if not args.problem.is_file():
+        raise SystemExit(f"problem file does not exist: {args.problem}")
+    if not args.submission.is_file():
+        raise SystemExit(f"submission file does not exist: {args.submission}")
+    try:
+        report = verify(args.problem, args.submission)
+        pack = build_evidence_pack(args.statement, args.problem, args.submission, report)
+    except MetadataError as exc:
+        raise SystemExit(f"invalid problem metadata: {exc}") from exc
+    write_evidence_pack(pack, args.out)
     return 0
 
 
