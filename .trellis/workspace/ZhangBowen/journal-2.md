@@ -745,3 +745,38 @@ Built deterministic leakage-audited judge packets for the constructed source-fid
 ### Next Steps
 
 - None - task complete
+
+
+## Session 78: LLM judge pilot queue
+
+**Date**: 2026-06-10
+**Task**: LLM judge pilot queue
+**Branch**: `main`
+
+### Summary
+
+Built the queued LLM judge prompt runner and recorded the external response barrier for the constructed fault pilot.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `b328cc7` | (see git log) |
+| `e62b957` | (see git log) |
+| `0dbccd9` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
