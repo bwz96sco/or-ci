@@ -710,3 +710,38 @@ Built deterministic acceptance-layer replay over the 10 material-valid construct
 ### Next Steps
 
 - Decide the next research route: run LLM judge variants on the fixed 10-mutant denominator, or scale deterministic constructed-fault replay toward the 29-seed queue.
+
+
+## Session 77: Constructed fault judge packets
+
+**Date**: 2026-06-10
+**Task**: Constructed fault judge packets
+**Branch**: `main`
+
+### Summary
+
+Built deterministic leakage-audited judge packets for the constructed source-fidelity pilot and archived the Trellis task.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `4d7d80f` | (see git log) |
+| `82039f5` | (see git log) |
+| `93c02fa` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
