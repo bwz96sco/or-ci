@@ -668,3 +668,45 @@ Generated 15 pilot constructed-fault mutants from the planning manifest, ran the
 ### Next Steps
 
 - Run acceptance-layer replay on the 10 material-valid mutants: answer-only, OR-CI verifier-only, and layered source-fidelity acceptance tables.
+
+
+## Session 76: Constructed fault acceptance replay
+
+**Date**: 2026-06-10
+**Task**: Constructed fault acceptance replay
+**Branch**: `main`
+
+### Summary
+
+Built deterministic acceptance-layer replay over the 10 material-valid constructed mutants. Generated replay and summary ledgers, refreshed research-experiment result/claim audit files, and found execution-only false accepts 10/10, mutant-reference answer-only false accepts 10/10, OR-CI-only false accepts 9/10, and OR-CI plus deterministic source-fidelity oracle false accepts 0/10.
+
+### Main Changes
+
+- Implemented `run_acceptance_layer_replay.py` in the OR-research constructed-fault experiment pack.
+- Added acceptance-layer output constants to `constructed_fault_common.py`.
+- Generated `acceptance_layer_replay_ledger.*`, `acceptance_layer_summary.*`, and `acceptance_layer_execution_log.md`.
+- Updated `03_run_plan.md`, `run_matrix.yaml`, `execution_log.md`, `results_ledger.csv`, `result_audit.md`, `claim_ledger.csv`, and `claim_update.md`.
+- Archived Trellis task `06-10-constructed-fault-acceptance-replay`.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `b2d2cce` | chore(trellis): add constructed fault acceptance replay task |
+| `a2d288d` | Add constructed fault acceptance replay |
+
+### Testing
+
+- [OK] `run_acceptance_layer_replay.py --check` passed: 10 material mutants, 9 OR-CI false accepts, 0 layered false accepts.
+- [OK] Python compile check passed for `constructed_fault_common.py` and `run_acceptance_layer_replay.py`.
+- [OK] `validate_experiment_pack.py --strict-claim-audit` passed for the experiment pack.
+- [OK] `uv run pytest` passed: 42 tests.
+- [OK] GitNexus staged-scope checks reported no indexed code changes for Trellis metadata commits.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Decide the next research route: run LLM judge variants on the fixed 10-mutant denominator, or scale deterministic constructed-fault replay toward the 29-seed queue.

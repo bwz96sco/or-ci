@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-2.md`
-- **Total Sessions**: 75
+- **Total Sessions**: 76
 - **Last Active**: 2026-06-10
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-2.md` | ~662 | Active |
+| `journal-2.md` | ~704 | Active |
 | `journal-1.md` | ~1984 | Archived |
 <!-- @@@/auto:active-documents -->
 
@@ -30,6 +30,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 76 | 2026-06-10 | Constructed fault acceptance replay | `b2d2cce`, `a2d288d` | `main` |
 | 75 | 2026-06-10 | Constructed fault materiality pilot | `b7de7b8`, `912bebc` | `main` |
 | 74 | 2026-06-10 | Constructed fault pilot inventory builders | `e78415b`, `b76566f` | `main` |
 | 73 | 2026-05-27 | Cold protocol courier package | `6c2934d`, `b9c679f` | `main` |
