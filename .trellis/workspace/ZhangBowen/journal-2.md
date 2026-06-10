@@ -206,7 +206,11 @@ Wired the guarded human-dispatch outbox preflight into the human-evidence tracke
 
 ### Main Changes
 
-(Add details)
+- Created the constructed-fault mutant generator and materiality oracle in the OR-research experiment pack.
+- Generated 15 concrete mutant ProblemSpecs from `pilot_mutation_plan.csv`.
+- Ran OR-CI verification against each mutant using the original seed submission.
+- Wrote `mutation_generation_ledger.*`, `materiality_ledger.*`, `execution_log.md`, `results_ledger.csv`, `result_audit.md`, `claim_ledger.csv`, and `claim_update.md`.
+- Archived Trellis task `06-10-constructed-fault-mutant-materiality`.
 
 ### Git Commits
 
@@ -626,3 +630,41 @@ Built no-human-label seed inventory, fault-family applicability, and pilot mutat
 ### Next Steps
 
 - None - task complete
+
+
+## Session 75: Constructed fault materiality pilot
+
+**Date**: 2026-06-10
+**Task**: Constructed fault materiality pilot
+**Branch**: `main`
+
+### Summary
+
+Generated 15 pilot constructed-fault mutants from the planning manifest, ran the materiality oracle through OR-CI, validated a strict research-experiment evidence pack, and committed OR-research artifact pack 912bebc. Result: 10 material-valid mutants, 2 silent/equivalent, 3 invalid, ready for acceptance-layer replay.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `b7de7b8` | chore(trellis): add constructed fault materiality task |
+| `912bebc` | Add constructed fault mutant materiality run |
+
+### Testing
+
+- [OK] `generate_pilot_mutants.py --check` passed: 15 generated mutants.
+- [OK] `run_materiality_oracle.py --check` passed: 10 material, 3 invalid.
+- [OK] `validate_experiment_pack.py --strict-claim-audit` passed for the experiment pack.
+- [OK] `uv run pytest` passed: 42 tests.
+- [OK] GitNexus staged-scope checks reported no indexed code changes for Trellis metadata commits.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- Run acceptance-layer replay on the 10 material-valid mutants: answer-only, OR-CI verifier-only, and layered source-fidelity acceptance tables.
