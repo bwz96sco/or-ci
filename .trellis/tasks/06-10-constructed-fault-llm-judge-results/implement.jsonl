@@ -1,0 +1,3 @@
+{"type":"research_artifact","path":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/llm_judge_summary.json","reason":"Current validated LLM judge response summary."}
+{"type":"research_artifact","path":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/llm_judge_results.csv","reason":"Per-request response validation and decision ledger."}
+{"type":"repo_spec","path":".trellis/spec/backend/index.md","reason":"No OR-CI package/provider logic changes."}
