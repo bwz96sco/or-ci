@@ -780,3 +780,38 @@ Built the queued LLM judge prompt runner and recorded the external response barr
 ### Next Steps
 
 - None - task complete
+
+
+## Session 79: LLM judge pilot results
+
+**Date**: 2026-06-10
+**Task**: LLM judge pilot results
+**Branch**: `main`
+
+### Summary
+
+Collected and validated 30 Oracle/browser LLM judge responses for the constructed-fault pilot, recorded false-accept results by judge variant, preserved invalid attempts and Oracle logs, and archived the Trellis task.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `0c0692d` | (see git log) |
+| `9f3177d` | (see git log) |
+| `1d53f78` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
