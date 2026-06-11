@@ -20,6 +20,7 @@ Use `uv` for Python commands:
 ```bash
 uv run or-ci verify --problem <p.json> --submission <m.py> --out <r.json>
 uv run or-ci validate-spec --problem <p.json>
+uv run or-ci evidence-batch --manifest <manifest.csv> --out-dir <dir>
 uv run pytest
 ```
 
@@ -95,6 +96,8 @@ the normal workflow.
 - Wrong constraint fixtures pass cost scaling but fail
   `constraint_relaxation`.
 - CLI smoke writes a valid report file with all canonical top-level keys.
+- Evidence-batch tests cover existing-input rows, formulation materialization,
+  unsupported formulation ledgering, and manual constraint sidecars.
 
 Tests must be deterministic under the pinned Gurobi version, use `OutputFlag = 0`,
 and avoid network calls and LLM APIs. This mirrors
@@ -129,6 +132,8 @@ detect to be reported as coverage misses:
 - Tests cover success, runtime failure, semantic failure, and CLI report output.
 - Solver output is quiet by default.
 - New verifier logic does not import from `or_llm_agent`.
+- Evidence-batch and formulation-adapter logic remains deterministic, has no
+  natural-language parser, and makes no network/LLM calls.
 - QP/MIQP cases reject quadratic constraints and require explicit problem type
   metadata when quadratic objective terms are present.
 - Goal-programming cases include explicit weights or priority weights and fail

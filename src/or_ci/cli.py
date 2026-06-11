@@ -5,6 +5,7 @@ import json
 import sys
 from pathlib import Path
 
+from or_ci.evidence_batch import run_evidence_batch
 from or_ci.evidence_pack import build_evidence_pack, write_evidence_pack
 from or_ci.metadata import MetadataError, load_problem_metadata
 from or_ci.report import write_report
@@ -16,6 +17,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command == "verify":
         return _verify_command(args)
+    if args.command == "evidence-batch":
+        return _evidence_batch_command(args)
     if args.command == "evidence-pack":
         return _evidence_pack_command(args)
     if args.command == "validate-spec":
@@ -38,6 +41,11 @@ def _build_parser() -> argparse.ArgumentParser:
     evidence_parser.add_argument("--problem", required=True, type=Path)
     evidence_parser.add_argument("--submission", required=True, type=Path)
     evidence_parser.add_argument("--out", required=True, type=Path)
+
+    batch_parser = subparsers.add_parser("evidence-batch", help="write source-linked OR-CI evidence packs from a manifest")
+    batch_parser.add_argument("--manifest", required=True, type=Path)
+    batch_parser.add_argument("--out-dir", required=True, type=Path)
+    batch_parser.add_argument("--manual-constraints", type=Path)
 
     validate_parser = subparsers.add_parser("validate-spec", help="validate OR-CI problem metadata")
     validate_parser.add_argument("--problem", required=True, type=Path)
@@ -70,6 +78,16 @@ def _evidence_pack_command(args: argparse.Namespace) -> int:
     except MetadataError as exc:
         raise SystemExit(f"invalid problem metadata: {exc}") from exc
     write_evidence_pack(pack, args.out)
+    return 0
+
+
+def _evidence_batch_command(args: argparse.Namespace) -> int:
+    if not args.manifest.is_file():
+        raise SystemExit(f"manifest file does not exist: {args.manifest}")
+    if args.manual_constraints is not None and not args.manual_constraints.is_file():
+        raise SystemExit(f"manual constraints file does not exist: {args.manual_constraints}")
+    summary = run_evidence_batch(args.manifest, args.out_dir, manual_constraints_path=args.manual_constraints)
+    print(f"wrote evidence batch: {summary['succeeded']} succeeded, {summary['failed']} failed")
     return 0
 
 

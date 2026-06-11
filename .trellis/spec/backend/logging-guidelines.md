@@ -26,6 +26,10 @@ implemented by `src/or_ci/report.py`.
 implemented `validate-spec` command prints `valid problem metadata: <id>` when a
 ProblemSpec is valid.
 
+The implemented `evidence-batch` command prints only a short aggregate success
+message. Durable per-row results belong in `<out-dir>/ledger.csv`,
+`<out-dir>/summary.json`, and the per-row evidence packs.
+
 `stderr` is for CLI-level diagnostics such as invalid problem metadata in
 `validate-spec` or missing CLI input files. Submission failures belong in the
 JSON report, not stderr.
@@ -108,6 +112,14 @@ Include:
 - configured factors, paths, relations, goal weights, priorities, and tolerances
 - ModelIR summary counts
 - concise possible causes from `_possible_causes`
+
+For evidence batches include:
+
+- deterministic `ledger.csv` rows for every manifest row
+- deterministic `summary.json` counts
+- per-row evidence packs under `packs/`
+- materialized generated inputs under `generated/` when formulation rows are
+  used
 
 Keep `possible_causes` generic and actionable. Do not guess private modeler
 intent beyond what checks observed.

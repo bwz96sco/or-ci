@@ -28,6 +28,9 @@ or-ci/
 │       ├── __init__.py
 │       ├── cli.py
 │       ├── contracts.py
+│       ├── evidence_batch.py
+│       ├── evidence_pack.py
+│       ├── formulation_adapter.py
 │       ├── metadata.py
 │       ├── model_ir.py
 │       ├── report.py
@@ -89,6 +92,20 @@ objects, and maps outcomes to `Classification`.
 
 `src/or_ci/report.py` serializes and reads JSON reports. Keep report file I/O
 here; verifier code should return `VerificationReport`, not write files.
+
+`src/or_ci/evidence_pack.py` owns deterministic single-row evidence-pack
+serialization. It links source-statement provenance, OR-CI problem metadata,
+submission identity, the embedded verifier report, answer evidence, and
+source-fidelity non-claims.
+
+`src/or_ci/formulation_adapter.py` owns materialization of small structured
+linear formulations into OR-CI problem metadata plus a generated generic
+`build_model(data)` submission. It is a structured-formulation adapter, not a
+natural-language parser.
+
+`src/or_ci/evidence_batch.py` owns manifest-driven batch evidence production. It
+reads CSV rows, materializes formulation rows when needed, calls the existing
+verifier/evidence-pack path, and writes ledger/summary artifacts.
 
 `src/or_ci/cli.py` owns `argparse` wiring for `verify` and `validate-spec`.
 Keep it thin: path validation, command dispatch, and calls into metadata,

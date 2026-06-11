@@ -318,6 +318,121 @@ Current check names include `original_solver_status`, `cost_scaling`,
 `message` when a classification is not `SUCCESS`. `possible_causes` is generated
 from `Classification` in `src/or_ci/verifier.py`.
 
+## Evidence Batch Contract
+
+### 1. Scope / Trigger
+
+Trigger: `or-ci evidence-batch` adds a CLI/data contract that turns a CSV
+manifest into deterministic evidence-pack artifacts. This is verifier evidence
+only; it must not parse natural-language statements or call LLM/network
+providers.
+
+### 2. Signatures
+
+```bash
+uv run or-ci evidence-batch \
+  --manifest <manifest.csv> \
+  --out-dir <output-dir> \
+  [--manual-constraints <manual.csv>]
+```
+
+### 3. Contracts
+
+Manifest required field:
+
+- `record_id`: stable row id used for ledger rows and output filenames.
+
+Existing OR-CI input row:
+
+- `statement`: source-statement text file path.
+- `problem`: OR-CI problem metadata JSON path.
+- `submission`: Python submission file path.
+
+Structured formulation row:
+
+- `statement`: source-statement text file path.
+- `formulation`: structured linear formulation JSON path.
+- `problem_id`: optional; when provided it must start with `BWOR-`.
+
+Structured formulation JSON supports:
+
+- `vars`: non-empty list of variable names.
+- `obj_declaration.type`: `objective` with `terms`, or `objvar` with `vars`.
+- `obj_declaration.direction`: min/max aliases.
+- `const_declarations`: linear constraints of type `linear`, `lowerbound`,
+  `upperbound`, `sum`, `xby`, `ratio`, or `xy` with manual sidecar support.
+
+Manual constraint sidecar rows are optional and support source-backed
+resolution of `xy` constraints:
+
+- `record_id` or `mutation_id`
+- `constraint_type=xy`
+- `constraint_index`
+- `left_var`
+- `relation_operator`
+- `right_var`
+- `status=active`
+
+Output layout:
+
+```text
+<out-dir>/
+  ledger.csv
+  summary.json
+  generated/<safe-record-id>/problem.json
+  generated/<safe-record-id>/submission.py
+  packs/<safe-record-id>.json
+```
+
+### 4. Validation & Error Matrix
+
+| Condition | Behavior |
+|---|---|
+| Missing manifest path | CLI `SystemExit`: `manifest file does not exist` |
+| Missing manual sidecar path | CLI `SystemExit`: `manual constraints file does not exist` |
+| Row missing `record_id` | Row in `ledger.csv` with `row_status=manifest_error` |
+| Existing-input row missing file | Row in `ledger.csv` with `row_status=row_failed` |
+| Unsupported formulation feature | Row in `ledger.csv` with `row_status=formulation_unsupported` |
+| Verifier returns `FAIL` | Evidence pack is still written; ledger records verifier `classification` |
+
+### 5. Good/Base/Bad Cases
+
+- Good: manifest row with existing `problem` and `submission` writes an evidence
+  pack with schema `or_ci_evidence_pack_v1`.
+- Base: manifest row with supported linear `formulation` materializes
+  `problem.json` and `submission.py`, then writes an evidence pack.
+- Bad: unsupported formulation row is recorded in the ledger without aborting
+  unrelated rows.
+
+### 6. Tests Required
+
+- Existing-input batch row asserts pack schema and ledger success.
+- Formulation row asserts materialized problem shape, verifier `PASS`, and
+  answer evidence.
+- Unsupported formulation row asserts `formulation_unsupported` and summary
+  failure count.
+- Manual `xy` row asserts sidecar variable resolution and generated constraint
+  coefficients.
+
+### 7. Wrong vs Correct
+
+#### Wrong
+
+Treating a source statement as parse input inside OR-CI:
+
+```python
+model = llm_parse_statement(statement_text)
+```
+
+#### Correct
+
+Use the statement only as provenance and verify structured inputs:
+
+```python
+report = verify(problem_path, submission_path)
+pack = build_evidence_pack(statement_path, problem_path, submission_path, report)
+```
+
 ---
 
 ## Metamorphic Checks Catalog

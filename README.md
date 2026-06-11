@@ -35,6 +35,33 @@ uv run or-ci evidence-pack \
 The evidence pack is deterministic verifier evidence. It does not parse the
 statement, call an LLM, or prove source-statement fidelity.
 
+To run a deterministic evidence batch from a CSV manifest:
+
+```bash
+uv run or-ci evidence-batch \
+  --manifest evidence-manifest.csv \
+  --out-dir evidence-batch/
+```
+
+Manifest rows may either provide existing OR-CI inputs:
+
+```csv
+record_id,statement,problem,submission
+case-001,statement.txt,problem.json,submission.py
+```
+
+or a structured linear formulation to materialize into OR-CI inputs:
+
+```csv
+record_id,problem_id,statement,formulation
+case-002,BWOR-BATCH-002,statement.txt,formulation.json
+```
+
+The batch command writes per-row evidence packs, materialized inputs when
+needed, `ledger.csv`, and `summary.json`. It is still verifier-only evidence:
+it does not translate natural language, call an LLM, or make a source-fidelity
+claim from OR-CI `PASS`.
+
 ## Tests
 
 ```bash
