@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-2.md`
-- **Total Sessions**: 79
-- **Last Active**: 2026-06-10
+- **Total Sessions**: 80
+- **Last Active**: 2026-06-11
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-2.md` | ~817 | Active |
+| `journal-2.md` | ~850 | Active |
 | `journal-1.md` | ~1984 | Archived |
 <!-- @@@/auto:active-documents -->
 
@@ -30,6 +30,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 80 | 2026-06-11 | Evidence batch adapter | `ede41d8` | `main` |
 | 79 | 2026-06-10 | LLM judge pilot results | `0c0692d`, `9f3177d`, `1d53f78` | `main` |
 | 78 | 2026-06-10 | LLM judge pilot queue | `b328cc7`, `e62b957`, `0dbccd9` | `main` |
 | 77 | 2026-06-10 | Constructed fault judge packets | `4d7d80f`, `82039f5`, `93c02fa` | `main` |

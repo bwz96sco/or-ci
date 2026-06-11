@@ -815,3 +815,36 @@ Collected and validated 30 Oracle/browser LLM judge responses for the constructe
 ### Next Steps
 
 - None - task complete
+
+
+## Session 80: Evidence batch adapter
+
+**Date**: 2026-06-11
+**Task**: Evidence batch adapter
+**Branch**: `main`
+
+### Summary
+
+Added deterministic OR-CI evidence-batch adapter, generated external verifier evidence in OR-research commit 4d988a2, and validated with pytest, diff checks, GitNexus changed-scope scan, and LaTeX rebuild.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `ede41d8` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
