@@ -13,6 +13,8 @@ from or_ci.nl4opt_audit import (
     parse_number,
     read_jsonl,
     result_matches_answer,
+    serialize_mechanisms,
+    solver_reports_agree,
     solve_target,
     validate_source_manifest,
 )
@@ -134,6 +136,24 @@ def test_result_matching_normalizes_solver_status_case_without_accepting_closure
         {"status": "OPTIMAL_CLOSURE_RELAXATION_STRICT_SOURCE_UNRESOLVED", "objective": 5.0},
         "5",
     )
+
+
+def test_serialize_mechanisms_handles_strings_and_structured_items() -> None:
+    assert serialize_mechanisms(["plain", {"name": "strict_relation", "status": "ambiguous"}]) == (
+        'plain;{"name": "strict_relation", "status": "ambiguous"}'
+    )
+
+
+def test_solver_reports_agree_normalizes_status_case() -> None:
+    left = {
+        "continuous": {"status": "OPTIMAL", "objective": 2.0},
+        "integer": {"status": "INFEASIBLE", "objective": None},
+    }
+    right = {
+        "continuous": {"status": "optimal", "objective": 2.0 + 1e-8},
+        "integer": {"status": "infeasible", "objective": None},
+    }
+    assert solver_reports_agree(left, right)
 
 
 def test_mapping_uses_corrected_question_and_manual_override() -> None:

@@ -792,6 +792,31 @@ def _anchor_support_labels(workspace: Path) -> list[str]:
         return [str(row.get("support_label", "")) for row in csv.DictReader(handle)]
 
 
+def serialize_mechanisms(items: Any) -> str:
+    if not isinstance(items, list):
+        return ""
+    return ";".join(
+        item if isinstance(item, str) else json.dumps(item, ensure_ascii=False, sort_keys=True)
+        for item in items
+    )
+
+
+def solver_reports_agree(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    for domain in ("continuous", "integer"):
+        left_result = left.get(domain, {})
+        right_result = right.get(domain, {})
+        if str(left_result.get("status", "")).lower() != str(right_result.get("status", "")).lower():
+            return False
+        left_objective = left_result.get("objective")
+        right_objective = right_result.get("objective")
+        if left_objective is None or right_objective is None:
+            if left_objective != right_objective:
+                return False
+        elif not math.isclose(float(left_objective), float(right_objective), rel_tol=1e-6, abs_tol=1e-6):
+            return False
+    return True
+
+
 def build_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
     terra = {
         row["row_id"]: row
@@ -810,6 +835,17 @@ def build_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
         terra_row = terra[row_id]
         sol_row = sol[row_id]
         statement_path = campaign_dir / source_row["statement_path"]
+        terra_report = json.loads(
+            (campaign_dir / "runs" / "terra-evidence" / "rows" / row_id / "parent_solver_report.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        sol_report = json.loads(
+            (campaign_dir / "runs" / "sol-adjudication" / "rows" / row_id / "parent_solver_report.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        domain_assessment_agreement = terra_row["chosen_domain"] == sol_row["chosen_domain"]
         rows.append(
             {
                 "row_id": row_id,
@@ -821,19 +857,15 @@ def build_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
                 "terra_domain": terra_row["chosen_domain"],
                 "terra_continuous_objective": terra_row["continuous_objective"],
                 "terra_integer_objective": terra_row["integer_objective"],
-                "terra_mechanisms": ";".join(terra_row["mechanisms"]),
+                "terra_mechanisms": serialize_mechanisms(terra_row["mechanisms"]),
                 "sol_source_status": sol_row["source_status"],
                 "sol_domain": sol_row["chosen_domain"],
                 "sol_continuous_objective": sol_row["continuous_objective"],
                 "sol_integer_objective": sol_row["integer_objective"],
-                "sol_mechanisms": ";".join(sol_row["mechanisms"]),
-                "model_agreement": (
-                    terra_row["chosen_domain"] == sol_row["chosen_domain"]
-                    and terra_row["continuous_status"] == sol_row["continuous_status"]
-                    and answers_equal(terra_row["continuous_objective"], sol_row["continuous_objective"])
-                    and terra_row["integer_status"] == sol_row["integer_status"]
-                    and answers_equal(terra_row["integer_objective"], sol_row["integer_objective"])
-                ),
+                "sol_mechanisms": serialize_mechanisms(sol_row["mechanisms"]),
+                "solver_result_agreement": solver_reports_agree(terra_report, sol_report),
+                "domain_assessment_agreement": domain_assessment_agreement,
+                "model_agreement": domain_assessment_agreement and solver_reports_agree(terra_report, sol_report),
                 "owner_decision": "",
                 "owner_material": "",
                 "owner_mechanism": "",
@@ -861,7 +893,8 @@ def build_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
                 f"- Corrected answer: `{row['corrected_answer']}`",
                 f"- Terra: domain `{row['terra_domain']}`, continuous `{row['terra_continuous_objective']}`, integer `{row['terra_integer_objective']}`",
                 f"- Sol: domain `{row['sol_domain']}`, continuous `{row['sol_continuous_objective']}`, integer `{row['sol_integer_objective']}`",
-                f"- Independent-model agreement: `{row['model_agreement']}`",
+                f"- Solver-result agreement: `{row['solver_result_agreement']}`",
+                f"- Domain-assessment agreement: `{row['domain_assessment_agreement']}`",
                 "- Owner decision: pending",
                 "",
             ]
