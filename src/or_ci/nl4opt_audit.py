@@ -568,9 +568,16 @@ def solve_pilot_targets(campaign_dir: Path) -> list[dict[str, Any]]:
 
 def result_matches_answer(result: dict[str, Any], answer: Any, *, tolerance: float = 1e-6) -> bool:
     answer_kind, answer_number = _canonical_answer(answer)
-    status = result.get("status")
+    status = str(result.get("status", "")).strip().lower()
     if answer_kind == "no_best_solution":
-        return status in {"infeasible", "unbounded", "infeasible_or_unbounded"}
+        return status in {
+            "infeasible",
+            "unbounded",
+            "infeasible_or_unbounded",
+            "strict_inequality_infimum_not_attained",
+            "no_attained_minimum_strict_continuous",
+            "no_attained_maximum_strict_continuous",
+        }
     if answer_kind != "numeric" or status != "optimal" or answer_number is None:
         return False
     objective = result.get("objective")
@@ -668,9 +675,15 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
             "integer_objective": None,
             "matches_historical": False,
             "matches_corrected": False,
+            "matches_historical_any_domain": False,
+            "matches_corrected_any_domain": False,
+            "correction_reproduced_any_domain": False,
+            "correction_discriminated": False,
             "supported_discrepancy": False,
             "model_clean": False,
             "terra_clean": False,
+            "control_escalated": False,
+            "solver_support_for_escalation": False,
             "unsupported_control_escalation": False,
             "formal_target_recovers_correction": formal[row_id]["formal_target_recovers_correction"],
             "proof_ref": str(manifest_path),
@@ -710,12 +723,29 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
         corrected_matches = [
             result_matches_answer(report.get(domain, {}), answer_row["corrected_answer"]) for domain in domains
         ]
+        all_domain_historical_matches = [
+            result_matches_answer(report.get(domain, {}), answer_row["historical_answer"])
+            for domain in ("continuous", "integer")
+        ]
+        all_domain_corrected_matches = [
+            result_matches_answer(report.get(domain, {}), answer_row["corrected_answer"])
+            for domain in ("continuous", "integer")
+        ]
         result["matches_historical"] = any(historical_matches)
         result["matches_corrected"] = any(corrected_matches)
-        result["supported_discrepancy"] = bool(
+        result["matches_historical_any_domain"] = any(all_domain_historical_matches)
+        result["matches_corrected_any_domain"] = any(all_domain_corrected_matches)
+        result["correction_reproduced_any_domain"] = bool(
+            answer_row["selection_group"] == "answer_changed" and result["matches_corrected_any_domain"]
+        )
+        result["correction_discriminated"] = bool(
             answer_row["selection_group"] == "answer_changed"
             and result["matches_corrected"]
             and not result["matches_historical"]
+        )
+        result["supported_discrepancy"] = bool(
+            answer_row["selection_group"] == "answer_changed"
+            and result["matches_corrected_any_domain"]
         )
         result["model_clean"] = bool(
             answer_row["selection_group"] == "unchanged_control"
@@ -724,8 +754,8 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
         )
         result["terra_clean"] = role == "terra" and result["model_clean"]
         escalated = bool(
-            result["source_status"] != "well_posed"
-            or result["material_ambiguities"]
+            result["source_status"] == "inconsistent"
+            or result["chosen_domain"] == "unresolved"
             or any(value in {"contradicted", "unsupported"} for value in _anchor_support_labels(workspace))
         )
         continuous = report.get("continuous", {})
@@ -734,9 +764,19 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
             continuous.get("status") != integer.get("status")
             or not answers_equal(continuous.get("objective"), integer.get("objective"))
         )
-        solver_support = not result["matches_historical"] or domains_disagree
+        statuses = [str(continuous.get("status", "")).lower(), str(integer.get("status", "")).lower()]
+        has_status_or_iis_support = any(status != "optimal" for status in statuses) or any(
+            domain_result.get("iis_constraints")
+            for domain_result in (continuous, integer)
+            if isinstance(domain_result, dict)
+        )
+        solver_support = not result["matches_historical_any_domain"] or domains_disagree or has_status_or_iis_support
+        result["control_escalated"] = bool(
+            answer_row["selection_group"] == "unchanged_control" and escalated
+        )
+        result["solver_support_for_escalation"] = solver_support
         result["unsupported_control_escalation"] = bool(
-            answer_row["selection_group"] == "unchanged_control" and escalated and not solver_support
+            result["control_escalated"] and not solver_support
         )
         comparison.append(result)
     output_path = campaign_dir / "comparisons" / f"{role}-answer-comparison.jsonl"

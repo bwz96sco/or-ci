@@ -12,6 +12,7 @@ from or_ci.nl4opt_audit import (
     map_benchmark_rows,
     parse_number,
     read_jsonl,
+    result_matches_answer,
     solve_target,
     validate_source_manifest,
 )
@@ -120,6 +121,19 @@ def test_answer_comparison_normalizes_sentinels_and_numbers() -> None:
     assert answers_equal("-99999.0", "No Best Solution")
     assert answers_equal("1,200", "1200.0")
     assert not answers_equal("2", "3")
+
+
+def test_result_matching_normalizes_solver_status_case_without_accepting_closure_labels() -> None:
+    assert result_matches_answer({"status": "OPTIMAL", "objective": 5.0}, "5")
+    assert result_matches_answer({"status": "INFEASIBLE", "objective": None}, "No Best Solution")
+    assert result_matches_answer(
+        {"status": "STRICT_INEQUALITY_INFIMUM_NOT_ATTAINED", "objective": 5.0},
+        "No Best Solution",
+    )
+    assert not result_matches_answer(
+        {"status": "OPTIMAL_CLOSURE_RELAXATION_STRICT_SOURCE_UNRESOLVED", "objective": 5.0},
+        "5",
+    )
 
 
 def test_mapping_uses_corrected_question_and_manual_override() -> None:

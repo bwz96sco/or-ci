@@ -173,6 +173,11 @@ def main(argv: list[str] | None = None) -> int:
                         "rows": len(rows),
                         "success": sum(row["terminal_status"] == "success" for row in rows),
                         "supported_discrepancies": sum(row["supported_discrepancy"] for row in rows),
+                        "corrections_reproduced_any_domain": sum(
+                            row["correction_reproduced_any_domain"] for row in rows
+                        ),
+                        "corrections_discriminated": sum(row["correction_discriminated"] for row in rows),
+                        "control_escalations": sum(row["control_escalated"] for row in rows),
                         "unsupported_control_escalations": sum(
                             row["unsupported_control_escalation"] for row in rows
                         ),
