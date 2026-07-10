@@ -10,6 +10,7 @@ dependencies = [
 
 [project.scripts]
 or-ci = "or_ci.cli:main"
+or-ci-benchmark-audit = "or_ci.benchmark_audit_cli:main"
 
 [dependency-groups]
 dev = [
