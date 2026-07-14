@@ -234,6 +234,8 @@ def test_main_comparison_selection_and_sol_gate_are_replayable(tmp_path: Path) -
     )
 
     assert terra["main_gate_pass"] is True
+    assert terra["eligible_support_changes"] == 8
+    assert terra["sol_authorized"] is True
     assert terra["candidate_categories"]["partially_supported"] == 8
     assert terra["candidate_categories"]["robustly_supported"] == 16
     assert selection["selected_disputed"] == 8
@@ -269,6 +271,7 @@ def test_main_comparison_selection_and_sol_gate_are_replayable(tmp_path: Path) -
     assert final["sol_valid_rows"] == 12
     assert final["category_agreement_rate"] == 1.0
     assert final["material_multi_variant_rows_after_sol"] == 8
+    assert final["confirmed_support_change_rows"] == 8
     assert final["verdict"] == "continue_to_external_confirmatory_campaign"
     assert final["paper_writing_allowed"] is False
 
@@ -291,12 +294,12 @@ def test_sol_packet_rejects_hidden_answer_keys(tmp_path: Path) -> None:
         )
 
 
-def test_sol_selection_fills_low_signal_sample_without_changing_controls(tmp_path: Path) -> None:
+def test_sol_selection_blocks_when_fewer_than_three_eligible_changes(tmp_path: Path) -> None:
     campaign, baseline, candidate = _build_main_fixture(tmp_path)
     for index in range(1, 9):
         row_id = f"industryor-row-{index:04d}"
         _write_candidate_row(candidate, row_id, float(index), material=False, partial=False)
-    compare_industryor_runs(
+    comparison = compare_industryor_runs(
         campaign_dir=campaign,
         baseline_run_dir=baseline,
         candidate_run_dir=candidate,
@@ -308,7 +311,32 @@ def test_sol_selection_fills_low_signal_sample_without_changing_controls(tmp_pat
         seed="low-signal-fixture",
     )
 
-    assert selection["selected_disputed"] == 0
-    assert selection["selected_signal_screens"] == 8
-    assert selection["selected_robust_controls"] == 4
-    assert selection["selected_total"] == 12
+    assert comparison["main_gate_pass"] is True
+    assert comparison["eligible_support_changes"] == 0
+    assert comparison["sol_authorized"] is False
+    assert selection == {
+        "status": "blocked",
+        "reason": "fewer_than_three_eligible_support_changes",
+        "selected_total": 0,
+    }
+
+
+def test_unresolved_candidate_category_is_not_an_eligible_change(tmp_path: Path) -> None:
+    campaign, baseline, candidate = _build_main_fixture(tmp_path)
+    validated = candidate / "rows" / "industryor-row-0001" / "validated-interpretation-set.json"
+    payload = json.loads(validated.read_text(encoding="utf-8"))
+    payload["enumeration_status"] = "uncertain"
+    _write_json(validated, payload)
+
+    summary = compare_industryor_runs(
+        campaign_dir=campaign,
+        baseline_run_dir=baseline,
+        candidate_run_dir=candidate,
+    )
+    rows = read_jsonl(campaign / "comparisons" / "terra-answer-support.jsonl")
+    row = next(item for item in rows if item["row_id"] == "industryor-row-0001")
+
+    assert row["candidate_support_category"] == "unresolved"
+    assert row["support_category_changed"] is True
+    assert row["eligible_support_change"] is False
+    assert summary["eligible_support_changes"] == 7

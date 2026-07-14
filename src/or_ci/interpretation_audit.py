@@ -384,6 +384,7 @@ def _candidate_result(workspace: Path, answer: Any) -> dict[str, Any]:
         "enumeration_status": "missing",
         "variant_count": 0,
         "material_multi_variant": False,
+        "complete_in_scope": False,
         "variants": [],
         "leakage": bool(manifest and manifest.get("leakage_findings")),
     }
@@ -401,6 +402,7 @@ def _candidate_result(workspace: Path, answer: Any) -> dict[str, Any]:
             "enumeration_status": validated.get("enumeration_status", "missing"),
             "variant_count": len(variants),
             "material_multi_variant": bool(validated.get("material_multi_variant")),
+            "complete_in_scope": complete,
             "variants": variants,
         }
     )
@@ -423,6 +425,19 @@ def compare_industryor_runs(
             raise InterpretationAuditError(f"hidden answer missing for {row_id}")
         baseline = _baseline_result(baseline_run_dir / "rows" / row_id, answer_row["reference_answer"])
         candidate = _candidate_result(candidate_run_dir / "rows" / row_id, answer_row["reference_answer"])
+        paired_valid = baseline["valid"] and candidate["valid"]
+        determinate = (
+            paired_valid
+            and baseline["support_category"] != "unresolved"
+            and candidate["support_category"] != "unresolved"
+        )
+        category_changed = baseline["support_category"] != candidate["support_category"]
+        eligible_support_change = (
+            determinate
+            and candidate["complete_in_scope"]
+            and candidate["material_multi_variant"]
+            and category_changed
+        )
         comparison.append(
             {
                 "row_id": row_id,
@@ -431,7 +446,7 @@ def compare_industryor_runs(
                 "reference_answer": answer_row["reference_answer"],
                 "baseline_terminal_status": baseline["terminal_status"],
                 "candidate_terminal_status": candidate["terminal_status"],
-                "paired_valid": baseline["valid"] and candidate["valid"],
+                "paired_valid": paired_valid,
                 "baseline_support_category": baseline["support_category"],
                 "candidate_support_category": candidate["support_category"],
                 "baseline_chosen_domain": baseline["chosen_domain"],
@@ -439,7 +454,10 @@ def compare_industryor_runs(
                 "candidate_enumeration_status": candidate["enumeration_status"],
                 "candidate_variant_count": candidate["variant_count"],
                 "material_multi_variant": candidate["material_multi_variant"],
-                "support_category_changed": baseline["support_category"] != candidate["support_category"],
+                "candidate_complete_in_scope": candidate["complete_in_scope"],
+                "determinate_categories": determinate,
+                "support_category_changed": category_changed,
+                "eligible_support_change": eligible_support_change,
                 "leakage": baseline["leakage"] or candidate["leakage"],
                 "candidate_variants": candidate["variants"],
             }
@@ -449,6 +467,7 @@ def compare_industryor_runs(
     candidate_terminal = sum(row["candidate_terminal_status"] in TERMINAL_STATES for row in comparison)
     paired_valid = sum(row["paired_valid"] for row in comparison)
     leakage = sum(row["leakage"] for row in comparison)
+    eligible_changes = sum(row["eligible_support_change"] for row in comparison)
     main_gate = (
         declared == 24
         and baseline_terminal == declared
@@ -456,8 +475,9 @@ def compare_industryor_runs(
         and paired_valid >= 22
         and leakage == 0
     )
+    sol_authorized = main_gate and eligible_changes >= 3
     summary = {
-        "schema_version": "industryor_answer_support_comparison_v1",
+        "schema_version": "industryor_answer_support_comparison_v2",
         "declared_rows": declared,
         "baseline_terminal_rows": baseline_terminal,
         "candidate_terminal_rows": candidate_terminal,
@@ -473,12 +493,21 @@ def compare_industryor_runs(
             for category in sorted(SUPPORT_CATEGORIES)
         },
         "support_category_changes": sum(row["support_category_changed"] for row in comparison),
+        "eligible_support_changes": eligible_changes,
         "main_gate_pass": main_gate,
-        "sol_authorized": main_gate,
+        "sol_authorized": sol_authorized,
+        "sol_block_reason": (
+            None
+            if sol_authorized
+            else "main_terra_gate_failed"
+            if not main_gate
+            else "fewer_than_three_eligible_support_changes"
+        ),
         "requirements": {
             "declared_rows": 24,
             "terminal_rows_per_arm": 24,
             "min_paired_valid": 22,
+            "min_eligible_support_changes_for_sol": 3,
             "max_leakage": 0,
         },
     }
@@ -546,7 +575,11 @@ def select_interpretation_adjudication(
 ) -> dict[str, Any]:
     summary = json.loads((campaign_dir / "comparisons" / "terra-answer-support-summary.json").read_text(encoding="utf-8"))
     if not summary.get("sol_authorized"):
-        result = {"status": "blocked", "reason": "main_terra_gate_failed", "selected_total": 0}
+        result = {
+            "status": "blocked",
+            "reason": summary.get("sol_block_reason", "main_terra_gate_failed"),
+            "selected_total": 0,
+        }
         write_json(campaign_dir / "provenance" / "sol-selection.json", result)
         return result
     rows = read_jsonl(campaign_dir / "comparisons" / "terra-answer-support.jsonl")
@@ -555,34 +588,23 @@ def select_interpretation_adjudication(
     def rank(row: dict[str, Any], group: str) -> str:
         return sha256_text(f"{seed}:{group}:{row['row_id']}")
 
-    def disputed_priority(row: dict[str, Any]) -> tuple[int, str]:
-        category = row["candidate_support_category"]
-        if category in {"unsupported_within_enumerated_set", "unresolved"}:
-            priority = 0
-        elif row["material_multi_variant"]:
-            priority = 1
-        elif row["support_category_changed"]:
-            priority = 2
-        else:
-            priority = 3
-        return priority, rank(row, "disputed")
-
-    disputed_pool = [
-        row
-        for row in rows
-        if row["paired_valid"]
-        and (
-            row["candidate_support_category"] != "robustly_supported"
-            or row["material_multi_variant"]
-            or row["support_category_changed"]
-        )
-    ]
-    disputed = sorted(disputed_pool, key=disputed_priority)[:disputed_count]
-    selected_ids = {row["row_id"] for row in disputed}
+    eligible_pool = [row for row in rows if row["paired_valid"] and row["eligible_support_change"]]
+    eligible = sorted(eligible_pool, key=lambda row: rank(row, "eligible-change"))[:disputed_count]
+    if len(eligible) < 3:
+        result = {
+            "status": "blocked",
+            "reason": "fewer_than_three_eligible_support_changes",
+            "available_eligible_changes": len(eligible),
+            "selected_total": 0,
+        }
+        write_json(campaign_dir / "provenance" / "sol-selection.json", result)
+        return result
+    selected_ids = {row["row_id"] for row in eligible}
     robust_pool = [
         row
         for row in rows
         if row["paired_valid"]
+        and row["baseline_support_category"] == "robustly_supported"
         and row["candidate_support_category"] == "robustly_supported"
         and row["row_id"] not in selected_ids
     ]
@@ -599,17 +621,33 @@ def select_interpretation_adjudication(
         return result
     selected_ids.update(row["row_id"] for row in robust)
     screening_pool = [
-        row for row in rows if row["paired_valid"] and row["row_id"] not in selected_ids
+        row
+        for row in rows
+        if row["paired_valid"]
+        and row["material_multi_variant"]
+        and row["determinate_categories"]
+        and row["row_id"] not in selected_ids
     ]
-    screening = sorted(screening_pool, key=lambda row: rank(row, "signal-screen"))[
-        : max(0, disputed_count - len(disputed))
+    screening = sorted(screening_pool, key=lambda row: rank(row, "material-screen"))[
+        : max(0, disputed_count - len(eligible))
     ]
-    if len(disputed) + len(screening) < disputed_count:
+    if len(eligible) + len(screening) < disputed_count:
+        fallback_pool = [
+            row
+            for row in rows
+            if row["paired_valid"] and row["row_id"] not in selected_ids and row not in screening
+        ]
+        screening.extend(
+            sorted(fallback_pool, key=lambda row: rank(row, "signal-screen"))[
+                : disputed_count - len(eligible) - len(screening)
+            ]
+        )
+    if len(eligible) + len(screening) < disputed_count:
         result = {
             "status": "blocked",
             "reason": "insufficient_rows_for_sol_sample",
             "required_non_control_rows": disputed_count,
-            "available_non_control_rows": len(disputed) + len(screening),
+            "available_non_control_rows": len(eligible) + len(screening),
             "selected_total": 0,
         }
         write_json(campaign_dir / "provenance" / "sol-selection.json", result)
@@ -617,8 +655,8 @@ def select_interpretation_adjudication(
     manifest: list[dict[str, Any]] = []
     selection_rows: list[dict[str, Any]] = []
     for group, selected in (
-        ("disputed", disputed),
-        ("signal_screen", screening),
+        ("eligible_change", eligible),
+        ("material_screen", screening),
         ("robust_control", robust),
     ):
         for row in selected:
@@ -640,10 +678,11 @@ def select_interpretation_adjudication(
             selection_rows.append({"row_id": row_id, "selection_group": group})
     write_jsonl(campaign_dir / "source" / "sol-interpretation-manifest.jsonl", manifest)
     result = {
-        "schema_version": "industryor_sol_selection_v1",
+        "schema_version": "industryor_sol_selection_v2",
         "status": "frozen",
         "seed": seed,
-        "selected_disputed": len(disputed),
+        "selected_disputed": len(eligible),
+        "selected_eligible_changes": len(eligible),
         "selected_signal_screens": len(screening),
         "selected_robust_controls": len(robust),
         "selected_total": len(manifest),
@@ -719,6 +758,15 @@ def finalize_industryor_interpretation(
             )
             material_after = _material_after_sol(retained, adjudication)
             obvious_omission = adjudication.get("obvious_omission")
+        baseline_category = comparison[row_id]["baseline_support_category"]
+        confirmed_change = (
+            valid
+            and selection_groups[row_id] != "robust_control"
+            and material_after
+            and baseline_category != "unresolved"
+            and post_category != "unresolved"
+            and baseline_category != post_category
+        )
         rows.append(
             {
                 "row_id": row_id,
@@ -726,9 +774,11 @@ def finalize_industryor_interpretation(
                 "sol_terminal_status": run_manifest.get("terminal_status", "not_run") if run_manifest else "not_run",
                 "sol_valid": valid,
                 "pre_sol_support_category": pre_category,
+                "baseline_support_category": baseline_category,
                 "post_sol_support_category": post_category,
                 "category_stable": valid and pre_category == post_category,
                 "material_multi_variant_after_sol": valid and material_after,
+                "confirmed_support_change": confirmed_change,
                 "obvious_omission": obvious_omission,
             }
         )
@@ -742,9 +792,10 @@ def finalize_industryor_interpretation(
         for row in valid_rows
     )
     material_cases = sum(row["material_multi_variant_after_sol"] for row in valid_rows)
+    confirmed_changes = sum(row["confirmed_support_change"] for row in valid_rows)
     execution_pass = terminal == len(sol_manifest) and len(valid_rows) >= 10
     stability_pass = agreement_rate >= 0.8 and robust_shifts <= 1
-    signal_pass = material_cases >= 3
+    signal_pass = confirmed_changes >= 3
     if not execution_pass or not stability_pass:
         verdict = "park_interpretation_uncertainty_route"
         next_route = "stop_or_redesign_without_reusing_industryor"
@@ -755,7 +806,7 @@ def finalize_industryor_interpretation(
         verdict = "continue_to_external_confirmatory_campaign"
         next_route = "acquire_new_external_denominator"
     summary = {
-        "schema_version": "industryor_interpretation_final_gate_v1",
+        "schema_version": "industryor_interpretation_final_gate_v2",
         "verdict": verdict,
         "next_route": next_route,
         "paper_writing_allowed": False,
@@ -766,6 +817,7 @@ def finalize_industryor_interpretation(
         "category_agreement_rate": agreement_rate,
         "robust_control_shifts": robust_shifts,
         "material_multi_variant_rows_after_sol": material_cases,
+        "confirmed_support_change_rows": confirmed_changes,
         "execution_pass": execution_pass,
         "stability_pass": stability_pass,
         "signal_pass": signal_pass,
@@ -773,7 +825,7 @@ def finalize_industryor_interpretation(
             "min_sol_valid": 10,
             "min_category_agreement_rate": 0.8,
             "max_robust_control_shifts": 1,
-            "min_material_multi_variant_rows": 3,
+            "min_confirmed_support_change_rows": 3,
         },
     }
     write_jsonl(campaign_dir / "comparisons" / "sol-adjudicated-answer-support.jsonl", rows)
