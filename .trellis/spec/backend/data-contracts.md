@@ -469,3 +469,88 @@ by `wrong_constraint.py` fixtures.
 
 Use these exact strings in ops specs, quality specs, tests, reports, and future
 task PRDs.
+
+---
+
+## Scenario: NL4OPT Answer Sentinel Canonicalization
+
+### 1. Scope / Trigger
+
+Use this contract whenever NL4OPT answers define a split, denominator,
+comparison, recovery metric, or owner-review packet. Raw answer strings are
+provenance, not semantic identities.
+
+### 2. Signatures
+
+```python
+answers_equal(left: Any, right: Any, *, tolerance: float = 1e-7) -> bool
+answer_relation(left: Any, right: Any) -> str
+semantic_answer(value: Any) -> str
+answer_encoding(value: Any) -> str
+```
+
+Relevant CLI responses from `or-ci-benchmark-audit compare-formal` and
+`compare-model-run` include `semantic_answer_differences`; model comparison also
+includes `encoding_equivalents`.
+
+### 3. Contracts
+
+- Raw `-99999` and `-99999.0` canonicalize to `No Best Solution`.
+- `No Best Solution`, `no solution`, `infeasible`, and `unbounded` share the
+  broad `no_best_solution` comparison class. The answer marker does not supply
+  the narrower solver status.
+- `answer_relation` returns exactly `semantic_difference`,
+  `encoding_equivalent`, or `unchanged`.
+- Future `prepare_pilot` splits use `answers_equal`, never raw string
+  inequality.
+- Owner-review CSV keeps interpreted and raw values in separate fields.
+- Owner fault-review packets exclude `encoding_equivalent` pairs and record the
+  excluded row IDs in packet status or denominator-repair evidence.
+- Markdown is the human input surface. Each retained row has exactly one
+  checkable option list for `owner_decision`, `owner_material`, and
+  `owner_mechanism`; validation synchronizes selections to CSV. There is no
+  free-text owner field.
+- A legacy raw-string split must be reclassified. Its affected gate is
+  invalidated unless the repaired threshold was independently predeclared.
+
+### 4. Validation & Error Matrix
+
+| Condition | Required behavior |
+|---|---|
+| `-99999.0` vs `No Best Solution` | `encoding_equivalent`; exclude from semantic recovery denominator |
+| `1` vs `1.0` | `encoding_equivalent`; exclude from semantic recovery denominator |
+| `1` vs `2` | `semantic_difference` |
+| Exact equal raw values | `unchanged` |
+| Expected semantic-change count differs | `prepare_pilot` raises `NL4OPTError` |
+| Legacy gate contains encoding-only rows | Mark gate invalid; report repaired metric descriptively |
+
+### 5. Good/Base/Bad Cases
+
+- Good: preserve raw `-99999.0`, display `No Best Solution`, and record
+  `sentinel_minus_99999`.
+- Base: equal literal numeric strings remain `unchanged`.
+- Bad: count `-99999.0` to `No Best Solution` as a corrected answer.
+
+### 6. Tests Required
+
+- Assert sentinel equality, interpreted display, encoding, and relation.
+- Assert `prepare_pilot` places sentinel-to-text changes outside the semantic
+  answer-change set.
+- Assert model comparison does not count an encoding-equivalent row as
+  correction reproduction, discrimination, or a supported discrepancy.
+- Assert owner Markdown shows both interpreted and raw values.
+
+### 7. Wrong vs Correct
+
+#### Wrong
+
+```python
+changed = str(dataset_answer) != str(revised_answer)
+```
+
+#### Correct
+
+```python
+changed = not answers_equal(dataset_answer, revised_answer)
+relation = answer_relation(dataset_answer, revised_answer)
+```

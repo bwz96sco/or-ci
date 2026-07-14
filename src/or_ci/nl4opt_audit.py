@@ -13,6 +13,17 @@ from typing import Any, Iterable
 import gurobipy as gp
 from gurobipy import GRB
 
+from or_ci.benchmark_answers import (
+    AnswerPolicy,
+    NL4OPT_ANSWER_POLICY,
+    answer_encoding,
+    answer_relation,
+    answers_equal,
+    canonical_solver_status,
+    result_matches_answer,
+    semantic_answer,
+)
+
 
 class NL4OPTError(ValueError):
     pass
@@ -62,6 +73,33 @@ STATUS_NAMES = {
     GRB.NUMERIC: "numeric",
     GRB.SUBOPTIMAL: "suboptimal",
 }
+
+OWNER_DECISION_OPTIONS = (
+    "sirl_supported",
+    "dataset_supported",
+    "both_valid",
+    "neither_supported",
+    "unresolved",
+)
+OWNER_DECISION_VALUES = set(OWNER_DECISION_OPTIONS)
+OWNER_MATERIAL_OPTIONS = ("yes", "no", "uncertain")
+OWNER_MATERIAL_VALUES = set(OWNER_MATERIAL_OPTIONS)
+OWNER_MECHANISM_OPTIONS = (
+    "domain_or_integrality_ambiguity",
+    "infeasible_unbounded_status_encoding",
+    "strict_inequality_semantics",
+    "constraint_or_ratio_interpretation",
+    "reference_value_or_arithmetic_error",
+    "equivalent_answer_or_tolerance",
+    "none",
+)
+OWNER_MECHANISM_VALUES = set(OWNER_MECHANISM_OPTIONS)
+OWNER_FIELDS = (
+    "owner_decision",
+    "owner_material",
+    "owner_mechanism",
+)
+CONFIRMED_FAULT_DECISIONS = {"sirl_supported", "neither_supported"}
 
 
 @dataclass(frozen=True)
@@ -127,31 +165,6 @@ def load_official_targets(path: Path) -> list[OfficialTarget]:
 
 def normalize_statement(text: str) -> str:
     return " ".join(re.findall(r"[a-z0-9]+", text.lower()))
-
-
-def _canonical_answer(value: Any) -> tuple[str, float | None]:
-    text = str(value).strip()
-    lowered = text.lower()
-    if lowered in {"no best solution", "no solution", "infeasible", "unbounded"}:
-        return "no_best_solution", None
-    try:
-        number = float(text.replace(",", ""))
-    except ValueError:
-        return lowered, None
-    if math.isclose(number, -99999.0, rel_tol=0.0, abs_tol=1e-9):
-        return "no_best_solution", None
-    return "numeric", number
-
-
-def answers_equal(left: Any, right: Any, *, tolerance: float = 1e-7) -> bool:
-    left_kind, left_number = _canonical_answer(left)
-    right_kind, right_number = _canonical_answer(right)
-    if left_kind != right_kind:
-        return False
-    if left_kind != "numeric":
-        return True
-    assert left_number is not None and right_number is not None
-    return math.isclose(left_number, right_number, rel_tol=tolerance, abs_tol=tolerance)
 
 
 def parse_number(raw: Any, *, ratio: bool = False) -> float:
@@ -434,10 +447,23 @@ def prepare_pilot(
         row_ids = ", ".join(mapping["row_id"] for mapping in unresolved)
         raise NL4OPTError(f"unresolved source mappings: {row_ids}")
 
-    changed_indices = [
+    raw_changed_indices = [
         index
         for index, (historical, corrected) in enumerate(zip(historical_rows, corrected_rows, strict=True))
         if str(historical.get("en_answer")) != str(corrected.get("en_answer"))
+    ]
+    changed_indices = [
+        index
+        for index, (historical, corrected) in enumerate(zip(historical_rows, corrected_rows, strict=True))
+        if not answers_equal(historical.get("en_answer"), corrected.get("en_answer"))
+    ]
+    encoding_only_indices = [
+        index
+        for index in raw_changed_indices
+        if answers_equal(
+            historical_rows[index].get("en_answer"),
+            corrected_rows[index].get("en_answer"),
+        )
     ]
     if len(changed_indices) != expected_answer_changes:
         raise NL4OPTError(
@@ -447,7 +473,7 @@ def prepare_pilot(
         index
         for index, (historical, corrected) in enumerate(zip(historical_rows, corrected_rows, strict=True))
         if historical.get("en_question") == corrected.get("en_question")
-        and str(historical.get("en_answer")) == str(corrected.get("en_answer"))
+        and answers_equal(historical.get("en_answer"), corrected.get("en_answer"))
     ]
     ranked_controls = sorted(
         unchanged_candidates,
@@ -490,6 +516,10 @@ def prepare_pilot(
                 "selection_group": selection_group,
                 "historical_answer": historical_rows[index].get("en_answer"),
                 "corrected_answer": corrected_rows[index].get("en_answer"),
+                "answer_relation": answer_relation(
+                    historical_rows[index].get("en_answer"),
+                    corrected_rows[index].get("en_answer"),
+                ),
                 "question_changed_in_corrected_snapshot": (
                     historical_rows[index].get("en_question") != corrected_rows[index].get("en_question")
                 ),
@@ -506,15 +536,16 @@ def prepare_pilot(
         output_dir / "provenance" / "pilot-selection.json",
         {
             "seed": seed,
-            "selection_algorithm": "all answer changes plus SHA256(seed:row_id)-ranked unchanged rows",
+            "selection_algorithm": "all semantic answer changes plus SHA256(seed:row_id)-ranked semantically unchanged rows",
             "answer_changed_row_ids": [mappings[index]["row_id"] for index in changed_indices],
+            "encoding_only_row_ids": [mappings[index]["row_id"] for index in encoding_only_indices],
             "unchanged_control_row_ids": [mappings[index]["row_id"] for index in control_indices],
             "smoke_row_ids": [row["row_id"] for row in smoke_rows],
             "smoke_excluded_from_evidence": True,
         },
     )
     provenance = {
-        "schema_version": "nl4opt_benchmark_integrity_provenance_v1",
+        "schema_version": "nl4opt_benchmark_integrity_provenance_v2",
         "official": {
             "path": str(official_path.resolve()),
             "sha256": sha256_file(official_path),
@@ -535,6 +566,8 @@ def prepare_pilot(
             "official_targets": len(official_targets),
             "historical_rows": len(historical_rows),
             "answer_changed": len(changed_indices),
+            "raw_answer_changed": len(raw_changed_indices),
+            "encoding_only_changed": len(encoding_only_indices),
             "unchanged_controls": len(control_indices),
             "evidence_rows": len(source_manifest),
             "smoke_sessions": len(smoke_rows),
@@ -566,26 +599,6 @@ def solve_pilot_targets(campaign_dir: Path) -> list[dict[str, Any]]:
     return rows
 
 
-def result_matches_answer(result: dict[str, Any], answer: Any, *, tolerance: float = 1e-6) -> bool:
-    answer_kind, answer_number = _canonical_answer(answer)
-    status = str(result.get("status", "")).strip().lower()
-    if answer_kind == "no_best_solution":
-        return status in {
-            "infeasible",
-            "unbounded",
-            "infeasible_or_unbounded",
-            "strict_inequality_infimum_not_attained",
-            "no_attained_minimum_strict_continuous",
-            "no_attained_maximum_strict_continuous",
-        }
-    if answer_kind != "numeric" or status != "optimal" or answer_number is None:
-        return False
-    objective = result.get("objective")
-    return isinstance(objective, (int, float)) and math.isclose(
-        float(objective), answer_number, rel_tol=tolerance, abs_tol=tolerance
-    )
-
-
 def compare_formal_target_results(campaign_dir: Path) -> list[dict[str, Any]]:
     hidden = {row["row_id"]: row for row in read_jsonl(campaign_dir / "hidden" / "answer-key.jsonl")}
     solver_rows = read_jsonl(campaign_dir / "deterministic" / "formal-target-solver-results.jsonl")
@@ -594,6 +607,7 @@ def compare_formal_target_results(campaign_dir: Path) -> list[dict[str, Any]]:
         answer_row = hidden[row["row_id"]]
         historical = answer_row["historical_answer"]
         corrected = answer_row["corrected_answer"]
+        relation = answer_relation(historical, corrected)
         continuous = row["continuous"]
         integer = row["integer"]
         historical_matches = {
@@ -611,6 +625,7 @@ def compare_formal_target_results(campaign_dir: Path) -> list[dict[str, Any]]:
                 "selection_group": answer_row["selection_group"],
                 "historical_answer": historical,
                 "corrected_answer": corrected,
+                "answer_relation": relation,
                 "continuous_status": continuous.get("status"),
                 "continuous_objective": continuous.get("objective"),
                 "integer_status": integer.get("status"),
@@ -620,7 +635,7 @@ def compare_formal_target_results(campaign_dir: Path) -> list[dict[str, Any]]:
                 "corrected_matches_continuous": corrected_matches["continuous"],
                 "corrected_matches_integer": corrected_matches["integer"],
                 "formal_target_recovers_correction": (
-                    answer_row["selection_group"] == "answer_changed"
+                    relation == "semantic_difference"
                     and any(corrected_matches.values())
                     and not any(historical_matches.values())
                 ),
@@ -645,19 +660,95 @@ def _selected_domains(audit: dict[str, Any]) -> tuple[str, ...]:
     return ()
 
 
+def _campaign_answer_policy(campaign_dir: Path) -> AnswerPolicy:
+    provenance_path = campaign_dir / "provenance" / "provenance.json"
+    if not provenance_path.is_file():
+        return NL4OPT_ANSWER_POLICY
+    payload = json.loads(provenance_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or not isinstance(payload.get("answer_policy"), dict):
+        return NL4OPT_ANSWER_POLICY
+    try:
+        return AnswerPolicy.from_mapping(payload["answer_policy"])
+    except (TypeError, ValueError) as exc:
+        raise NL4OPTError(f"invalid campaign answer policy: {exc}") from exc
+
+
+def _result_status_class(result: dict[str, Any]) -> str:
+    status = canonical_solver_status(result.get("status", ""))
+    if status == "optimal":
+        return "optimal"
+    if status in {
+        "infeasible",
+        "unbounded",
+        "infeasible_or_unbounded",
+        "strict_inequality_infimum_not_attained",
+        "no_attained_minimum_strict_continuous",
+        "no_attained_maximum_strict_continuous",
+    }:
+        return "no_best_solution"
+    return status or "missing"
+
+
+def _domain_results_agree(
+    left: dict[str, Any],
+    right: dict[str, Any],
+    *,
+    policy: AnswerPolicy,
+) -> bool:
+    left_class = _result_status_class(left)
+    right_class = _result_status_class(right)
+    if left_class != right_class or left_class == "missing":
+        return False
+    if left_class != "optimal":
+        return True
+    left_objective = left.get("objective")
+    right_objective = right.get("objective")
+    if not isinstance(left_objective, (int, float)) or not isinstance(
+        right_objective, (int, float)
+    ):
+        return False
+    return answers_equal(left_objective, right_objective, policy=policy)
+
+
+def _selected_domain_matches(
+    report: dict[str, Any],
+    audit: dict[str, Any],
+    answer: Any,
+    *,
+    policy: AnswerPolicy,
+) -> tuple[bool, bool]:
+    domains = _selected_domains(audit)
+    if not domains:
+        return False, True
+    selected = [report.get(domain, {}) for domain in domains]
+    if any(not isinstance(item, dict) or _result_status_class(item) == "missing" for item in selected):
+        return False, True
+    if len(selected) == 2 and not _domain_results_agree(selected[0], selected[1], policy=policy):
+        return False, True
+    return all(result_matches_answer(item, answer, policy=policy) for item in selected), False
+
+
 def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[dict[str, Any]]:
+    policy = _campaign_answer_policy(campaign_dir)
     hidden = {row["row_id"]: row for row in read_jsonl(campaign_dir / "hidden" / "answer-key.jsonl")}
-    formal = {
-        row["row_id"]: row
-        for row in read_jsonl(campaign_dir / "deterministic" / "formal-target-answer-comparison.jsonl")
-    }
-    source_rows = read_jsonl(campaign_dir / "source" / "evidence-source-manifest.jsonl")
+    formal_path = campaign_dir / "deterministic" / "formal-target-answer-comparison.jsonl"
+    formal = {row["row_id"]: row for row in read_jsonl(formal_path)} if formal_path.is_file() else {}
+    source_manifest = campaign_dir / "source" / "evidence-source-manifest.jsonl"
+    sol_manifest = campaign_dir / "source" / "sol-source-manifest.jsonl"
+    if role == "sol" and sol_manifest.is_file():
+        source_manifest = sol_manifest
+    source_rows = read_jsonl(source_manifest)
     comparison: list[dict[str, Any]] = []
     for source_row in source_rows:
         row_id = source_row["row_id"]
         workspace = run_dir / "rows" / row_id
         manifest_path = workspace / "run-manifest.json"
         answer_row = hidden[row_id]
+        relation = answer_relation(
+            answer_row["historical_answer"],
+            answer_row["corrected_answer"],
+            policy=policy,
+        )
         result: dict[str, Any] = {
             "row_id": row_id,
             "selection_group": answer_row["selection_group"],
@@ -665,7 +756,10 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
             "terminal_status": "not_run",
             "historical_answer": answer_row["historical_answer"],
             "corrected_answer": answer_row["corrected_answer"],
+            "answer_relation": relation,
             "chosen_domain": "unresolved",
+            "source_selected_domain": "unresolved",
+            "domain_ambiguous": True,
             "source_status": "unresolved",
             "mechanisms": [],
             "material_ambiguities": [],
@@ -677,15 +771,22 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
             "matches_corrected": False,
             "matches_historical_any_domain": False,
             "matches_corrected_any_domain": False,
+            "matches_historical_selected_domain": False,
+            "matches_corrected_selected_domain": False,
             "correction_reproduced_any_domain": False,
             "correction_discriminated": False,
+            "revised_reproduced_selected_domain": False,
+            "revised_discriminated_selected_domain": False,
+            "unchanged_control_disagreement_selected_domain": False,
             "supported_discrepancy": False,
             "model_clean": False,
             "terra_clean": False,
             "control_escalated": False,
             "solver_support_for_escalation": False,
             "unsupported_control_escalation": False,
-            "formal_target_recovers_correction": formal[row_id]["formal_target_recovers_correction"],
+            "formal_target_recovers_correction": formal.get(row_id, {}).get(
+                "formal_target_recovers_correction"
+            ),
             "proof_ref": str(manifest_path),
         }
         if not manifest_path.is_file():
@@ -707,6 +808,7 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
         result.update(
             {
                 "chosen_domain": audit.get("chosen_domain", "unresolved"),
+                "source_selected_domain": audit.get("chosen_domain", "unresolved"),
                 "source_status": audit.get("source_status", "unresolved"),
                 "mechanisms": audit.get("mechanisms", []),
                 "material_ambiguities": audit.get("material_ambiguities", []),
@@ -718,33 +820,72 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
         )
         domains = _selected_domains(audit)
         historical_matches = [
-            result_matches_answer(report.get(domain, {}), answer_row["historical_answer"]) for domain in domains
+            result_matches_answer(
+                report.get(domain, {}), answer_row["historical_answer"], policy=policy
+            )
+            for domain in domains
         ]
         corrected_matches = [
-            result_matches_answer(report.get(domain, {}), answer_row["corrected_answer"]) for domain in domains
+            result_matches_answer(
+                report.get(domain, {}), answer_row["corrected_answer"], policy=policy
+            )
+            for domain in domains
         ]
         all_domain_historical_matches = [
-            result_matches_answer(report.get(domain, {}), answer_row["historical_answer"])
+            result_matches_answer(
+                report.get(domain, {}), answer_row["historical_answer"], policy=policy
+            )
             for domain in ("continuous", "integer")
         ]
         all_domain_corrected_matches = [
-            result_matches_answer(report.get(domain, {}), answer_row["corrected_answer"])
+            result_matches_answer(
+                report.get(domain, {}), answer_row["corrected_answer"], policy=policy
+            )
             for domain in ("continuous", "integer")
         ]
+        historical_selected, historical_ambiguous = _selected_domain_matches(
+            report,
+            audit,
+            answer_row["historical_answer"],
+            policy=policy,
+        )
+        corrected_selected, corrected_ambiguous = _selected_domain_matches(
+            report,
+            audit,
+            answer_row["corrected_answer"],
+            policy=policy,
+        )
+        domain_ambiguous = historical_ambiguous or corrected_ambiguous
         result["matches_historical"] = any(historical_matches)
         result["matches_corrected"] = any(corrected_matches)
         result["matches_historical_any_domain"] = any(all_domain_historical_matches)
         result["matches_corrected_any_domain"] = any(all_domain_corrected_matches)
+        result["matches_historical_selected_domain"] = historical_selected
+        result["matches_corrected_selected_domain"] = corrected_selected
+        result["domain_ambiguous"] = domain_ambiguous
         result["correction_reproduced_any_domain"] = bool(
-            answer_row["selection_group"] == "answer_changed" and result["matches_corrected_any_domain"]
+            relation == "semantic_difference" and result["matches_corrected_any_domain"]
         )
         result["correction_discriminated"] = bool(
-            answer_row["selection_group"] == "answer_changed"
+            relation == "semantic_difference"
             and result["matches_corrected"]
             and not result["matches_historical"]
         )
+        result["revised_reproduced_selected_domain"] = bool(
+            relation == "semantic_difference" and corrected_selected and not domain_ambiguous
+        )
+        result["revised_discriminated_selected_domain"] = bool(
+            relation == "semantic_difference"
+            and corrected_selected
+            and not historical_selected
+            and not domain_ambiguous
+        )
+        result["unchanged_control_disagreement_selected_domain"] = bool(
+            answer_row["selection_group"] == "unchanged_control"
+            and (domain_ambiguous or not historical_selected)
+        )
         result["supported_discrepancy"] = bool(
-            answer_row["selection_group"] == "answer_changed"
+            relation == "semantic_difference"
             and result["matches_corrected_any_domain"]
         )
         result["model_clean"] = bool(
@@ -761,10 +902,9 @@ def compare_model_run(*, campaign_dir: Path, run_dir: Path, role: str) -> list[d
         continuous = report.get("continuous", {})
         integer = report.get("integer", {})
         domains_disagree = (
-            continuous.get("status") != integer.get("status")
-            or not answers_equal(continuous.get("objective"), integer.get("objective"))
+            not _domain_results_agree(continuous, integer, policy=policy)
         )
-        statuses = [str(continuous.get("status", "")).lower(), str(integer.get("status", "")).lower()]
+        statuses = [_result_status_class(continuous), _result_status_class(integer)]
         has_status_or_iis_support = any(status != "optimal" for status in statuses) or any(
             domain_result.get("iis_constraints")
             for domain_result in (continuous, integer)
@@ -817,7 +957,264 @@ def solver_reports_agree(left: dict[str, Any], right: dict[str, Any]) -> bool:
     return True
 
 
+def _read_json_object(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        raise NL4OPTError(f"required review artifact is missing: {path}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise NL4OPTError(f"required review artifact must be a JSON object: {path}")
+    return payload
+
+
+def _display_value(value: Any) -> str:
+    if value is None or value == "":
+        return "not available"
+    if isinstance(value, dict):
+        if not value:
+            return "not available"
+        return "; ".join(f"{key}: {_display_value(item)}" for key, item in value.items())
+    if isinstance(value, list):
+        if not value:
+            return "not available"
+        return ", ".join(_display_value(item) for item in value)
+    return str(value).replace("\n", " ").strip()
+
+
+def _model_record_label(item: dict[str, Any], fallback: str) -> str:
+    labels: list[str] = []
+    for key in ("symbol", "id", "name", "domain"):
+        value = item.get(key)
+        if value not in (None, "") and str(value) not in labels:
+            labels.append(str(value))
+    return " / ".join(labels) if labels else fallback
+
+
+def _model_record_lines(
+    items: Any,
+    *,
+    label_prefix: str,
+    excluded_keys: set[str],
+) -> list[str]:
+    if isinstance(items, dict):
+        normalized_items = [
+            {"domain": key, **value} if isinstance(value, dict) else {"domain": key, "value": value}
+            for key, value in items.items()
+        ]
+    elif isinstance(items, list):
+        normalized_items = [item for item in items if isinstance(item, dict)]
+    else:
+        normalized_items = []
+    lines: list[str] = []
+    for index, item in enumerate(normalized_items, start=1):
+        label = _model_record_label(item, f"{label_prefix}_{index}")
+        lines.append(f"- {label}")
+        for key, value in item.items():
+            if key in excluded_keys or key.endswith(("source_quote", "source_quotes")):
+                continue
+            lines.append(f"  {key}: {_display_value(value)}")
+    return lines or ["- not recorded"]
+
+
+def _generated_model_text(model: dict[str, Any]) -> str:
+    objective = model.get("objective")
+    objective_lines = (
+        _model_record_lines(
+            [objective],
+            label_prefix="objective",
+            excluded_keys={"id", "name", "symbol", "domain"},
+        )
+        if isinstance(objective, dict)
+        else ["- not recorded"]
+    )
+    sections = [
+        "Variables:",
+        *_model_record_lines(
+            model.get("variables"),
+            label_prefix="variable",
+            excluded_keys={"id", "name", "symbol", "domain"},
+        ),
+        "",
+        "Objective:",
+        *objective_lines,
+        "",
+        "Constraints:",
+        *_model_record_lines(
+            model.get("constraints"),
+            label_prefix="constraint",
+            excluded_keys={"id", "name", "symbol", "domain"},
+        ),
+        "",
+        "Assumptions:",
+        *_model_record_lines(
+            model.get("assumptions"),
+            label_prefix="assumption",
+            excluded_keys={"id", "name", "symbol", "domain"},
+        ),
+        "",
+        "Domain evidence:",
+        *_model_record_lines(
+            model.get("domain_evidence"),
+            label_prefix="domain",
+            excluded_keys={"id", "name", "symbol", "domain"},
+        ),
+    ]
+    return "\n".join(sections)
+
+
+def _markdown_cell(value: Any) -> str:
+    return _display_value(value).replace("|", "\\|")
+
+
+def _solver_answer_row(label: str, domain: str, report: dict[str, Any]) -> str:
+    result = report.get(domain, {})
+    if not isinstance(result, dict):
+        result = {}
+    return (
+        f"| {label} | {domain} | {_markdown_cell(result.get('status'))} | "
+        f"{_markdown_cell(result.get('objective'))} | {_markdown_cell(result.get('variables'))} |"
+    )
+
+
+def _answer_role(base: str, encoding: str) -> str:
+    if encoding.startswith("sentinel_minus_"):
+        marker = "-" + encoding.removeprefix("sentinel_minus_")
+        return f"{base}; {marker} is a no-best-solution sentinel, not an objective value"
+    return base
+
+
+def _markdown_owner_values(markdown_path: Path) -> dict[str, dict[str, str]]:
+    if not markdown_path.is_file():
+        return {}
+    values: dict[str, dict[str, str]] = {}
+    current_row: str | None = None
+    current_field: str | None = None
+    for line in markdown_path.read_text(encoding="utf-8").splitlines():
+        row_match = re.fullmatch(r"## ([a-z0-9][a-z0-9_-]*-row-\d+)", line)
+        if row_match:
+            current_row = row_match.group(1)
+            current_field = None
+            continue
+        field_match = re.fullmatch(r"#### (owner_[a-z_]+)", line)
+        if field_match and current_row and field_match.group(1) in OWNER_FIELDS:
+            current_field = field_match.group(1)
+            values.setdefault(current_row, {})[current_field] = ""
+            continue
+        if line.startswith("#"):
+            current_field = None
+            continue
+        option_match = re.fullmatch(r"- \[([ xX])\] ([A-Za-z0-9_:-]+)", line)
+        if not option_match or not current_row or not current_field:
+            continue
+        if option_match.group(1).lower() != "x":
+            continue
+        selected = option_match.group(2)
+        previous = values[current_row][current_field]
+        if previous:
+            raise NL4OPTError(
+                f"{current_row}: multiple Markdown selections for {current_field}: "
+                f"{previous!r}, {selected!r}"
+            )
+        values[current_row][current_field] = selected
+    return values
+
+
+def _owner_option_lines(options: tuple[str, ...], selected: str) -> list[str]:
+    return [f"- [{'x' if option == selected else ' '}] {option}" for option in options]
+
+
+def _existing_owner_values(csv_path: Path, markdown_path: Path) -> dict[str, dict[str, str]]:
+    values: dict[str, dict[str, str]] = {}
+    if csv_path.is_file():
+        with csv_path.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            if reader.fieldnames and "row_id" in reader.fieldnames:
+                for row in reader:
+                    row_id = str(row.get("row_id", "")).strip()
+                    if not row_id:
+                        continue
+                    if row_id in values:
+                        raise NL4OPTError(f"duplicate owner-review row: {row_id}")
+                    values[row_id] = {
+                        field: str(row.get(field, "") or "").strip()
+                        for field in OWNER_FIELDS
+                    }
+    for row_id, markdown_values in _markdown_owner_values(markdown_path).items():
+        values.setdefault(row_id, {field: "" for field in OWNER_FIELDS}).update(markdown_values)
+    return values
+
+
+def _owner_review_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    missing_fields: list[str] = []
+    errors: list[str] = []
+    completed_rows = 0
+    confirmed_rows: list[str] = []
+    confirmed_mechanisms: set[str] = set()
+    for index, row in enumerate(rows, start=2):
+        row_id = str(row.get("row_id") or f"line-{index}")
+        values = {field: str(row.get(field, "") or "").strip() for field in OWNER_FIELDS}
+        row_missing = [field for field, value in values.items() if not value]
+        missing_fields.extend(f"{row_id}:{field}" for field in row_missing)
+        if row_missing:
+            continue
+        completed_rows += 1
+        decision = values["owner_decision"]
+        material = values["owner_material"]
+        mechanism = values["owner_mechanism"]
+        if decision not in OWNER_DECISION_VALUES:
+            errors.append(f"{row_id}: invalid owner_decision {decision!r}")
+        if material not in OWNER_MATERIAL_VALUES:
+            errors.append(f"{row_id}: invalid owner_material {material!r}")
+        mechanism_valid = mechanism in OWNER_MECHANISM_VALUES
+        if not mechanism_valid:
+            errors.append(f"{row_id}: invalid owner_mechanism {mechanism!r}")
+        if material == "yes" and mechanism == "none":
+            errors.append(f"{row_id}: owner_material yes requires a non-none mechanism")
+        if (
+            decision in CONFIRMED_FAULT_DECISIONS
+            and material == "yes"
+            and mechanism_valid
+            and mechanism != "none"
+        ):
+            confirmed_rows.append(row_id)
+            confirmed_mechanisms.add(mechanism)
+    if errors:
+        status = "invalid"
+        gate_status = "pending"
+    elif missing_fields:
+        status = "pending"
+        gate_status = "pending"
+    else:
+        status = "valid_complete"
+        gate_status = (
+            "pass"
+            if len(confirmed_rows) >= 3 and len(confirmed_mechanisms) >= 2
+            else "fail"
+        )
+    return {
+        "schema_version": "owner_review_status_v3",
+        "status": status,
+        "gate_status": gate_status,
+        "rows": len(rows),
+        "completed_rows": completed_rows,
+        "pending_rows": len(rows) - completed_rows,
+        "missing_fields": missing_fields,
+        "errors": errors,
+        "confirmed_material_answer_fault_rows": confirmed_rows,
+        "confirmed_material_answer_fault_count": len(confirmed_rows),
+        "confirmed_mechanisms": sorted(confirmed_mechanisms),
+        "confirmed_mechanism_count": len(confirmed_mechanisms),
+    }
+
+
 def build_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
+    policy = _campaign_answer_policy(campaign_dir)
+    provenance_path = campaign_dir / "provenance" / "provenance.json"
+    provenance = (
+        json.loads(provenance_path.read_text(encoding="utf-8"))
+        if provenance_path.is_file()
+        else {}
+    )
+    corpus = str(provenance.get("corpus", "NL4OPT")) if isinstance(provenance, dict) else "NL4OPT"
     terra = {
         row["row_id"]: row
         for row in read_jsonl(campaign_dir / "comparisons" / "terra-answer-comparison.jsonl")
@@ -826,84 +1223,256 @@ def build_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
         row["row_id"]: row
         for row in read_jsonl(campaign_dir / "comparisons" / "sol-answer-comparison.jsonl")
     }
-    selected = read_jsonl(campaign_dir / "source" / "sol-source-manifest.jsonl")
-    if len(selected) > 12:
-        raise NL4OPTError(f"owner packet exceeds 12-row cap: {len(selected)}")
+    selected_manifest = read_jsonl(campaign_dir / "source" / "sol-source-manifest.jsonl")
+    if len(selected_manifest) > 12:
+        raise NL4OPTError(f"owner packet exceeds 12-row cap: {len(selected_manifest)}")
+    selected: list[dict[str, Any]] = []
+    excluded_encoding_rows: list[str] = []
+    for source_row in selected_manifest:
+        row_id = source_row["row_id"]
+        if row_id not in terra or row_id not in sol:
+            raise NL4OPTError(f"owner row lacks Terra or Sol comparison: {row_id}")
+        relation = terra[row_id].get("answer_relation") or answer_relation(
+            terra[row_id]["historical_answer"],
+            terra[row_id]["corrected_answer"],
+            policy=policy,
+        )
+        if relation == "encoding_equivalent":
+            excluded_encoding_rows.append(row_id)
+            continue
+        selected.append(source_row)
+    csv_path = campaign_dir / "owner-review" / "owner-review-packet.csv"
+    markdown_path = campaign_dir / "owner-review" / "OWNER_REVIEW.md"
+    existing_owner_values = _existing_owner_values(csv_path, markdown_path)
     rows: list[dict[str, Any]] = []
+    render_material: dict[
+        str,
+        tuple[dict[str, Any], dict[str, Any], dict[str, Any], dict[str, Any]],
+    ] = {}
     for source_row in selected:
         row_id = source_row["row_id"]
+        if row_id not in terra or row_id not in sol:
+            raise NL4OPTError(f"owner row lacks Terra or Sol comparison: {row_id}")
         terra_row = terra[row_id]
         sol_row = sol[row_id]
         statement_path = campaign_dir / source_row["statement_path"]
-        terra_report = json.loads(
-            (campaign_dir / "runs" / "terra-evidence" / "rows" / row_id / "parent_solver_report.json").read_text(
-                encoding="utf-8"
-            )
-        )
-        sol_report = json.loads(
-            (campaign_dir / "runs" / "sol-adjudication" / "rows" / row_id / "parent_solver_report.json").read_text(
-                encoding="utf-8"
-            )
-        )
+        terra_workspace = campaign_dir / "runs" / "terra-evidence" / "rows" / row_id
+        sol_workspace = campaign_dir / "runs" / "sol-adjudication" / "rows" / row_id
+        terra_report = _read_json_object(terra_workspace / "parent_solver_report.json")
+        sol_report = _read_json_object(sol_workspace / "parent_solver_report.json")
+        terra_model = _read_json_object(terra_workspace / "problem.json")
+        sol_model = _read_json_object(sol_workspace / "problem.json")
+        render_material[row_id] = (terra_model, terra_report, sol_model, sol_report)
         domain_assessment_agreement = terra_row["chosen_domain"] == sol_row["chosen_domain"]
+        dataset_answer_raw = terra_row["historical_answer"]
+        sirl_revised_answer_raw = terra_row["corrected_answer"]
+        relation = terra_row.get("answer_relation") or answer_relation(
+            dataset_answer_raw,
+            sirl_revised_answer_raw,
+            policy=policy,
+        )
+        owner_values = existing_owner_values.get(row_id, {})
         rows.append(
             {
                 "row_id": row_id,
                 "selection_group": terra_row["selection_group"],
+                "answer_relation": relation,
                 "statement_path": str(statement_path),
-                "historical_answer": terra_row["historical_answer"],
-                "corrected_answer": terra_row["corrected_answer"],
+                "dataset_answer": semantic_answer(dataset_answer_raw, policy=policy),
+                "dataset_answer_raw": dataset_answer_raw,
+                "dataset_answer_encoding": answer_encoding(dataset_answer_raw, policy=policy),
+                "sirl_revised_answer": semantic_answer(sirl_revised_answer_raw, policy=policy),
+                "sirl_revised_answer_raw": sirl_revised_answer_raw,
+                "sirl_revised_answer_encoding": answer_encoding(
+                    sirl_revised_answer_raw, policy=policy
+                ),
+                "terra_model_path": str(terra_workspace / "problem.json"),
                 "terra_source_status": terra_row["source_status"],
-                "terra_domain": terra_row["chosen_domain"],
-                "terra_continuous_objective": terra_row["continuous_objective"],
-                "terra_integer_objective": terra_row["integer_objective"],
+                "terra_chosen_domain": terra_row["chosen_domain"],
+                "terra_generated_continuous_status": terra_report.get("continuous", {}).get("status"),
+                "terra_generated_continuous_answer": terra_report.get("continuous", {}).get("objective"),
+                "terra_generated_integer_status": terra_report.get("integer", {}).get("status"),
+                "terra_generated_integer_answer": terra_report.get("integer", {}).get("objective"),
                 "terra_mechanisms": serialize_mechanisms(terra_row["mechanisms"]),
+                "sol_model_path": str(sol_workspace / "problem.json"),
                 "sol_source_status": sol_row["source_status"],
-                "sol_domain": sol_row["chosen_domain"],
-                "sol_continuous_objective": sol_row["continuous_objective"],
-                "sol_integer_objective": sol_row["integer_objective"],
+                "sol_chosen_domain": sol_row["chosen_domain"],
+                "sol_generated_continuous_status": sol_report.get("continuous", {}).get("status"),
+                "sol_generated_continuous_answer": sol_report.get("continuous", {}).get("objective"),
+                "sol_generated_integer_status": sol_report.get("integer", {}).get("status"),
+                "sol_generated_integer_answer": sol_report.get("integer", {}).get("objective"),
                 "sol_mechanisms": serialize_mechanisms(sol_row["mechanisms"]),
                 "solver_result_agreement": solver_reports_agree(terra_report, sol_report),
                 "domain_assessment_agreement": domain_assessment_agreement,
                 "model_agreement": domain_assessment_agreement and solver_reports_agree(terra_report, sol_report),
-                "owner_decision": "",
-                "owner_material": "",
-                "owner_mechanism": "",
-                "owner_notes": "",
+                **{field: owner_values.get(field, "") for field in OWNER_FIELDS},
             }
         )
-    fields = list(rows[0]) if rows else ["row_id"]
-    csv_path = campaign_dir / "owner-review" / "owner-review-packet.csv"
+    fields = list(rows[0]) if rows else ["row_id", *OWNER_FIELDS]
     write_csv(csv_path, rows, fields)
     markdown_lines = [
         "# Owner Review Packet",
         "",
-        "Review all rows. Fill the four `owner_*` columns in the CSV. This is the only human gate.",
+        "This packet separates three answer roles. The dataset answer is the older local",
+        f"{corpus} answer. The SIRL-revised answer is an external published revision, not",
+        "ground truth. The workflow-generated role contains two independent generators,",
+        "Terra and Sol; each model is replayed in continuous and integer domains.",
+        "The frozen status markers "
+        + ", ".join(str(value) for value in policy.status_sentinels)
+        + " mean No Best Solution; they are not numeric objectives.",
+        "A marker alone does not distinguish infeasible, unbounded,",
+        "or an unattained optimum, so use the generated solver statuses for that detail.",
+        "Rows where dataset and SIRL values differ only by encoding are excluded",
+        "from owner review.",
+        "",
+        "Review every row, including controls. In each row, mark exactly one",
+        "checkbox in each of the three owner selection lists.",
+        "",
+        "## Required Owner Values",
+        "",
+        "- owner_decision: sirl_supported, dataset_supported, both_valid, neither_supported, or unresolved",
+        "- owner_material: yes, no, or uncertain",
+        "- owner_mechanism: one listed mechanism or none",
+        "",
+        "Allowed mechanisms: " + ", ".join(sorted(OWNER_MECHANISM_VALUES - {"none"})) + ", none.",
+        "",
+        "A confirmed material answer fault requires owner_decision sirl_supported or",
+        "neither_supported, owner_material yes, and a non-none mechanism.",
+        "The campaign gate requires at least three such rows across at least two mechanisms.",
+        "Completing this owner gate does not repair or replace an invalid recovery gate.",
         "",
     ]
     for row in rows:
+        row_id = row["row_id"]
         statement = Path(row["statement_path"]).read_text(encoding="utf-8").strip()
+        terra_model, terra_report, sol_model, sol_report = render_material[row_id]
         markdown_lines.extend(
             [
-                f"## {row['row_id']}",
+                f"## {row_id}",
+                "",
+                "### Question",
                 "",
                 statement,
                 "",
-                f"- Historical answer: `{row['historical_answer']}`",
-                f"- Corrected answer: `{row['corrected_answer']}`",
-                f"- Terra: domain `{row['terra_domain']}`, continuous `{row['terra_continuous_objective']}`, integer `{row['terra_integer_objective']}`",
-                f"- Sol: domain `{row['sol_domain']}`, continuous `{row['sol_continuous_objective']}`, integer `{row['sol_integer_objective']}`",
-                f"- Solver-result agreement: `{row['solver_result_agreement']}`",
-                f"- Domain-assessment agreement: `{row['domain_assessment_agreement']}`",
-                "- Owner decision: pending",
+                f"- Frozen selection group: {_display_value(row['selection_group'])}",
+                f"- Repaired answer relation: {_display_value(row['answer_relation'])}",
+                "",
+                "### Answer Sources",
+                "",
+                "| Source | Interpreted answer | Raw stored value | Role |",
+                "|---|---:|---:|---|",
+                f"| Original dataset snapshot | {_markdown_cell(row['dataset_answer'])} | {_markdown_cell(row['dataset_answer_raw'])} | {_answer_role('Answer being audited', row['dataset_answer_encoding'])} |",
+                f"| SIRL revised snapshot | {_markdown_cell(row['sirl_revised_answer'])} | {_markdown_cell(row['sirl_revised_answer_raw'])} | {_answer_role('External revision; not ground truth', row['sirl_revised_answer_encoding'])} |",
+                "",
+                "### Workflow-Generated Answers",
+                "",
+                "| Generator | Domain | Status | Objective answer | Variable values |",
+                "|---|---|---|---:|---|",
+                _solver_answer_row("Terra", "continuous", terra_report),
+                _solver_answer_row("Terra", "integer", terra_report),
+                _solver_answer_row("Sol", "continuous", sol_report),
+                _solver_answer_row("Sol", "integer", sol_report),
+                "",
+                f"- Terra source assessment: {_display_value(row['terra_source_status'])}",
+                f"- Terra chosen domain: {_display_value(row['terra_chosen_domain'])}",
+                f"- Sol source assessment: {_display_value(row['sol_source_status'])}",
+                f"- Sol chosen domain: {_display_value(row['sol_chosen_domain'])}",
+                f"- Solver-result agreement: {_display_value(row['solver_result_agreement'])}",
+                f"- Domain-assessment agreement: {_display_value(row['domain_assessment_agreement'])}",
+                "",
+                "### Terra-Generated Mathematical Model",
+                "",
+                "~~~text",
+                _generated_model_text(terra_model),
+                "~~~",
+                "",
+                "### Sol-Generated Mathematical Model",
+                "",
+                "~~~text",
+                _generated_model_text(sol_model),
+                "~~~",
+                "",
+                "### Owner Selection",
+                "",
+                "Mark exactly one option in each list by changing `[ ]` to `[x]`.",
+                "",
+                "#### owner_decision",
+                "",
+                *_owner_option_lines(OWNER_DECISION_OPTIONS, row["owner_decision"]),
+                "",
+                "#### owner_material",
+                "",
+                *_owner_option_lines(OWNER_MATERIAL_OPTIONS, row["owner_material"]),
+                "",
+                "#### owner_mechanism",
+                "",
+                *_owner_option_lines(OWNER_MECHANISM_OPTIONS, row["owner_mechanism"]),
                 "",
             ]
         )
-    markdown_path = campaign_dir / "owner-review" / "OWNER_REVIEW.md"
     markdown_path.parent.mkdir(parents=True, exist_ok=True)
     markdown_path.write_text("\n".join(markdown_lines).rstrip() + "\n", encoding="utf-8")
-    summary = {"rows": len(rows), "csv": str(csv_path), "markdown": str(markdown_path), "status": "owner_review_pending"}
+    summary = _owner_review_summary(rows)
+    summary.update(
+        {
+            "csv": str(csv_path),
+            "markdown": str(markdown_path),
+            "excluded_encoding_equivalent_rows": excluded_encoding_rows,
+        }
+    )
     write_json(campaign_dir / "owner-review" / "owner-review-status.json", summary)
+    return summary
+
+
+def validate_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
+    csv_path = campaign_dir / "owner-review" / "owner-review-packet.csv"
+    markdown_path = campaign_dir / "owner-review" / "OWNER_REVIEW.md"
+    status_path = campaign_dir / "owner-review" / "owner-review-status.json"
+    if not csv_path.is_file():
+        raise NL4OPTError(f"owner-review packet is missing: {csv_path}")
+    with csv_path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        csv_fields = list(reader.fieldnames or [])
+        fieldnames = set(csv_fields)
+        required = {"row_id", *OWNER_FIELDS}
+        missing_columns = sorted(required - fieldnames)
+        if missing_columns:
+            raise NL4OPTError(
+                "owner-review packet is missing columns: " + ", ".join(missing_columns)
+            )
+        rows = list(reader)
+    if len(rows) > 12:
+        raise NL4OPTError(f"owner packet exceeds 12-row cap: {len(rows)}")
+    row_ids = [str(row.get("row_id", "")).strip() for row in rows]
+    if any(not row_id for row_id in row_ids):
+        raise NL4OPTError("owner-review packet contains an empty row_id")
+    if len(row_ids) != len(set(row_ids)):
+        raise NL4OPTError("owner-review packet contains duplicate row IDs")
+    markdown_values = _markdown_owner_values(markdown_path)
+    unknown_markdown_rows = sorted(set(markdown_values) - set(row_ids))
+    if unknown_markdown_rows:
+        raise NL4OPTError(
+            "owner-review Markdown contains unknown rows: "
+            + ", ".join(unknown_markdown_rows)
+        )
+    for row in rows:
+        row_id = str(row["row_id"]).strip()
+        if row_id in markdown_values:
+            row.update(markdown_values[row_id])
+    write_csv(csv_path, rows, csv_fields)
+    summary = _owner_review_summary(rows)
+    summary.update(
+        {
+            "csv": str(csv_path),
+            "markdown": str(markdown_path),
+        }
+    )
+    if status_path.is_file():
+        previous_status = _read_json_object(status_path)
+        excluded_rows = previous_status.get("excluded_encoding_equivalent_rows")
+        if isinstance(excluded_rows, list):
+            summary["excluded_encoding_equivalent_rows"] = excluded_rows
+    write_json(status_path, summary)
     return summary
 
 
