@@ -4,7 +4,7 @@
 
 Implementation stays inside the notes vault:
 
-`experiments/or-ci-labeling-operations-2026-05-26/`
+`experiments/packs/or-ci-labeling-operations-2026-05-26/`
 
 It reads the already-generated `cold-protocol-rater-bundle-2026-05-27/`
 directory and creates a derived ZIP plus summaries. It does not modify source

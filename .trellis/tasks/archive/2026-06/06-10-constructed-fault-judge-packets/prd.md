@@ -13,7 +13,7 @@ ground-truth answers.
 ## Requirements
 
 - Work in the OR-research experiment pack:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
 - Add a deterministic packet builder script, `build_judge_packets.py`.
 - Generate one judge-visible JSON packet per material-valid mutant under
   `judge_packets/`.

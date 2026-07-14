@@ -4,7 +4,7 @@
 
 This task adds generated manual-submission artifacts under:
 
-`experiments/or-ci-self-host-exploration-2026-05-25/`
+`experiments/packs/or-ci-self-host-exploration-2026-05-25/`
 
 It does not change OR-CI verifier code, model prompts, or response records.
 

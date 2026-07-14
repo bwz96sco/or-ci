@@ -1,3 +1,3 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_human_dispatch_receipt_ledger.py", "reason": "Generator to extend with preserved receipt-events intake."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/human-dispatch-wave-plan-2026-05-27.json", "reason": "Source wave list and default receipt state."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py", "reason": "Existing smoke gate that runs the receipt-ledger check/self-test."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/build_human_dispatch_receipt_ledger.py", "reason": "Generator to extend with preserved receipt-events intake."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/human-dispatch-wave-plan-2026-05-27.json", "reason": "Source wave list and default receipt state."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py", "reason": "Existing smoke gate that runs the receipt-ledger check/self-test."}

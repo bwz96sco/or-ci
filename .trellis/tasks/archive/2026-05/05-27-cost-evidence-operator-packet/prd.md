@@ -10,7 +10,7 @@ exists.
 ## Requirements
 
 - Add a notes-side builder under
-  `experiments/or-ci-paper-evidence-pack-2026-05-27/`.
+  `experiments/packs/or-ci-paper-evidence-pack-2026-05-27/`.
 - Generate deterministic JSON and Markdown artifacts named
   `cost-evidence-operator-packet-2026-05-27.*`.
 - Read the existing cost finalization gate JSON, cost finalization input CSV,

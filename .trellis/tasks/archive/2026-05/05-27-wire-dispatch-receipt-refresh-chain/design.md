@@ -4,7 +4,7 @@
 
 Patch the notes-vault receipt recorder:
 
-- `experiments/or-ci-labeling-operations-2026-05-26/record_human_dispatch_receipt_event.py`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/record_human_dispatch_receipt_event.py`
 
 Regenerate affected generated notes artifacts if their command snapshots or
 smoke outputs change.

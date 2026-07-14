@@ -20,7 +20,7 @@ Implement the roadmap's guarded P0/P1 mutation generator path against the frozen
 ## Requirements
 
 - Add a guarded generator stage for P0/P1 mutation plans under
-  `experiments/or-ci-self-host-exploration-2026-05-25/`.
+  `experiments/packs/or-ci-self-host-exploration-2026-05-25/`.
 - Reuse the frozen queue, applicability, backlog, and plan-preview artifacts as
   inputs; do not duplicate their source-of-truth logic.
 - Refuse to write a mutated artifact unless the queue row is

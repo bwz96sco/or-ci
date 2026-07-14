@@ -4,7 +4,7 @@
 
 Add:
 
-`experiments/or-ci-labeling-operations-2026-05-26/build_human_dispatch_outbox_preflight.py`
+`experiments/packs/or-ci-labeling-operations-2026-05-26/build_human_dispatch_outbox_preflight.py`
 
 Generated artifacts:
 
@@ -14,7 +14,7 @@ Generated artifacts:
 
 Patch:
 
-- `experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py`
+- `experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py`
 
 The builder reads existing generated and operator-editable artifacts. It does
 not write to receipt events, intake CSVs, canonical labels, mutation review

@@ -4,7 +4,7 @@
 
 Patch the notes-vault parallel dispatch builder:
 
-- `experiments/or-ci-labeling-operations-2026-05-26/build_parallel_human_dispatch_send_packets.py`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_parallel_human_dispatch_send_packets.py`
 
 Regenerate:
 

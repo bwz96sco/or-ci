@@ -7,7 +7,7 @@ Generate a copy-ready outgoing send packet for the cold-protocol rater bundle, i
 ## Requirements
 
 - Add a notes-side generator under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - Generate JSON and Markdown send-packet artifacts for the current primary
   cold-protocol dispatch wave.
 - Read existing source artifacts instead of duplicating state:

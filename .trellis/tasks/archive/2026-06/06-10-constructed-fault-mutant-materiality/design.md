@@ -4,7 +4,7 @@
 
 Implementation lives in the OR-research experiment pack:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`
 
 OR-CI package code remains unchanged. The materiality runner invokes OR-CI via:
 
@@ -25,11 +25,11 @@ pilot_mutation_plan.csv
 
 Note-pack root:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`
 
 Raw run-output root:
 
-`/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`
+`/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`
 
 Generated mutants use the directory declared by each planning row's
 `planned_mutant_artifact_dir`.

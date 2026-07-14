@@ -4,7 +4,7 @@
 
 The change stays inside the notes-vault staging helper:
 
-`experiments/or-ci-labeling-operations-2026-05-26/stage_returned_human_evidence.py`
+`experiments/packs/or-ci-labeling-operations-2026-05-26/stage_returned_human_evidence.py`
 
 It does not modify intake validators, receipt-event recorder semantics, or
 paper-readiness logic. The existing smoke report already runs the staging

@@ -17,7 +17,7 @@ research-experiment stages.
 ## Requirements
 
 - Add deterministic Python build scripts under:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
 - Use only local artifact evidence:
   - existing 82-case OR-CI/BWOR artifact root;
   - prior mutation seed manifests, applicability matrices, and plan previews;

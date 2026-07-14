@@ -4,7 +4,7 @@
 
 The implementation touches only the notes-vault cold protocol bundle generator:
 
-`experiments/or-ci-labeling-operations-2026-05-26/build_cold_protocol_rater_bundle.py`
+`experiments/packs/or-ci-labeling-operations-2026-05-26/build_cold_protocol_rater_bundle.py`
 
 It updates generated files under:
 

@@ -7,7 +7,7 @@ Add an operator-editable receipt-events intake CSV and merge it into the generat
 ## Requirements
 
 - Extend the notes-side receipt ledger generator:
-  `experiments/or-ci-labeling-operations-2026-05-26/build_human_dispatch_receipt_ledger.py`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/build_human_dispatch_receipt_ledger.py`.
 - Add an operator-editable receipt-events CSV:
   `human-dispatch-receipt-events-2026-05-27.csv`.
 - The events CSV must be created as a stable template and then preserved on

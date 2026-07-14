@@ -31,7 +31,7 @@ For each dataset:
 
 ## Generated Artifacts
 
-Under `experiments/or-ci-labeling-operations-2026-05-26/`:
+Under `experiments/packs/or-ci-labeling-operations-2026-05-26/`:
 
 - `label-promotion-readiness-2026-05-27.csv`
 - `label-promotion-readiness-2026-05-27.json`

@@ -14,7 +14,7 @@ recall.
 ## Requirements
 
 - Work in the notes vault under
-  `experiments/or-ci-self-host-exploration-2026-05-25/`.
+  `experiments/packs/or-ci-self-host-exploration-2026-05-25/`.
 - Reuse the existing seed candidate manifest, seed-review bundle, staged
   seed-review intake readiness, coordinator seed-review readiness/template, and
   mutation work queue.

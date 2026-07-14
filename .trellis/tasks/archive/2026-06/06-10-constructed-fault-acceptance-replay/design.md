@@ -4,7 +4,7 @@
 
 Implementation lives in the OR-research experiment pack:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`
 
 OR-CI package code remains unchanged. The replay consumes already-generated
 OR-CI mutant reports from `materiality_ledger.csv`; it does not rerun model

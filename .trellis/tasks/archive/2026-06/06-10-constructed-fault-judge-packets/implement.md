@@ -25,11 +25,11 @@
 ## Validation Commands
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/build_judge_packets.py
-PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/build_judge_packets.py --check
-PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/run_acceptance_layer_replay.py --check
-PYTHONDONTWRITEBYTECODE=1 uv run python -m py_compile /Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/constructed_fault_common.py /Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/build_judge_packets.py
-PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/agent-skills-private/skills/research-experiment/scripts/validate_experiment_pack.py /Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10 --strict-claim-audit
+PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/build_judge_packets.py
+PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/build_judge_packets.py --check
+PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/run_acceptance_layer_replay.py --check
+PYTHONDONTWRITEBYTECODE=1 uv run python -m py_compile /Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/constructed_fault_common.py /Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/build_judge_packets.py
+PYTHONDONTWRITEBYTECODE=1 uv run python /Users/zhangbowen/Projects/agent-skills-private/skills/research-experiment/scripts/validate_experiment_pack.py /Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10 --strict-claim-audit
 uv run pytest
 ```
 

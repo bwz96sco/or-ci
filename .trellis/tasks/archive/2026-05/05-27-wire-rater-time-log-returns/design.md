@@ -40,7 +40,7 @@ Defaults:
 ## Files To Touch
 
 Notes-vault generators under
-`experiments/or-ci-labeling-operations-2026-05-26/`:
+`experiments/packs/or-ci-labeling-operations-2026-05-26/`:
 
 - `build_cold_protocol_rater_bundle.py`
 - `build_capstone_rater_bundle.py`

@@ -47,11 +47,11 @@ or recording events before the coordinator explicitly executes the operation.
 
 ## Verification
 
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/stage_returned_human_time_log.py --check`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/stage_returned_human_time_log.py --self-test`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_human_time_evidence_readiness.py --check`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
-- `wc -l experiments/or-ci-labeling-operations-2026-05-26/human-time-evidence-events-2026-05-27.csv` -> `1`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/stage_returned_human_time_log.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/stage_returned_human_time_log.py --self-test`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_human_time_evidence_readiness.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
+- `wc -l experiments/packs/or-ci-labeling-operations-2026-05-26/human-time-evidence-events-2026-05-27.csv` -> `1`
 - `uv run pytest` -> `42 passed`
 - `npx gitnexus detect-changes --repo or-ci --scope all` -> `No changes detected.`
 

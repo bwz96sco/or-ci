@@ -1,5 +1,5 @@
 {"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "uv workflow and deterministic validation expectations"}
 {"file": "/Users/zhangbowen/Projects/OR/note/OR-research/ideas/or-ci-next-stage-research-roadmap-2026-05-26.md", "reason": "Human labeling roadmap requirements and current blockers"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/source-fidelity-label-agreement-summary-v2-2026-05-26.md", "reason": "13-case capstone labeling status"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-layered-verification-50case-2026-05-22/source-fidelity-50case-label-agreement-summary-v2-2026-05-26.md", "reason": "50-case pilot labeling status"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-label-agreement-summary-v2-2026-05-26.md", "reason": "NL4OPT external labeling status"}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/source-fidelity-label-agreement-summary-v2-2026-05-26.md", "reason": "13-case capstone labeling status"}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-layered-verification-50case-2026-05-22/source-fidelity-50case-label-agreement-summary-v2-2026-05-26.md", "reason": "50-case pilot labeling status"}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-label-agreement-summary-v2-2026-05-26.md", "reason": "NL4OPT external labeling status"}

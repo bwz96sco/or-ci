@@ -7,11 +7,11 @@ does not change OR-CI verifier behavior.
 
 Source artifacts live in:
 
-- `experiments/or-ci-external-sanity-nl4opt-2026-05-26/`
+- `experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/`
 
 New operations artifacts live in:
 
-- `experiments/or-ci-labeling-operations-2026-05-26/`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/`
 
 The bundle/intake scripts should mirror the established capstone and Phase 2
 scripts rather than introduce a new workflow.

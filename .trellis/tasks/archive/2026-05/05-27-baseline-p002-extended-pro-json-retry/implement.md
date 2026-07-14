@@ -20,11 +20,11 @@
    - write a retry failure note;
    - ensure no staged/canonical response exists for P002.
 8. [x] Run validation:
-   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-self-host-exploration-2026-05-25/build_baseline_response_intake.py --check`
-   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-self-host-exploration-2026-05-25/build_baseline_response_capture.py --check`
-   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-self-host-exploration-2026-05-25/build_baseline_response_operator_queue.py --check`
-   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_readiness.py --check`
-   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-paper-evidence-pack-2026-05-27/build_next_stage_execution_board.py --check`
+   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-self-host-exploration-2026-05-25/build_baseline_response_intake.py --check`
+   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-self-host-exploration-2026-05-25/build_baseline_response_capture.py --check`
+   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-self-host-exploration-2026-05-25/build_baseline_response_operator_queue.py --check`
+   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_readiness.py --check`
+   - `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_next_stage_execution_board.py --check`
    - `uv run pytest`
    - `git diff --check`
    - `git -C /Users/zhangbowen/Projects/OR/note/OR-research diff --check`

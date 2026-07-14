@@ -14,9 +14,9 @@
 
 Run from the notes repo:
 
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_label_promotion_readiness.py`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_label_promotion_readiness.py --check`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_label_promotion_readiness.py --dataset capstone_13 --execute` should fail while labels are pending.
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_label_promotion_readiness.py`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_label_promotion_readiness.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_label_promotion_readiness.py --dataset capstone_13 --execute` should fail while labels are pending.
 - Existing intake, handoff, dashboard, leakage, and paper readiness checks.
 - `git diff --check`
 

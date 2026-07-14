@@ -11,7 +11,7 @@ Create a generated operator/rater dispatch brief for the 5-case cold protocol ch
 - The cold-check rater bundle, distribution ZIP, handoff, intake readiness
   gate, and staged incoming label CSV already exist.
 - The returned cold-check labels must stage through
-  `experiments/or-ci-labeling-operations-2026-05-26/cold-protocol-intake-2026-05-27/incoming-cold-check-labels.csv`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/cold-protocol-intake-2026-05-27/incoming-cold-check-labels.csv`.
 - The self-host source blank CSV remains provenance and bundle-generation
   input, not the coordinator return target.
 - Cold-check labels are protocol-debug evidence only and must not become

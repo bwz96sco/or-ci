@@ -1,4 +1,4 @@
 {"file": ".trellis/spec/backend/index.md", "reason": "Backend spec index and pre-development checklist."}
 {"file": ".trellis/spec/backend/data-contracts.md", "reason": "OR-CI metadata, submission, ModelIR, and report contracts the adapter must preserve."}
 {"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "uv/pytest workflow, deterministic verifier boundary, and no-LLM/no-network constraints."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/external_dataset_sanity_check_protocol.md", "reason": "Research-side external evidence route and claim boundaries."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/external_dataset_sanity_check_protocol.md", "reason": "Research-side external evidence route and claim boundaries."}

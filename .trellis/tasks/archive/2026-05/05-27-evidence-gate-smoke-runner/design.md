@@ -3,7 +3,7 @@
 ## Boundary
 
 The runner lives in
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/`
 because it aggregates evidence readiness across labeling operations,
 self-host exploration, and paper-readiness artifacts.
 

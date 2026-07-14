@@ -14,7 +14,7 @@ mutants, deciding equivalent mutants, running OR-CI, or estimating recall.
 ## Requirements
 
 - Work in the notes vault under
-  `experiments/or-ci-self-host-exploration-2026-05-25/`.
+  `experiments/packs/or-ci-self-host-exploration-2026-05-25/`.
 - Reuse the existing seed candidate manifest, coordinator review template,
   seed-review readiness validator, seed-review bundle, and mutation work queue.
 - Add a staging directory and readiness CSV/JSON/MD with one row per expected

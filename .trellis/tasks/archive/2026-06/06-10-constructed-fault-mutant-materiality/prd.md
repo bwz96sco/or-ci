@@ -18,7 +18,7 @@ workflow.
 ## Requirements
 
 - Add deterministic Python scripts under:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
 - Read the existing planning outputs:
   - `seed_inventory.csv`;
   - `pilot_mutation_plan.csv`;

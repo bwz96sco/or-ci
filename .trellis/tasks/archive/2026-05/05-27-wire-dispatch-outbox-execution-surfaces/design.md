@@ -4,8 +4,8 @@
 
 Patch notes-side deterministic builders:
 
-- `experiments/or-ci-labeling-operations-2026-05-26/build_human_evidence_collection_tracker.py`
-- `experiments/or-ci-paper-evidence-pack-2026-05-27/build_next_stage_execution_board.py`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_human_evidence_collection_tracker.py`
+- `experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_next_stage_execution_board.py`
 
 Generated artifacts will be refreshed by their existing builders.
 

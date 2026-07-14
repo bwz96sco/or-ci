@@ -9,7 +9,7 @@ machine-checkable manifest.
 ## Requirements
 
 - Add a notes-side generator under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - Package the existing safe cold protocol rater bundle into a deterministic
   ZIP archive.
 - Generate JSON and Markdown distribution summaries with:

@@ -4,7 +4,7 @@
 
 Implementation lives in the OR research notes vault:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/`
 
 The OR-CI verifier package is not modified. The code repo receives only
 Trellis task lifecycle artifacts.

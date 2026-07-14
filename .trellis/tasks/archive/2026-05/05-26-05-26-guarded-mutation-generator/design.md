@@ -4,7 +4,7 @@
 
 The generator belongs to the research notes experiment directory:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/`
 
 It is not part of the OR-CI verifier package. It consumes already-frozen CSV/JSON
 planning artifacts and writes research experiment artifacts only.

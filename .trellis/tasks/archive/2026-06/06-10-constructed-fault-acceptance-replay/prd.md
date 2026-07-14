@@ -14,7 +14,7 @@ fault.
 ## Confirmed Facts
 
 - The OR-research experiment pack is:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
 - Prior task generated 15 concrete mutants and classified materiality.
 - `materiality_ledger.csv` currently contains 10 `material_valid` mutants, 2
   `silent_or_equivalent` mutants, and 3 invalid/unclassifiable mutants.

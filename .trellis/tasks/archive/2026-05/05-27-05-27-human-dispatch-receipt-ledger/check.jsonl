@@ -1,3 +1,3 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/build_human_dispatch_receipt_ledger.py", "reason": "New receipt-ledger generator check and self-test."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py", "reason": "Smoke gate must include receipt-ledger check/self-test."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/build_human_dispatch_receipt_ledger.py", "reason": "New receipt-ledger generator check and self-test."}
+{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py", "reason": "Smoke gate must include receipt-ledger check/self-test."}
 {"file": "/Users/zhangbowen/Projects/OR/note/OR-research/ideas/or-ci-next-stage-research-roadmap-2026-05-26.md", "reason": "Roadmap should point to the receipt ledger as bookkeeping only."}

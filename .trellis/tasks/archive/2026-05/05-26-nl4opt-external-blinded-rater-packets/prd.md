@@ -14,7 +14,7 @@ classifications, LLM fidelity verdicts, or prior reviewer notes to raters.
 ## Confirmed Facts
 
 - The frozen sample and run live under
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-external-sanity-nl4opt-2026-05-26`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26`.
 - Raw generated artifacts live under
   `/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/external-sanity-nl4opt-20case-2026-05-26`.
 - The frozen external run summary is committed in notes commit `9751871`.

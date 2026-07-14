@@ -7,7 +7,7 @@ Add a notes-side generated receipt ledger for human dispatch waves so send/retur
 ## Requirements
 
 - Add a notes-side generator under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - Read the generated human dispatch wave plan as the source of truth for wave
   order, sendable packages, return targets, validation commands, blockers, and
   guardrails.

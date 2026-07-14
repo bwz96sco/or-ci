@@ -4,7 +4,7 @@
 
 The implementation lives in the notes vault experiment directory:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/`
 
 It must not modify OR-CI verifier package code. Trellis artifacts in this repo
 record the task lifecycle only.

@@ -50,10 +50,10 @@ labels, time, seed reviews, or report-ready claims.
 
 ## Verification
 
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_returned_artifact_staging_runbook.py --check`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_returned_artifact_staging_runbook.py --self-test`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
-- `jq '{command_count: (.commands|length), status, report_ready}' experiments/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json` -> 84 commands, `all_smoke_gates_passed`, `report_ready=false`
-- `wc -l experiments/or-ci-labeling-operations-2026-05-26/human-time-evidence-events-2026-05-27.csv` -> 1 header line
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_returned_artifact_staging_runbook.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_returned_artifact_staging_runbook.py --self-test`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
+- `jq '{command_count: (.commands|length), status, report_ready}' experiments/packs/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json` -> 84 commands, `all_smoke_gates_passed`, `report_ready=false`
+- `wc -l experiments/packs/or-ci-labeling-operations-2026-05-26/human-time-evidence-events-2026-05-27.csv` -> 1 header line
 - `uv run pytest` -> 42 passed
 - `npx gitnexus detect-changes --repo or-ci --scope all` -> `No changes detected.`

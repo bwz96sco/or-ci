@@ -7,7 +7,7 @@ Generate a guarded draft paper evidence pack from current readiness gates, block
 ## Requirements
 
 - Add a notes-side builder under
-  `experiments/or-ci-paper-evidence-pack-2026-05-27/`.
+  `experiments/packs/or-ci-paper-evidence-pack-2026-05-27/`.
 - Generate guarded draft paper evidence-pack JSON and Markdown artifacts from
   the current paper readiness CSV/JSON and execution board JSON.
 - The draft must include:

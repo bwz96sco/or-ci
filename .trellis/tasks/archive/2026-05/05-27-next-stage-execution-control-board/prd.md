@@ -11,7 +11,7 @@ claims.
 ## Requirements
 
 - Add a notes-side Python generator under
-  `experiments/or-ci-paper-evidence-pack-2026-05-27/`.
+  `experiments/packs/or-ci-paper-evidence-pack-2026-05-27/`.
 - Generate CSV, JSON, and Markdown artifacts for the 2026-05-27 next-stage
   execution board.
 - Read existing readiness JSON/operator-queue artifacts as authoritative

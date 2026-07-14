@@ -4,11 +4,11 @@
 
 Add a paper-pack gate under:
 
-`experiments/or-ci-paper-evidence-pack-2026-05-27/`
+`experiments/packs/or-ci-paper-evidence-pack-2026-05-27/`
 
 The gate reads the existing 50-case cost ledger:
 
-`experiments/or-ci-layered-verification-50case-2026-05-22/source-fidelity-50case-cost-throughput-ledger-2026-05-26.json`
+`experiments/packs/or-ci-layered-verification-50case-2026-05-22/source-fidelity-50case-cost-throughput-ledger-2026-05-26.json`
 
 It does not modify the 50-case ledger, human-label intake files, billing data,
 or report claims.

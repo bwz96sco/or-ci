@@ -4,7 +4,7 @@
 
 Add:
 
-`experiments/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_draft.py`
+`experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_draft.py`
 
 Generated artifacts:
 

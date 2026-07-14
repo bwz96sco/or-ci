@@ -17,14 +17,14 @@
 
 Run from the notes repo with `PYTHONDONTWRITEBYTECODE=1 uv run python`:
 
-- `experiments/or-ci-labeling-operations-2026-05-26/build_nl4opt_rater_bundle.py --check`
-- `experiments/or-ci-labeling-operations-2026-05-26/build_nl4opt_label_intake.py --check`
-- `experiments/or-ci-labeling-operations-2026-05-26/build_nl4opt_label_intake.py --self-test`
-- `experiments/or-ci-external-sanity-nl4opt-2026-05-26/build_nl4opt_label_agreement.py --check`
-- `experiments/or-ci-labeling-operations-2026-05-26/build_labeling_operations_dashboard.py --check`
-- `experiments/or-ci-labeling-operations-2026-05-26/build_human_labeling_handoff.py --check`
-- `experiments/or-ci-labeling-operations-2026-05-26/build_rater_packet_leakage_audit.py --check`
-- `experiments/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_readiness.py --check --self-test`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_nl4opt_rater_bundle.py --check`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_nl4opt_label_intake.py --check`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_nl4opt_label_intake.py --self-test`
+- `experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/build_nl4opt_label_agreement.py --check`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_labeling_operations_dashboard.py --check`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_human_labeling_handoff.py --check`
+- `experiments/packs/or-ci-labeling-operations-2026-05-26/build_rater_packet_leakage_audit.py --check`
+- `experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_readiness.py --check --self-test`
 - `git diff --check`
 
 Run from the code repo before committing Trellis changes:

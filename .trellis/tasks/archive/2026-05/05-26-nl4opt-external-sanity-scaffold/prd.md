@@ -50,7 +50,7 @@ tuning the pipeline on the external set.
 
 ## Acceptance Criteria
 
-- [x] `experiments/or-ci-external-sanity-nl4opt-2026-05-26/` exists in the
+- [x] `experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/` exists in the
       notes vault with a README, manifest generator, audit files, selected
       manifest, case ID list, clean JSONL dataset, runbook, and 20 statement
       files.

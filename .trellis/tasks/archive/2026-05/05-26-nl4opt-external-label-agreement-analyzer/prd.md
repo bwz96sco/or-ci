@@ -14,7 +14,7 @@ worktable, and computes agreement metrics as soon as paired labels exist.
 ## Confirmed Facts
 
 - The NL4OPT external experiment directory is
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-external-sanity-nl4opt-2026-05-26`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26`.
 - Existing external packet artifacts include 20 `E*.md` rater packets,
   coordinator-only packet map, Rater A/B blank sheets, and a blank adjudication
   sheet.

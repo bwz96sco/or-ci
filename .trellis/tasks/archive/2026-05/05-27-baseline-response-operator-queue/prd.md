@@ -13,7 +13,7 @@ model responses, or accepting failed/invalid responses as evidence.
 ## Requirements
 
 - Work in the notes vault under
-  `experiments/or-ci-self-host-exploration-2026-05-25/`.
+  `experiments/packs/or-ci-self-host-exploration-2026-05-25/`.
 - Reuse the existing baseline run queue, manual submission manifest,
   response-intake readiness, response-capture readiness, response template,
   model-run policy note, and failed Oracle smoke evidence.

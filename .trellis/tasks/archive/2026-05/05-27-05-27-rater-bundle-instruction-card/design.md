@@ -2,7 +2,7 @@
 
 ## Boundary
 
-This task updates note-vault experiment generators, not the OR-CI runtime. The source of truth remains the frozen addendum plus generated bundle scripts under `experiments/or-ci-labeling-operations-2026-05-26/`.
+This task updates note-vault experiment generators, not the OR-CI runtime. The source of truth remains the frozen addendum plus generated bundle scripts under `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 
 ## Artifact Contract
 

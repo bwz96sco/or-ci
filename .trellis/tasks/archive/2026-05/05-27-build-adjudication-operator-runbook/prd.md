@@ -38,8 +38,8 @@ been promoted yet.
 
 ## Verification
 
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_adjudication_operator_runbook.py --check`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_adjudication_operator_runbook.py --self-test`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_adjudication_operator_runbook.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_adjudication_operator_runbook.py --self-test`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
 - `uv run pytest`
 - Paper readiness remains `report_ready=false`.

@@ -18,7 +18,7 @@ Create a deterministic baseline-ablation run queue and validation package that m
 ## Requirements
 
 - Add a baseline-ablation run package under
-  `experiments/or-ci-self-host-exploration-2026-05-25/`.
+  `experiments/packs/or-ci-self-host-exploration-2026-05-25/`.
 - Map every prompt-manifest row to a deterministic expected raw-response file
   path.
 - Validate that every queued prompt file exists and that response paths are

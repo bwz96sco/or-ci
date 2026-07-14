@@ -15,11 +15,11 @@ the sample, prompts, rubric, thresholds, or solver policy.
 
 - The notes commit `33f4476` created the frozen NL4OPT scaffold.
 - The runbook is
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-runbook-2026-05-26.md`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-runbook-2026-05-26.md`.
 - The clean dataset is
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-dataset-20case.jsonl`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-dataset-20case.jsonl`.
 - The selected case IDs are frozen in
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-case-ids.txt`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/external-sanity-nl4opt-case-ids.txt`.
 - The run should be launched from
   `/Users/zhangbowen/Projects/OR/code/or_llm_agent`.
 - The target artifact root is

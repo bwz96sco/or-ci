@@ -4,7 +4,7 @@
 
 The dashboard lives in the notes repo as a cross-experiment operations artifact:
 
-`experiments/or-ci-labeling-operations-2026-05-26/`
+`experiments/packs/or-ci-labeling-operations-2026-05-26/`
 
 It reads existing labeling packets and label CSVs from:
 

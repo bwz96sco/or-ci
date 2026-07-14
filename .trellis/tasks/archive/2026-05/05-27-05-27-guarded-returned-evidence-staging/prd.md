@@ -19,7 +19,7 @@ targets without manual overwrites or premature evidence claims.
 ## Requirements
 
 - Add a notes-side script under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - Default behavior must preview a proposed staging operation and change no
   files.
 - `--execute` is required before copying a source CSV into an intake target.

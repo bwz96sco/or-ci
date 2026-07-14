@@ -4,7 +4,7 @@
 
 The implementation lives in the notes vault, not the OR-CI verifier package:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-paper-evidence-pack-2026-05-27/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/`
 
 It reads existing generated summaries and writes a derived board. It must not
 edit source labels, staged responses, seed-review decisions, mutation rows, or

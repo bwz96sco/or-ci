@@ -14,7 +14,7 @@ parsing.
 ## Requirements
 
 - Work in the OR-research experiment pack:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
 - Add a deterministic script, `run_llm_judge_pilot.py`.
 - The script must read only the frozen judge-visible packet files under
   `judge_packets/` for prompt construction. It may read

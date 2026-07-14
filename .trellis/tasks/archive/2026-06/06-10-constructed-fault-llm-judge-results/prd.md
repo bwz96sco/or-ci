@@ -10,7 +10,7 @@ research ledgers and claims without overclaiming model-picker certainty.
 ## Requirements
 
 - Work in the OR-research experiment pack:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`.
 - Keep OR-CI verifier/package code unchanged.
 - Preserve all 30 response JSON files under `llm_judge_responses/`.
 - Preserve invalid first-attempt responses under `llm_judge_invalid_responses/`.

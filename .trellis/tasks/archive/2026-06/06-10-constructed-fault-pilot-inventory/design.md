@@ -5,7 +5,7 @@
 The implementation lives in the OR-research notes experiment pack, not inside
 the OR-CI verifier package:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/constructed-source-fidelity-fault-benchmark-2026-06-10/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/`
 
 It reads local artifacts and writes deterministic planning artifacts. No solver
 execution, mutation generation, OR-CI invocation, network access, or LLM calls

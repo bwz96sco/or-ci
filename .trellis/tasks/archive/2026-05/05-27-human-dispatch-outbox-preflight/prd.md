@@ -10,7 +10,7 @@ staging targets before a coordinator performs external dispatch.
 ## Requirements
 
 - Add a builder under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - Generate deterministic JSON, CSV, and Markdown artifacts named
   `human-dispatch-outbox-preflight-2026-05-27.*`.
 - Read the existing dispatch wave plan, receipt ledger, receipt events,

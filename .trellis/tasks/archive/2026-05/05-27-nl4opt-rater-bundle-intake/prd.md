@@ -9,7 +9,7 @@ label-intake gate, matching the capstone and Phase 2 50-case process.
 ## Confirmed Facts
 
 - The notes repo already has frozen NL4OPT external artifacts under
-  `experiments/or-ci-external-sanity-nl4opt-2026-05-26/`.
+  `experiments/packs/or-ci-external-sanity-nl4opt-2026-05-26/`.
 - The external set has 20 blinded packet files `E001.md` through `E020.md`,
   blank Rater A/B v2 label sheets, and a label-agreement analyzer.
 - The current roadmap/reconciliation says NL4OPT must not be distributed

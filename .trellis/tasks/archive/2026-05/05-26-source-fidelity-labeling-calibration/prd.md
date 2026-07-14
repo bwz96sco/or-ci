@@ -9,11 +9,11 @@ without changing OR-CI verifier code.
 ## Target Inputs
 
 - Capstone:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25/source-fidelity-rubric-capstone-2026-05-26.json`
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/source-fidelity-rubric-capstone-2026-05-26.json`
 - Pilot artifact root:
   `/Users/zhangbowen/Projects/OR/code/or-ci/artifacts/pilot/or-llm-agent-full-bwor-2026-05-25`
 - Experiment directory:
-  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-self-host-exploration-2026-05-25`
+  `/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25`
 
 ## Requirements
 

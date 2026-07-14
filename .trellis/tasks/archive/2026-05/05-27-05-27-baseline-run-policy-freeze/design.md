@@ -4,7 +4,7 @@
 
 This task updates notes artifacts under:
 
-`experiments/or-ci-self-host-exploration-2026-05-25/`
+`experiments/packs/or-ci-self-host-exploration-2026-05-25/`
 
 It does not edit OR-CI verifier code and does not call an external model.
 

@@ -44,7 +44,7 @@ artifacts.
 
 ## Verification
 
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_cold_protocol_courier_package.py --check`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-labeling-operations-2026-05-26/build_cold_protocol_courier_package.py --self-test`
-- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_cold_protocol_courier_package.py --check`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-labeling-operations-2026-05-26/build_cold_protocol_courier_package.py --self-test`
+- `PYTHONDONTWRITEBYTECODE=1 uv run python experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_evidence_gate_smoke_report.py --check`
 - Paper readiness remains `report_ready=false`.

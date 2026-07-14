@@ -4,7 +4,7 @@
 
 The builder belongs in:
 
-`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/or-ci-labeling-operations-2026-05-26/`
+`/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/`
 
 It is an operations artifact that reads generated readiness state and writes a
 dispatch plan. It must not mutate label sheets, promote labels, accept seeds,

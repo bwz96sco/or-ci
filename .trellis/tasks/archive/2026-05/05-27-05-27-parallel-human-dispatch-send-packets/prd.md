@@ -23,7 +23,7 @@ Generate copy-ready send packets for the parallel-safe Phase 2, NL4OPT, and muta
 ## Requirements
 
 - Add a notes-side generator under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - Generate JSON and Markdown operator send-packet artifacts for the
   parallel-safe waves:
   - `phase2_50case_labels`;

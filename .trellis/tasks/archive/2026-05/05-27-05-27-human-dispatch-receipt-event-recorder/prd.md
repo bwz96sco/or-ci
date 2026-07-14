@@ -9,7 +9,7 @@ Add a guarded notes-side CLI for recording real human-dispatch receipt events af
 - The active research plan is blocked on human evidence collection, with
   `cold_protocol_check` as the primary next track and `report_ready=false`.
 - The current operator-editable receipt file is
-  `experiments/or-ci-labeling-operations-2026-05-26/human-dispatch-receipt-events-2026-05-27.csv`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/human-dispatch-receipt-events-2026-05-27.csv`.
 - Generated receipt-ledger files must not be edited directly.
 - The cold-protocol send packet provides a copy-ready outgoing message but
   intentionally does not record a send.
@@ -20,7 +20,7 @@ Add a guarded notes-side CLI for recording real human-dispatch receipt events af
 ## Requirements
 
 - Add a notes-side guarded recorder CLI under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - The CLI must support a dry-run preview by default and require an explicit
   `--execute` flag before mutating the receipt-events CSV.
 - It must record a sent event for a selected wave only when:

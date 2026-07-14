@@ -21,7 +21,7 @@ premature capstone distribution.
 ## Requirements
 
 - Add a notes-side script under
-  `experiments/or-ci-labeling-operations-2026-05-26/`.
+  `experiments/packs/or-ci-labeling-operations-2026-05-26/`.
 - Default behavior must preview a proposed decision row and change no files.
 - `--execute` is required before writing
   `cold-protocol-review-2026-05-27/protocol-review-decision.csv`.
