@@ -1256,7 +1256,15 @@ def build_owner_review_packet(*, campaign_dir: Path) -> dict[str, Any]:
         terra_row = terra[row_id]
         sol_row = sol[row_id]
         statement_path = campaign_dir / source_row["statement_path"]
-        terra_workspace = campaign_dir / "runs" / "terra-evidence" / "rows" / row_id
+        terra_workspace_value = terra_row.get("workspace_path") or terra_row.get(
+            "terra_workspace"
+        )
+        if terra_workspace_value:
+            terra_workspace = Path(str(terra_workspace_value))
+            if not terra_workspace.is_absolute():
+                terra_workspace = campaign_dir / terra_workspace
+        else:
+            terra_workspace = campaign_dir / "runs" / "terra-evidence" / "rows" / row_id
         sol_workspace = campaign_dir / "runs" / "sol-adjudication" / "rows" / row_id
         terra_report = _read_json_object(terra_workspace / "parent_solver_report.json")
         sol_report = _read_json_object(sol_workspace / "parent_solver_report.json")

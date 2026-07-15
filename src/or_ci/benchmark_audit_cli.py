@@ -19,6 +19,13 @@ from or_ci.mamo_audit import (
     scan_opened_mamo_rows,
     select_mamo_adjudication,
 )
+from or_ci.nl4opt_census import (
+    finalize_nl4opt_census,
+    merge_nl4opt_census_terra,
+    prepare_nl4opt_census,
+    reconcile_nl4opt_evidence,
+    select_nl4opt_census_adjudication,
+)
 from or_ci.nl4opt_audit import (
     NL4OPTError,
     build_owner_review_packet,
@@ -51,6 +58,97 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--control-count", type=int, default=16)
     prepare.add_argument("--expected-answer-changes", type=int, default=22)
     prepare.add_argument("--override-map", type=Path)
+
+    prepare_census = subparsers.add_parser(
+        "prepare-nl4opt-census",
+        help="freeze the approved 245-row NL4OPT benchmark-integrity census",
+    )
+    prepare_census.add_argument("--official", type=Path, required=True)
+    prepare_census.add_argument("--historical", type=Path, required=True)
+    prepare_census.add_argument("--corrected", type=Path, required=True)
+    prepare_census.add_argument(
+        "--all-official-solver-results",
+        "--all-official-results",
+        dest="all_official_solver_results",
+        type=Path,
+        required=True,
+    )
+    prepare_census.add_argument(
+        "--july-pilot-campaign-dir",
+        "--july-pilot-dir",
+        dest="july_pilot_campaign_dir",
+        type=Path,
+        required=True,
+    )
+    prepare_census.add_argument("--official-commit", required=True)
+    prepare_census.add_argument("--corrected-commit", required=True)
+    prepare_census.add_argument("--out-dir", type=Path, required=True)
+    prepare_census.add_argument("--seed", default="nl4opt-full-census-v1")
+    prepare_census.add_argument("--override-map", type=Path)
+
+    reconcile_census = subparsers.add_parser(
+        "reconcile-nl4opt-evidence",
+        help="reconcile June candidate-only and validated July NL4OPT evidence",
+    )
+    reconcile_census.add_argument("--campaign-dir", type=Path, required=True)
+    reconcile_census.add_argument(
+        "--june-manifest-dir",
+        "--june-dir",
+        dest="june_manifest_dir",
+        type=Path,
+        required=True,
+    )
+    reconcile_census.add_argument(
+        "--july-pilot-campaign-dir",
+        "--july-pilot-dir",
+        dest="july_pilot_campaign_dir",
+        type=Path,
+        required=True,
+    )
+    reconcile_census.add_argument("--out", type=Path)
+    reconcile_census.add_argument("--summary-out", type=Path)
+
+    merge_census = subparsers.add_parser(
+        "merge-nl4opt-census-terra",
+        help="merge valid July reuse with the census Terra delta and controls",
+    )
+    merge_census.add_argument("--campaign-dir", type=Path, required=True)
+    merge_census.add_argument(
+        "--july-pilot-campaign-dir",
+        "--july-pilot-dir",
+        dest="july_pilot_campaign_dir",
+        type=Path,
+        required=True,
+    )
+    merge_census.add_argument(
+        "--terra-comparison", "--delta-comparison", dest="delta_comparison", type=Path
+    )
+    merge_census.add_argument("--terra-run-dir", "--delta-run-dir", dest="delta_run_dir", type=Path)
+    merge_census.add_argument("--out", type=Path)
+
+    select_census = subparsers.add_parser(
+        "select-nl4opt-census-adjudication",
+        help="freeze the prioritized answer-blind NL4OPT census Sol packet",
+    )
+    select_census.add_argument("--campaign-dir", type=Path, required=True)
+    select_census.add_argument("--terra-comparison", type=Path)
+    select_census.add_argument("--prior-owner-packet", type=Path)
+    select_census.add_argument("--seed", default="nl4opt-full-census-sol-v1")
+    select_census.add_argument("--max-candidates", type=int, default=8)
+
+    finalize_census = subparsers.add_parser(
+        "finalize-nl4opt-census",
+        help="derive maintenance actions and the bounded NL4OPT census route",
+    )
+    finalize_census.add_argument("--campaign-dir", type=Path, required=True)
+    finalize_census.add_argument("--terra-comparison", type=Path)
+    finalize_census.add_argument("--sol-comparison", type=Path)
+    finalize_census.add_argument("--owner-csv", type=Path)
+    finalize_census.add_argument("--owner-status", type=Path)
+    finalize_census.add_argument("--census-rows", type=Path)
+    finalize_census.add_argument("--terra-run-summary", type=Path)
+    finalize_census.add_argument("--sol-run-summary", type=Path)
+    finalize_census.add_argument("--out", type=Path)
 
     scan_mamo = subparsers.add_parser(
         "scan-mamo-opened",
@@ -237,6 +335,65 @@ def main(argv: list[str] | None = None) -> int:
                 overrides=_load_override_map(args.override_map),
             )
             print(json.dumps(provenance["counts"], sort_keys=True))
+            return 0
+        if args.command == "prepare-nl4opt-census":
+            provenance = prepare_nl4opt_census(
+                official_path=args.official,
+                historical_path=args.historical,
+                corrected_path=args.corrected,
+                all_official_solver_results_path=args.all_official_solver_results,
+                july_pilot_campaign_dir=args.july_pilot_campaign_dir,
+                output_dir=args.out_dir,
+                official_commit=args.official_commit,
+                corrected_commit=args.corrected_commit,
+                seed=args.seed,
+                overrides=_load_override_map(args.override_map),
+            )
+            print(json.dumps(provenance["counts"], sort_keys=True))
+            return 0
+        if args.command == "reconcile-nl4opt-evidence":
+            result = reconcile_nl4opt_evidence(
+                campaign_dir=args.campaign_dir,
+                june_manifest_dir=args.june_manifest_dir,
+                july_pilot_campaign_dir=args.july_pilot_campaign_dir,
+                output_path=args.out,
+                summary_path=args.summary_out,
+            )
+            print(json.dumps(result, sort_keys=True))
+            return 0
+        if args.command == "merge-nl4opt-census-terra":
+            result = merge_nl4opt_census_terra(
+                campaign_dir=args.campaign_dir,
+                july_pilot_campaign_dir=args.july_pilot_campaign_dir,
+                delta_comparison_path=args.delta_comparison,
+                delta_run_dir=args.delta_run_dir,
+                output_path=args.out,
+            )
+            print(json.dumps(result, sort_keys=True))
+            return 0
+        if args.command == "select-nl4opt-census-adjudication":
+            result = select_nl4opt_census_adjudication(
+                campaign_dir=args.campaign_dir,
+                terra_comparison_path=args.terra_comparison,
+                prior_owner_packet_path=args.prior_owner_packet,
+                seed=args.seed,
+                max_candidates=args.max_candidates,
+            )
+            print(json.dumps(result, sort_keys=True))
+            return 0
+        if args.command == "finalize-nl4opt-census":
+            result = finalize_nl4opt_census(
+                campaign_dir=args.campaign_dir,
+                terra_comparison_path=args.terra_comparison,
+                sol_comparison_path=args.sol_comparison,
+                owner_csv_path=args.owner_csv,
+                owner_status_path=args.owner_status,
+                census_rows_path=args.census_rows,
+                terra_run_summary_path=args.terra_run_summary,
+                sol_run_summary_path=args.sol_run_summary,
+                output_path=args.out,
+            )
+            print(json.dumps(result, sort_keys=True))
             return 0
         if args.command == "scan-mamo-opened":
             result = scan_opened_mamo_rows(

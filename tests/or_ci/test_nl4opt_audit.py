@@ -505,6 +505,26 @@ def test_owner_packet_separates_answer_sources_and_embeds_models(tmp_path: Path)
     assert "- [x] reference_value_or_arithmetic_error" in rebuilt_markdown
 
 
+def test_owner_packet_uses_per_row_terra_workspace(tmp_path: Path) -> None:
+    campaign_dir = _owner_review_campaign(tmp_path)
+    row_id = "nl4opt-row-0001"
+    default_workspace = campaign_dir / "runs" / "terra-evidence" / "rows" / row_id
+    external_workspace = tmp_path / "reused-july-workspace" / row_id
+    external_workspace.parent.mkdir(parents=True)
+    default_workspace.rename(external_workspace)
+    terra_rows = read_jsonl(campaign_dir / "comparisons" / "terra-answer-comparison.jsonl")
+    terra_rows[0]["terra_workspace"] = str(external_workspace.resolve())
+    _write_jsonl(campaign_dir / "comparisons" / "terra-answer-comparison.jsonl", terra_rows)
+
+    build_owner_review_packet(campaign_dir=campaign_dir)
+
+    with (campaign_dir / "owner-review" / "owner-review-packet.csv").open(
+        newline="", encoding="utf-8"
+    ) as handle:
+        row = next(csv.DictReader(handle))
+    assert row["terra_model_path"] == str(external_workspace / "problem.json")
+
+
 def test_owner_packet_excludes_encoding_equivalent_rows(tmp_path: Path) -> None:
     campaign_dir = _owner_review_campaign(
         tmp_path,
