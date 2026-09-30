@@ -1,3 +1,0 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/human-dispatch-receipt-events-2026-05-27.csv", "reason": "Must remain unchanged unless a real external send or return event is explicitly executed."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/cold-protocol-intake-2026-05-27/incoming-cold-check-labels.csv", "reason": "Representative staging target must remain blank in this task."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json", "reason": "Smoke must still pass and keep report_ready=false."}

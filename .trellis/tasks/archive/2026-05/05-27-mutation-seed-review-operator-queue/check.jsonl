@@ -1,1 +1,0 @@
-{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "Validate generated notes-vault artifacts with uv-run Python checks and diff checks before commit."}

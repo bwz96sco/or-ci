@@ -1,3 +1,0 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/build_cold_protocol_send_packet.py", "reason": "New send-packet generator check and self-test."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/cold-protocol-send-packet-2026-05-27.json", "reason": "Generated send-packet state and non-claims."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json", "reason": "Smoke gate must include send-packet checks."}

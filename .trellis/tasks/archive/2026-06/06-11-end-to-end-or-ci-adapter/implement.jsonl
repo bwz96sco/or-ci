@@ -1,3 +1,0 @@
-{"file": ".trellis/spec/backend/index.md", "reason": "Backend package boundaries and no-LLM verifier contract"}
-{"file": ".trellis/spec/backend/data-contracts.md", "reason": "Evidence pack must preserve report and metadata contracts"}
-{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "Validation and forbidden patterns for OR-CI code"}

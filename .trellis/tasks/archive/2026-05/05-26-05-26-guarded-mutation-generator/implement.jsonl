@@ -1,4 +1,0 @@
-{"file": ".trellis/spec/backend/data-contracts.md", "reason": "ProblemSpec JSON fields and mutation safety boundaries"}
-{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "uv workflow, deterministic JSON handling, and no LLM/network/provider code in OR-CI"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/ideas/or-ci-next-stage-research-roadmap-2026-05-26.md", "reason": "Roadmap task queue and mutation-stage acceptance boundary"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/mutation-generator-interface-2026-05-26.md", "reason": "Frozen generator input, gate, and output contract"}

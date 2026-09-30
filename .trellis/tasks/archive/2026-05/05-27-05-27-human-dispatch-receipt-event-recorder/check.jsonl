@@ -1,3 +1,0 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/human-dispatch-receipt-events-2026-05-27.csv", "reason": "Must remain unchanged by dry-run/check/self-test validation."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/human-dispatch-receipt-ledger-2026-05-27.json", "reason": "Ledger check must continue to report the current no-send state unless --execute is explicitly used."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json", "reason": "Smoke report must include recorder self-test and keep report_ready=false."}

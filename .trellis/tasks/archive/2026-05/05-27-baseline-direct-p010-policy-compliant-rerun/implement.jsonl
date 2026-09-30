@@ -1,3 +1,0 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/baseline-model-run-policy-2026-05-27.md", "reason": "Frozen model policy and retry contract for baseline rows."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/baseline-response-operator-queue-2026-05-27.md", "reason": "Authoritative remaining-row queue showing P010 pending."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/baseline-ablation-manual-submissions-2026-05-27/direct_strong_llm/P010.md", "reason": "Prompt bundle to submit for the remaining direct_strong_llm P010 row."}

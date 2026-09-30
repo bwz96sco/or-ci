@@ -1,5 +1,0 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/03_run_plan.md", "reason": "Defines pilot mutant build and materiality oracle milestones, gates, and non-claims."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/run_matrix.yaml", "reason": "Defines the run IDs and expected outputs for mutant generation and materiality oracle."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/pilot_mutation_plan.csv", "reason": "Source plan for generated mutants, target pointers, and original/mutated values."}
-{"file": "/Users/zhangbowen/Projects/agent-skills-private/skills/research-experiment/references/stage-05-execute-monitor.md", "reason": "Execution log requirements for durable run evidence."}
-{"file": "/Users/zhangbowen/Projects/agent-skills-private/skills/research-experiment/references/stage-06-result-to-claim.md", "reason": "Result and claim audit requirements for traceable evidence."}

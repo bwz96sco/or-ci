@@ -1,6 +1,0 @@
-{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/build_baseline_response_intake.py","reason":"Authoritative staged-response validation and promotion gate."}
-{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/build_baseline_response_capture.py","reason":"Authoritative canonical raw-response capture validator."}
-{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/build_baseline_ablation_results.py","reason":"Checks baseline results after canonical response promotion."}
-{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/build_baseline_response_operator_queue.py","reason":"Verifies operator queue state after staging or promotion."}
-{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_paper_evidence_pack_readiness.py","reason":"Ensures report readiness and non-claim gates remain correct."}
-{"file":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/build_next_stage_execution_board.py","reason":"Ensures the consolidated execution board reflects current evidence gates."}

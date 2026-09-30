@@ -1,4 +1,0 @@
-{"file": ".trellis/spec/backend/index.md", "reason": "Project quality and scope constraints for Python/backend work"}
-{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "uv command discipline and deterministic check expectations"}
-{"file": ".trellis/spec/guides/index.md", "reason": "Shared thinking guides required before implementation"}
-{"file": ".trellis/spec/guides/code-reuse-thinking-guide.md", "reason": "This task extends existing bundle/intake patterns"}

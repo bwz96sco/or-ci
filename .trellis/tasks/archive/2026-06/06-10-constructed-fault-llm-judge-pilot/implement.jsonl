@@ -1,4 +1,0 @@
-{"type":"research_artifact","path":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/judge_packet_contract.md","reason":"Defines the frozen judge-visible input contract."}
-{"type":"research_artifact","path":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/judge_packet_audit.json","reason":"Proves the current packet set is leakage-audited and ready for model prompts."}
-{"type":"research_artifact","path":"/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/constructed-source-fidelity-fault-benchmark-2026-06-10/analysis_campaign.md","reason":"Defines the LLM judge slice frontier and no-human-label route."}
-{"type":"repo_spec","path":".trellis/spec/backend/index.md","reason":"OR-CI backend no-provider/no-network verifier boundary; this task stays in research tooling."}

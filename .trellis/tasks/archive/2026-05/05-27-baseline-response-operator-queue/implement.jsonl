@@ -1,2 +1,0 @@
-{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "Use uv for Python validation and preserve deterministic no-network verifier boundaries."}
-{"file": ".trellis/spec/guides/code-reuse-thinking-guide.md", "reason": "Reuse existing baseline queue/readiness helpers and patterns instead of inventing a disconnected workflow."}

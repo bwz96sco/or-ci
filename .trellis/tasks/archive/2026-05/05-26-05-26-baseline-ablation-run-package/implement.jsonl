@@ -1,4 +1,0 @@
-{"file": ".trellis/spec/backend/quality-guidelines.md", "reason": "uv workflow and deterministic validation expectations"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/ideas/or-ci-next-stage-research-roadmap-2026-05-26.md", "reason": "Baseline ablation roadmap requirement and current task status"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/baseline-ablation-runbook-2026-05-26.md", "reason": "Frozen execution rules for the ablation model runs"}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-self-host-exploration-2026-05-25/baseline-ablation-output-schema-2026-05-26.md", "reason": "Raw response JSON contract"}

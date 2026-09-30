@@ -1,3 +1,0 @@
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/cold-protocol-intake-2026-05-27/incoming-cold-check-labels.csv", "reason": "Must remain blank in this task because no external returned labels are staged."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-labeling-operations-2026-05-26/phase2-50case-label-intake-2026-05-27/incoming-rater-a-labels.csv", "reason": "Representative existing label staging target must remain unchanged."}
-{"file": "/Users/zhangbowen/Projects/OR/note/OR-research/experiments/packs/or-ci-paper-evidence-pack-2026-05-27/evidence-gate-smoke-report-2026-05-27.json", "reason": "Smoke report must include staging helper checks and keep report_ready=false."}
